@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjo1c4enrgngf"]
+
+[ext_resource type="PackedScene" uid="uid://mgd1vu84lnus" path="res://racing/race.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cnwiiypx4tcdm" path="res://racing/race_watcher.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bn5su7ct1cnrq" path="res://racing/commentators.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://sjievreabgil" path="res://addons/text_to_speech/text_to_speech_1d.gd" id="4_1bvp3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Race" parent="." node_paths=PackedStringArray("ui_node") instance=ExtResource("1_ig7tw")]
+ui_node = NodePath("../CanvasLayer/Control")
+
+[node name="RaceWatcher" type="Node" parent="." node_paths=PackedStringArray("race")]
+script = ExtResource("2_0xm2m")
+race = NodePath("../Race")
+metadata/_custom_type_script = "uid://cnwiiypx4tcdm"
+
+[node name="Commentators" type="Node" parent="." node_paths=PackedStringArray("subtitles", "race")]
+script = ExtResource("3_h2yge")
+subtitles = NodePath("../CanvasLayer/Control/Label")
+race = NodePath("../Race")
+stop_short_phrases = Array[String](["What's this?", "Oh!", "Hold on--"])
+lead_changed_phrases = Array[String](["Holy shit! {new} has swiped the lead from {prev}.", "Hark! An upset! {new}'s prowess has toppled that of {prev} in one mad dash.", "Jesus Christ get a load of {new} taking the lead!", "{prev} has fallen to {new}! Anyone who placed bets on {prev} better save up for new kneecaps.", "Woooooooooah! {new} is in the lead! Will {prev} catch up once again?", "It's a fucking tornado of speed coming from {new} as that damn horse takes the lead!"])
+check_in_phrases = Array[String](["A stunning display from {lead} leading the caravan.", "{random} is looking like a piece of shit eating {lead}'s dust!", "Who will take the reigns?", "Where is {last} in all this right about now?", "I am so fucking pumped.", "{lead} sweep!!!", "I'm hoping for a dramatic turnaround from {random}, and a miracle for {last}."])
+metadata/_custom_type_script = "uid://bn5su7ct1cnrq"
+
+[node name="TTS1" type="AudioStreamPlayer" parent="Commentators"]
+script = ExtResource("4_1bvp3")
+metadata/_custom_type_script = "uid://sjievreabgil"
+
+[node name="TTS2" type="AudioStreamPlayer" parent="Commentators"]
+script = ExtResource("4_1bvp3")
+metadata/_custom_type_script = "uid://sjievreabgil"
+
+[node name="TTS3" type="AudioStreamPlayer" parent="Commentators"]
+script = ExtResource("4_1bvp3")
+metadata/_custom_type_script = "uid://sjievreabgil"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 547.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+text = "Subtitles "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HorseList" type="VBoxContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.2109375
+anchor_bottom = 1.0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="lead_changed" from="RaceWatcher" to="Commentators" method="_on_race_watcher_lead_changed"]

@@ -1,0 +1,251 @@
+[gd_scene load_steps=35 format=3 uid="uid://mgd1vu84lnus"]
+
+[ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race.gd" id="1_7xiek"]
+[ext_resource type="ArrayMesh" uid="uid://bxd3dhv5njemp" path="res://racing/Horse_Lores.obj" id="2_7xiek"]
+[ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race_info.gd" id="2_enxwj"]
+[ext_resource type="Script" uid="uid://t6eohv44dima" path="res://racing/horsey.gd" id="2_vk53d"]
+[ext_resource type="Script" uid="uid://b7muwcg8hcju" path="res://racing/camera_horsey.gd" id="4_gyya5"]
+[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stat.gd" id="4_omeyu"]
+[ext_resource type="Script" uid="uid://dns4hmt5i0cu7" path="res://racing/skill.gd" id="5_4u68l"]
+[ext_resource type="Script" uid="uid://c2gykp0id0vuf" path="res://racing/exp_skill.gd" id="6_omeyu"]
+[ext_resource type="Script" uid="uid://cbmbwmwmtfk1j" path="res://racing/camera_controller.gd" id="9_kufqj"]
+[ext_resource type="Script" uid="uid://2hay8ugp6nxm" path="res://racing/overview_camera.gd" id="10_ipldh"]
+
+[sub_resource type="Resource" id="Resource_bg0ai"]
+script = ExtResource("2_enxwj")
+metadata/_custom_type_script = "uid://bo5jycqhseah4"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fpa16"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0lgoi"]
+sky_material = SubResource("ProceduralSkyMaterial_fpa16")
+
+[sub_resource type="Environment" id="Environment_7xiek"]
+background_mode = 2
+sky = SubResource("Sky_0lgoi")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_7xiek"]
+offsets = PackedFloat32Array(0.2769231, 0.7692308)
+colors = PackedColorArray(0.3047361, 0.13201311, 7.219613e-08, 1, 0.031208267, 0.7548751, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vk53d"]
+noise_type = 0
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gyya5"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_vk53d")
+color_ramp = SubResource("Gradient_7xiek")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk53d"]
+albedo_texture = SubResource("NoiseTexture2D_gyya5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gyya5"]
+material = SubResource("StandardMaterial3D_vk53d")
+size = Vector2(200, 200)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fpa16"]
+
+[sub_resource type="Curve3D" id="Curve3D_fpa16"]
+closed = true
+_data = {
+"points": PackedVector3Array(20, 0, 0, -20, 0, 0, 0, 0, 40, 0, 0, 40, 0, 0, -40, -80, 0, 0, -20, 0, 0, 20, 0, 0, 0, 0, -40, 0, 0, -40, 0, 0, 40, 80, 0, 0),
+"tilts": PackedFloat32Array(0, 0.34906584, 0, 0.34906584)
+}
+point_count = 4
+
+[sub_resource type="Resource" id="Resource_ipldh"]
+script = ExtResource("4_omeyu")
+display_name = "Speed"
+base_value = 10.0
+max_value = 10.0
+boost_value = 0.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"
+
+[sub_resource type="Resource" id="Resource_r8vfx"]
+script = ExtResource("6_omeyu")
+should_activate_expression = "phase == EARLY && random <= act_chance"
+on_activate_expression = "horsey.speed.boost(randi_range(1, 3))"
+display_name = "Dudu Fart"
+metadata/_custom_type_script = "uid://c2gykp0id0vuf"
+
+[sub_resource type="Resource" id="Resource_riiii"]
+script = ExtResource("6_omeyu")
+should_activate_expression = "phase == MID"
+on_activate_expression = "horsey.speed.boost(randi_range(1, 5))"
+display_name = "Dudu Fart"
+metadata/_custom_type_script = "uid://c2gykp0id0vuf"
+
+[sub_resource type="Resource" id="Resource_x756f"]
+script = ExtResource("6_omeyu")
+should_activate_expression = "phase == LATE && random <= act_chance"
+on_activate_expression = "horsey.speed.boost(randi_range(5, 10))"
+metadata/_custom_type_script = "uid://c2gykp0id0vuf"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xiek"]
+albedo_color = Color(0.94, 0.25379997, 0.32241994, 1)
+
+[sub_resource type="Resource" id="Resource_omeyu"]
+script = ExtResource("4_omeyu")
+display_name = "Speed"
+base_value = 10.0
+max_value = 10.0
+boost_value = 0.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"
+
+[sub_resource type="Resource" id="Resource_0bmni"]
+script = ExtResource("6_omeyu")
+should_activate_expression = "phase == MID && random <= act_chance"
+on_activate_expression = "horsey.speed.boost(randi_range(2, 6))"
+display_name = "Dudu Fart"
+metadata/_custom_type_script = "uid://c2gykp0id0vuf"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyya5"]
+albedo_color = Color(0.2612599, 0.575218, 0.80303556, 1)
+
+[sub_resource type="Resource" id="Resource_dhx4b"]
+script = ExtResource("4_omeyu")
+display_name = "Speed"
+base_value = 10.0
+max_value = 10.0
+boost_value = 0.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"
+
+[sub_resource type="Resource" id="Resource_eos3y"]
+script = ExtResource("6_omeyu")
+should_activate_expression = "phase == LATE && random <= act_chance"
+on_activate_expression = "horsey.speed.boost(randi_range(4, 10))"
+display_name = "Dudu Fart"
+metadata/_custom_type_script = "uid://c2gykp0id0vuf"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipldh"]
+transparency = 1
+albedo_color = Color(0.18150006, 0.99, 0, 0.24705882)
+emission_enabled = true
+emission = Color(0.36298, 0.4149491, 0, 1)
+emission_energy_multiplier = 1.14
+rim_enabled = true
+rim = 0.5
+
+[sub_resource type="Resource" id="Resource_7yrw4"]
+script = ExtResource("4_omeyu")
+display_name = "Speed"
+base_value = 1.0
+max_value = 1.0
+boost_value = 0.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xiek"]
+properties/0/path = NodePath("RacePath/PathFollow3D:progress_ratio")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Race" type="Node3D" node_paths=PackedStringArray("race_path", "cameras")]
+script = ExtResource("1_7xiek")
+info = SubResource("Resource_bg0ai")
+race_path = NodePath("RacePath")
+cameras = [NodePath("RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"), NodePath("ProgressOverviewCamera"), NodePath("RacePath/LapLeadCameraHorsey/HorseyLapLead"), NodePath("ComeupOverviewCamera")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7xiek")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_gyya5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_fpa16")
+
+[node name="RacePath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_fpa16")
+debug_custom_color = Color(1, 0, 0, 1)
+
+[node name="RedHorsey" type="PathFollow3D" parent="RacePath"]
+transform = Transform3D(-4.3710674e-08, 0, 0.9999838, 0, 0.9999899, 0, -0.99998367, 0, -4.371068e-08, 2.1855694e-08, 0, 40.5)
+h_offset = -0.5
+script = ExtResource("2_vk53d")
+speed = SubResource("Resource_ipldh")
+skills = Array[ExtResource("5_4u68l")]([SubResource("Resource_r8vfx"), SubResource("Resource_riiii"), SubResource("Resource_x756f")])
+
+[node name="HorseLores" type="MeshInstance3D" parent="RacePath/RedHorsey"]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+mesh = ExtResource("2_7xiek")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_7xiek")
+
+[node name="BlueHorsey" type="PathFollow3D" parent="RacePath"]
+transform = Transform3D(-4.3710774e-08, 0, 0.9999853, 0, 0.9999916, 0, -0.99998593, 0, -4.3710745e-08, -2.1855694e-08, 0, 39.5)
+h_offset = 0.5
+script = ExtResource("2_vk53d")
+speed = SubResource("Resource_omeyu")
+skills = Array[ExtResource("5_4u68l")]([SubResource("Resource_0bmni")])
+
+[node name="HorseLores" type="MeshInstance3D" parent="RacePath/BlueHorsey"]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+mesh = ExtResource("2_7xiek")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gyya5")
+
+[node name="Uranium Johnson" type="PathFollow3D" parent="RacePath"]
+transform = Transform3D(-4.3710774e-08, 0, 0.9999853, 0, 0.9999916, 0, -0.99998593, 0, -4.3710745e-08, -6.556708e-08, 0, 38.5)
+h_offset = 1.5
+script = ExtResource("2_vk53d")
+speed = SubResource("Resource_dhx4b")
+skills = Array[ExtResource("5_4u68l")]([SubResource("Resource_eos3y")])
+
+[node name="HorseLores" type="MeshInstance3D" parent="RacePath/Uranium Johnson"]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+mesh = ExtResource("2_7xiek")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ipldh")
+
+[node name="ProgressLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
+transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)
+script = ExtResource("4_gyya5")
+speed = SubResource("Resource_7yrw4")
+
+[node name="HorseyProgressLead" type="Node3D" parent="RacePath/ProgressLeadCameraHorsey"]
+transform = Transform3D(-0.9036569, 0, 0.42825714, 0, 1, 0, -0.42825714, 0, -0.9036569, 1.007576, 1.129, -3.9188337)
+script = ExtResource("9_kufqj")
+
+[node name="Camera3D" type="Camera3D" parent="RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"]
+transform = Transform3D(1.0000131, 0, 0, 0, 1.0000069, 0, 0, 0, 1.0000135, 0, 0, 0)
+
+[node name="LapLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
+transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)
+script = ExtResource("4_gyya5")
+speed = SubResource("Resource_7yrw4")
+
+[node name="HorseyLapLead" type="Node3D" parent="RacePath/LapLeadCameraHorsey"]
+transform = Transform3D(-0.9036569, 0, 0.42825714, 0, 1, 0, -0.42825714, 0, -0.9036569, 1.007576, 1.129, -3.9188337)
+script = ExtResource("9_kufqj")
+sort_type = 1
+
+[node name="Camera3D" type="Camera3D" parent="RacePath/LapLeadCameraHorsey/HorseyLapLead"]
+transform = Transform3D(1.0000131, 0, 0, 0, 1.0000069, 0, 0, 0, 1.0000135, 0, 0, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7xiek")
+
+[node name="ProgressOverviewCamera" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.098, 0)
+script = ExtResource("10_ipldh")
+
+[node name="Camera3D" type="Camera3D" parent="ProgressOverviewCamera"]
+
+[node name="ComeupOverviewCamera" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.098, 0)
+script = ExtResource("10_ipldh")
+sort_type = 2
+
+[node name="Camera3D" type="Camera3D" parent="ComeupOverviewCamera"]

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bxd3dhv5njemp"
+path="res://.godot/imported/Horse_Lores.obj-60387897910699e362a2925179faaa87.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Horse_Lores.obj-60387897910699e362a2925179faaa87.mesh"]
+
+source_file="res://racing/Horse_Lores.obj"
+dest_files=["res://.godot/imported/Horse_Lores.obj-60387897910699e362a2925179faaa87.mesh", "res://.godot/imported/Horse_Lores.obj-60387897910699e362a2925179faaa87.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(0.01, 0.01, 0.01)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

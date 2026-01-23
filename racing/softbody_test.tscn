@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://17ly2soyb4tv"]
+
+[ext_resource type="ArrayMesh" uid="uid://bxd3dhv5njemp" path="res://racing/Horse_Lores.obj" id="1_u851m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvqvm"]
+albedo_color = Color(0.94, 0.25379997, 0.32241994, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_u851m"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u851m"]
+size = Vector2(20, 20)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="SoftBody3D" type="SoftBody3D" parent="."]
+transform = Transform3D(-1, 0, -8.742277e-08, 0, 0.9999998, 0, 8.742276e-08, 0, -0.9999998, 0, 0.19938433, 0)
+mesh = ExtResource("1_u851m")
+surface_material_override/0 = SubResource("StandardMaterial3D_bvqvm")
+linear_stiffness = 1.0
+pressure_coefficient = 2500.0
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.5, 1.0132792, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_u851m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_u851m")
