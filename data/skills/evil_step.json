@@ -1,0 +1,18 @@
+{
+    "$schema": "../skill.schema.json",
+    "version": 1,
+    "name": "Evil Step",
+    "wit_effectiveness": 1.0,
+    "conditions": {
+      "phase": "LATE"
+    },
+    "effects": {
+      "boost": {
+        "speed": {
+          "min": 40.0,
+          "max": 150.0
+        }
+      },
+      "print": "Evil step is happening!"
+    }
+}

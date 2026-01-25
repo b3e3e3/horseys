@@ -1,8 +1,8 @@
 @tool
 class_name HorseyLoader extends RefCounted
 
-const DEFAULT_SKILL_PATH: String = "res://data/skills.json"
-const DEFAULT_HORSEY_PATH: String = "res://data/horseys.json"
+const DEFAULT_SKILL_DIR_PATH: String = "res://data/skills/"
+const DEFAULT_HORSEY_DIR_PATH: String = "res://data/horseys/"
 
 
 func load_json_file(path: String) -> Dictionary:
@@ -21,28 +21,28 @@ func load_json_file(path: String) -> Dictionary:
 	return parse_result
 
 
-func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_PATH) -> HorseyInfo:
-	var data := load_json_file(path)
-	assert(data.has(horsey_id), "Could not find horsey %s" % horsey_id)
+func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_DIR_PATH) -> HorseyInfo:
+	var full_path := "%s%s.json" % [path, horsey_id]
+	var data := load_json_file(full_path)
 
 	print("Matching version...")
 	match int(data.get("version", 1)):
 		1:
 			return load_horsey_from_JSON_v1(
-				data.get(horsey_id, {})
+				data
 			)
 		_: print("Version %s not found." % data.get("version"))
 
 	return null
 
-func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_PATH) -> Skill:
-	var data := load_json_file(path)
-	assert(data.has(skill_id), "Could not find skill %s" % skill_id)
+func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_DIR_PATH) -> Skill:
+	var full_path := "%s%s.json" % [path, skill_id]
+	var data := load_json_file(full_path)
 
 	match int(data.get("version", 1)):
 		1:
 			return load_skill_from_JSON_v1(
-				data.get(skill_id, {})
+				data
 			)
 
 	return null
