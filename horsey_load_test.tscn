@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvi2vsw3hkguh"]
+
+[ext_resource type="Script" uid="uid://bxh3pme1u0x4t" path="res://horsey_load_test.gd" id="1_rvugd"]
+
+[node name="HorseyLoadTest" type="Node3D"]
+script = ExtResource("1_rvugd")

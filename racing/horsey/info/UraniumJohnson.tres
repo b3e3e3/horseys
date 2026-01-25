@@ -1,0 +1,88 @@
+[gd_resource type="Resource" script_class="HorseyInfo" load_steps=22 format=3 uid="uid://d2dc8lydcdcxp"]
+
+[ext_resource type="Script" uid="uid://xu1hcxh2c5b2" path="res://racing/horsey/horsey_info.gd" id="1_bbryu"]
+[ext_resource type="Script" uid="uid://dns4hmt5i0cu7" path="res://racing/skills/skill.gd" id="2_cql4h"]
+[ext_resource type="Script" uid="uid://cxb0t1ogc7dit" path="res://racing/skills/conditions/skill_condition.gd" id="3_ibmo8"]
+[ext_resource type="Script" uid="uid://belidhfjcd420" path="res://racing/skills/conditions/phase_condition.gd" id="4_uoghh"]
+[ext_resource type="Script" uid="uid://2xr2fp0y4vkj" path="res://racing/skills/effects/skill_effect.gd" id="5_jvw7n"]
+[ext_resource type="Script" uid="uid://dplyijyp361j4" path="res://racing/skills/effects/boost_effect.gd" id="6_2tg7a"]
+[ext_resource type="Script" uid="uid://crrxdwehuib3n" path="res://racing/stats/rand_value.gd" id="7_46thx"]
+[ext_resource type="Script" uid="uid://8ks6eybggo6f" path="res://racing/skills/compound_skill.gd" id="8_r8d6s"]
+[ext_resource type="Curve" uid="uid://blbutw07i20lo" path="res://racing/stats/speed_curve.tres" id="9_8u2fm"]
+[ext_resource type="Script" uid="uid://dcyj381mnkg6e" path="res://racing/stats/curve_stat.gd" id="10_r7yba"]
+[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stats/stat.gd" id="11_bucwd"]
+
+[sub_resource type="Resource" id="Resource_6mq63"]
+script = ExtResource("4_uoghh")
+phase = 2
+metadata/_custom_type_script = "uid://belidhfjcd420"
+
+[sub_resource type="Resource" id="Resource_m3dkn"]
+script = ExtResource("7_46thx")
+min_value = 4.0
+max_value = 10.0
+metadata/_custom_type_script = "uid://crrxdwehuib3n"
+
+[sub_resource type="Resource" id="Resource_7dllv"]
+script = ExtResource("6_2tg7a")
+stats = Dictionary[String, ExtResource("7_46thx")]({
+"speed": SubResource("Resource_m3dkn")
+})
+metadata/_custom_type_script = "uid://dplyijyp361j4"
+
+[sub_resource type="Resource" id="Resource_ixaum"]
+script = ExtResource("8_r8d6s")
+conditions = Array[ExtResource("3_ibmo8")]([SubResource("Resource_6mq63")])
+effects = Array[ExtResource("5_jvw7n")]([SubResource("Resource_7dllv")])
+display_name = "Evil Step"
+metadata/_custom_type_script = "uid://8ks6eybggo6f"
+
+[sub_resource type="Resource" id="Resource_scumn"]
+script = ExtResource("4_uoghh")
+phase = 3
+metadata/_custom_type_script = "uid://belidhfjcd420"
+
+[sub_resource type="Resource" id="Resource_ruurr"]
+script = ExtResource("7_46thx")
+min_value = 20.0
+max_value = 20.0
+metadata/_custom_type_script = "uid://crrxdwehuib3n"
+
+[sub_resource type="Resource" id="Resource_ehits"]
+script = ExtResource("6_2tg7a")
+stats = Dictionary[String, ExtResource("7_46thx")]({
+"speed": SubResource("Resource_ruurr")
+})
+metadata/_custom_type_script = "uid://dplyijyp361j4"
+
+[sub_resource type="Resource" id="Resource_dr2qv"]
+script = ExtResource("8_r8d6s")
+conditions = Array[ExtResource("3_ibmo8")]([SubResource("Resource_scumn")])
+effects = Array[ExtResource("5_jvw7n")]([SubResource("Resource_ehits")])
+display_name = "The Queen's Horse Move"
+metadata/_custom_type_script = "uid://8ks6eybggo6f"
+
+[sub_resource type="Resource" id="Resource_ptd4f"]
+script = ExtResource("10_r7yba")
+curve = ExtResource("9_8u2fm")
+display_name = "Speed"
+base_value = 13.0
+max_value = 20.0
+metadata/_custom_type_script = "uid://dcyj381mnkg6e"
+
+[sub_resource type="Resource" id="Resource_yjgrf"]
+script = ExtResource("11_bucwd")
+display_name = "Wit"
+base_value = 5.0
+max_value = 10.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"
+
+[resource]
+script = ExtResource("1_bbryu")
+display_name = "Uranium Johnson"
+stats = Dictionary[String, Object]({
+"speed": SubResource("Resource_ptd4f"),
+"wit": SubResource("Resource_yjgrf")
+})
+skills = Array[ExtResource("2_cql4h")]([SubResource("Resource_ixaum"), SubResource("Resource_dr2qv")])
+metadata/_custom_type_script = "uid://xu1hcxh2c5b2"

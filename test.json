@@ -1,0 +1,14 @@
+{
+	"version": 1,
+	"orange_horsey": {
+		"name": "Orange Horsey",
+		"stats": {
+			"speed": 10.0,
+			"wit": 10.0
+		},
+		"skills": [
+			"scary_move",
+			"evil_step"
+		]
+	}
+}

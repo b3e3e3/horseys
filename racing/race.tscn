@@ -1,15 +1,15 @@
-[gd_scene load_steps=35 format=3 uid="uid://mgd1vu84lnus"]
+[gd_scene load_steps=26 format=3 uid="uid://mgd1vu84lnus"]
 
-[ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race.gd" id="1_7xiek"]
+[ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race/race.gd" id="1_7xiek"]
 [ext_resource type="ArrayMesh" uid="uid://bxd3dhv5njemp" path="res://racing/Horse_Lores.obj" id="2_7xiek"]
-[ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race_info.gd" id="2_enxwj"]
-[ext_resource type="Script" uid="uid://t6eohv44dima" path="res://racing/horsey.gd" id="2_vk53d"]
-[ext_resource type="Script" uid="uid://b7muwcg8hcju" path="res://racing/camera_horsey.gd" id="4_gyya5"]
-[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stat.gd" id="4_omeyu"]
-[ext_resource type="Script" uid="uid://dns4hmt5i0cu7" path="res://racing/skill.gd" id="5_4u68l"]
-[ext_resource type="Script" uid="uid://c2gykp0id0vuf" path="res://racing/exp_skill.gd" id="6_omeyu"]
-[ext_resource type="Script" uid="uid://cbmbwmwmtfk1j" path="res://racing/camera_controller.gd" id="9_kufqj"]
-[ext_resource type="Script" uid="uid://2hay8ugp6nxm" path="res://racing/overview_camera.gd" id="10_ipldh"]
+[ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race/race_info.gd" id="2_enxwj"]
+[ext_resource type="Script" uid="uid://t6eohv44dima" path="res://racing/horsey/horsey.gd" id="2_vk53d"]
+[ext_resource type="Script" uid="uid://b7muwcg8hcju" path="res://racing/horsey/camera_horsey.gd" id="4_gyya5"]
+[ext_resource type="Resource" uid="uid://1hy3j3i4ron2" path="res://racing/horsey/info/RedHorsey.tres" id="4_rewjt"]
+[ext_resource type="Resource" uid="uid://pnxwq3atqmqd" path="res://racing/horsey/info/BlueHorsey.tres" id="6_q62f6"]
+[ext_resource type="Resource" uid="uid://d2dc8lydcdcxp" path="res://racing/horsey/info/UraniumJohnson.tres" id="7_x756f"]
+[ext_resource type="Script" uid="uid://cbmbwmwmtfk1j" path="res://racing/camera/camera_controller.gd" id="9_kufqj"]
+[ext_resource type="Script" uid="uid://2hay8ugp6nxm" path="res://racing/camera/overview_camera.gd" id="10_ipldh"]
 
 [sub_resource type="Resource" id="Resource_bg0ai"]
 script = ExtResource("2_enxwj")
@@ -59,69 +59,11 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="Resource" id="Resource_ipldh"]
-script = ExtResource("4_omeyu")
-display_name = "Speed"
-base_value = 10.0
-max_value = 10.0
-boost_value = 0.0
-metadata/_custom_type_script = "uid://b6shcxyolmom0"
-
-[sub_resource type="Resource" id="Resource_r8vfx"]
-script = ExtResource("6_omeyu")
-should_activate_expression = "phase == EARLY && random <= act_chance"
-on_activate_expression = "horsey.speed.boost(randi_range(1, 3))"
-display_name = "Dudu Fart"
-metadata/_custom_type_script = "uid://c2gykp0id0vuf"
-
-[sub_resource type="Resource" id="Resource_riiii"]
-script = ExtResource("6_omeyu")
-should_activate_expression = "phase == MID"
-on_activate_expression = "horsey.speed.boost(randi_range(1, 5))"
-display_name = "Dudu Fart"
-metadata/_custom_type_script = "uid://c2gykp0id0vuf"
-
-[sub_resource type="Resource" id="Resource_x756f"]
-script = ExtResource("6_omeyu")
-should_activate_expression = "phase == LATE && random <= act_chance"
-on_activate_expression = "horsey.speed.boost(randi_range(5, 10))"
-metadata/_custom_type_script = "uid://c2gykp0id0vuf"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xiek"]
 albedo_color = Color(0.94, 0.25379997, 0.32241994, 1)
 
-[sub_resource type="Resource" id="Resource_omeyu"]
-script = ExtResource("4_omeyu")
-display_name = "Speed"
-base_value = 10.0
-max_value = 10.0
-boost_value = 0.0
-metadata/_custom_type_script = "uid://b6shcxyolmom0"
-
-[sub_resource type="Resource" id="Resource_0bmni"]
-script = ExtResource("6_omeyu")
-should_activate_expression = "phase == MID && random <= act_chance"
-on_activate_expression = "horsey.speed.boost(randi_range(2, 6))"
-display_name = "Dudu Fart"
-metadata/_custom_type_script = "uid://c2gykp0id0vuf"
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyya5"]
 albedo_color = Color(0.2612599, 0.575218, 0.80303556, 1)
-
-[sub_resource type="Resource" id="Resource_dhx4b"]
-script = ExtResource("4_omeyu")
-display_name = "Speed"
-base_value = 10.0
-max_value = 10.0
-boost_value = 0.0
-metadata/_custom_type_script = "uid://b6shcxyolmom0"
-
-[sub_resource type="Resource" id="Resource_eos3y"]
-script = ExtResource("6_omeyu")
-should_activate_expression = "phase == LATE && random <= act_chance"
-on_activate_expression = "horsey.speed.boost(randi_range(4, 10))"
-display_name = "Dudu Fart"
-metadata/_custom_type_script = "uid://c2gykp0id0vuf"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipldh"]
 transparency = 1
@@ -131,14 +73,6 @@ emission = Color(0.36298, 0.4149491, 0, 1)
 emission_energy_multiplier = 1.14
 rim_enabled = true
 rim = 0.5
-
-[sub_resource type="Resource" id="Resource_7yrw4"]
-script = ExtResource("4_omeyu")
-display_name = "Speed"
-base_value = 1.0
-max_value = 1.0
-boost_value = 0.0
-metadata/_custom_type_script = "uid://b6shcxyolmom0"
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xiek"]
 properties/0/path = NodePath("RacePath/PathFollow3D:progress_ratio")
@@ -174,8 +108,7 @@ debug_custom_color = Color(1, 0, 0, 1)
 transform = Transform3D(-4.3710674e-08, 0, 0.9999838, 0, 0.9999899, 0, -0.99998367, 0, -4.371068e-08, 2.1855694e-08, 0, 40.5)
 h_offset = -0.5
 script = ExtResource("2_vk53d")
-speed = SubResource("Resource_ipldh")
-skills = Array[ExtResource("5_4u68l")]([SubResource("Resource_r8vfx"), SubResource("Resource_riiii"), SubResource("Resource_x756f")])
+info = ExtResource("4_rewjt")
 
 [node name="HorseLores" type="MeshInstance3D" parent="RacePath/RedHorsey"]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
@@ -187,8 +120,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_7xiek")
 transform = Transform3D(-4.3710774e-08, 0, 0.9999853, 0, 0.9999916, 0, -0.99998593, 0, -4.3710745e-08, -2.1855694e-08, 0, 39.5)
 h_offset = 0.5
 script = ExtResource("2_vk53d")
-speed = SubResource("Resource_omeyu")
-skills = Array[ExtResource("5_4u68l")]([SubResource("Resource_0bmni")])
+info = ExtResource("6_q62f6")
 
 [node name="HorseLores" type="MeshInstance3D" parent="RacePath/BlueHorsey"]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
@@ -200,8 +132,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_gyya5")
 transform = Transform3D(-4.3710774e-08, 0, 0.9999853, 0, 0.9999916, 0, -0.99998593, 0, -4.3710745e-08, -6.556708e-08, 0, 38.5)
 h_offset = 1.5
 script = ExtResource("2_vk53d")
-speed = SubResource("Resource_dhx4b")
-skills = Array[ExtResource("5_4u68l")]([SubResource("Resource_eos3y")])
+info = ExtResource("7_x756f")
 
 [node name="HorseLores" type="MeshInstance3D" parent="RacePath/Uranium Johnson"]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
@@ -212,7 +143,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ipldh")
 [node name="ProgressLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
 transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)
 script = ExtResource("4_gyya5")
-speed = SubResource("Resource_7yrw4")
 
 [node name="HorseyProgressLead" type="Node3D" parent="RacePath/ProgressLeadCameraHorsey"]
 transform = Transform3D(-0.9036569, 0, 0.42825714, 0, 1, 0, -0.42825714, 0, -0.9036569, 1.007576, 1.129, -3.9188337)
@@ -224,7 +154,6 @@ transform = Transform3D(1.0000131, 0, 0, 0, 1.0000069, 0, 0, 0, 1.0000135, 0, 0,
 [node name="LapLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
 transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)
 script = ExtResource("4_gyya5")
-speed = SubResource("Resource_7yrw4")
 
 [node name="HorseyLapLead" type="Node3D" parent="RacePath/LapLeadCameraHorsey"]
 transform = Transform3D(-0.9036569, 0, 0.42825714, 0, 1, 0, -0.42825714, 0, -0.9036569, 1.007576, 1.129, -3.9188337)
