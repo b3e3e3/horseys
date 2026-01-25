@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$refs": {
+    "stat": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "min",
+              "max"
+            ]
+          }
+        ]
+      }
+    },
+    "skill": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "wit_effectiveness": {
+          "type": "number"
+        },
+        "conditions": {
+          "type": "object",
+          "properties": {
+            "phase": {
+              "type": "string",
+              "enum": [
+                "EARLY",
+                "MID",
+                "LATE",
+                "FINAL",
+                "FINISH"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "effects": {
+          "type": "object",
+          "properties": {
+            "boost": {
+              "$ref": "#/$defs/stat"
+            }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "wit_effectiveness",
+        "conditions",
+        "effects"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/skill"
+  },
+  "required": [
+    "$schema",
+    "version",
+    "skills"
+  ]
+}

@@ -20,7 +20,6 @@ func can_activate(info: RaceInfo, horsey: Horsey) -> bool:
 			for c in conditions:
 				if c.can_activate(info, horsey) == false:
 					return false
-			result = true
 		"ANY":
 			for c in conditions:
 				if c.can_activate(info, horsey) == true:

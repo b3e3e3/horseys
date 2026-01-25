@@ -1,13 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://mgd1vu84lnus"]
+[gd_scene load_steps=18 format=3 uid="uid://mgd1vu84lnus"]
 
 [ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race/race.gd" id="1_7xiek"]
-[ext_resource type="ArrayMesh" uid="uid://bxd3dhv5njemp" path="res://racing/Horse_Lores.obj" id="2_7xiek"]
 [ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race/race_info.gd" id="2_enxwj"]
-[ext_resource type="Script" uid="uid://t6eohv44dima" path="res://racing/horsey/horsey.gd" id="2_vk53d"]
 [ext_resource type="Script" uid="uid://b7muwcg8hcju" path="res://racing/horsey/camera_horsey.gd" id="4_gyya5"]
-[ext_resource type="Resource" uid="uid://1hy3j3i4ron2" path="res://racing/horsey/info/RedHorsey.tres" id="4_rewjt"]
-[ext_resource type="Resource" uid="uid://pnxwq3atqmqd" path="res://racing/horsey/info/BlueHorsey.tres" id="6_q62f6"]
-[ext_resource type="Resource" uid="uid://d2dc8lydcdcxp" path="res://racing/horsey/info/UraniumJohnson.tres" id="7_x756f"]
 [ext_resource type="Script" uid="uid://cbmbwmwmtfk1j" path="res://racing/camera/camera_controller.gd" id="9_kufqj"]
 [ext_resource type="Script" uid="uid://2hay8ugp6nxm" path="res://racing/camera/overview_camera.gd" id="10_ipldh"]
 
@@ -59,21 +54,6 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xiek"]
-albedo_color = Color(0.94, 0.25379997, 0.32241994, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyya5"]
-albedo_color = Color(0.2612599, 0.575218, 0.80303556, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipldh"]
-transparency = 1
-albedo_color = Color(0.18150006, 0.99, 0, 0.24705882)
-emission_enabled = true
-emission = Color(0.36298, 0.4149491, 0, 1)
-emission_energy_multiplier = 1.14
-rim_enabled = true
-rim = 0.5
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xiek"]
 properties/0/path = NodePath("RacePath/PathFollow3D:progress_ratio")
 properties/0/spawn = true
@@ -103,42 +83,6 @@ shape = SubResource("WorldBoundaryShape3D_fpa16")
 [node name="RacePath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_fpa16")
 debug_custom_color = Color(1, 0, 0, 1)
-
-[node name="RedHorsey" type="PathFollow3D" parent="RacePath"]
-transform = Transform3D(-4.3710674e-08, 0, 0.9999838, 0, 0.9999899, 0, -0.99998367, 0, -4.371068e-08, 2.1855694e-08, 0, 40.5)
-h_offset = -0.5
-script = ExtResource("2_vk53d")
-info = ExtResource("4_rewjt")
-
-[node name="HorseLores" type="MeshInstance3D" parent="RacePath/RedHorsey"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
-mesh = ExtResource("2_7xiek")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_7xiek")
-
-[node name="BlueHorsey" type="PathFollow3D" parent="RacePath"]
-transform = Transform3D(-4.3710774e-08, 0, 0.9999853, 0, 0.9999916, 0, -0.99998593, 0, -4.3710745e-08, -2.1855694e-08, 0, 39.5)
-h_offset = 0.5
-script = ExtResource("2_vk53d")
-info = ExtResource("6_q62f6")
-
-[node name="HorseLores" type="MeshInstance3D" parent="RacePath/BlueHorsey"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
-mesh = ExtResource("2_7xiek")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_gyya5")
-
-[node name="Uranium Johnson" type="PathFollow3D" parent="RacePath"]
-transform = Transform3D(-4.3710774e-08, 0, 0.9999853, 0, 0.9999916, 0, -0.99998593, 0, -4.3710745e-08, -6.556708e-08, 0, 38.5)
-h_offset = 1.5
-script = ExtResource("2_vk53d")
-info = ExtResource("7_x756f")
-
-[node name="HorseLores" type="MeshInstance3D" parent="RacePath/Uranium Johnson"]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
-mesh = ExtResource("2_7xiek")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_ipldh")
 
 [node name="ProgressLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
 transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)

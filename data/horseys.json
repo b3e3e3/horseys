@@ -1,0 +1,52 @@
+{
+  "$schema": "./horseys.schema.json",
+  "version": 1,
+  "blue_horsey": {
+    "name": "Blue Horsey",
+    "scene": "res://racing/horsey/models/blue_horsey.tscn",
+    "stats": {
+      "speed": 50.0,
+      "wit": 10.0
+    },
+    "skills": [
+      "scary_move",
+      "evil_step"
+    ]
+  },
+  "red_horsey": {
+    "name": "Red Horsey",
+    "scene": "res://racing/horsey/models/red_horsey.tscn",
+    "stats": {
+      "speed": 45.0,
+      "wit": 10.0
+    },
+    "skills": [
+      "scary_move",
+      "evil_step"
+    ]
+  },
+  "uranium_johnson": {
+    "name": "Uranium Johnson",
+    "scene": "res://racing/horsey/models/uranium_johnson.tscn",
+    "stats": {
+      "speed": 51.0,
+      "wit": 10.0
+    },
+    "skills": [
+      "scary_move",
+      "evil_step"
+    ]
+  },
+  "beige_horsey": {
+    "name": "Beige Horsey",
+    "scene": "res://racing/horsey/models/beige_horsey.tscn",
+    "stats": {
+      "speed": 51.0,
+      "wit": 10.0
+    },
+    "skills": [
+      "scary_move",
+      "evil_step"
+    ]
+  }
+}

@@ -14,15 +14,6 @@ script = ExtResource("2_0xm2m")
 race = NodePath("../Race")
 metadata/_custom_type_script = "uid://cnwiiypx4tcdm"
 
-[node name="Commentators" type="Node" parent="." node_paths=PackedStringArray("subtitles", "race")]
-script = ExtResource("3_h2yge")
-subtitles = NodePath("../CanvasLayer/Control/Label")
-race = NodePath("../Race")
-stop_short_phrases = Array[String](["What's this?", "Oh!", "Hold on--", "Wait!"])
-lead_changed_phrases = Array[String](["Holy shrimp! {new} has swiped the lead from {prev}.", "Hark! An upset! {new}'s prowess has toppled that of {prev} in one mad dash.", "Jesus Christ get a load of {new} taking the lead!", "{prev} has fallen to {new}! Anyone who placed bets on {prev} better save up for new kneecaps.", "Woooooooooah! {new} is in the lead! Will {prev} catch up once again?", "It's a tornado of speed coming from {new} as that darn horse takes the lead!"])
-check_in_phrases = Array[String](["A stunning display from {lead} leading the caravan.", "{random} is looking like a shrimp eating {lead}'s dust!", "Who will take the reigns?", "Where is {last} in all this right about now?", "I am pumped.", "{lead} sweep!!!", "I'm hoping for a dramatic turnaround from {random}, and a miracle for {last}."])
-metadata/_custom_type_script = "uid://bn5su7ct1cnrq"
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
@@ -57,5 +48,14 @@ anchor_right = 0.2109375
 anchor_bottom = 1.0
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="Commentators" type="Node" parent="." node_paths=PackedStringArray("subtitles", "race")]
+script = ExtResource("3_h2yge")
+subtitles = NodePath("../CanvasLayer/Control/Label")
+race = NodePath("../Race")
+stop_short_phrases = Array[String](["What's this?", "Oh!", "Hold on--", "Wait!"])
+lead_changed_phrases = Array[String](["Holy shrimp! {new} has swiped the lead from {prev}.", "Hark! An upset! {new}'s prowess has toppled that of {prev} in one mad dash.", "Jesus Christ get a load of {new} taking the lead!", "{prev} has fallen to {new}! Anyone who placed bets on {prev} better save up for new kneecaps.", "Woooooooooah! {new} is in the lead! Will {prev} catch up once again?", "It's a tornado of speed coming from {new} as that darn horse takes the lead!"])
+check_in_phrases = Array[String](["A stunning display from {lead} leading the caravan.", "{random} is looking like a shrimp eating {lead}'s dust!", "Who will take the reigns?", "Where is {last} in all this right about now?", "I am pumped.", "{lead} sweep!!!", "I'm hoping for a dramatic turnaround from {random}, and a miracle for {last}."])
+metadata/_custom_type_script = "uid://bn5su7ct1cnrq"
 
 [connection signal="lead_changed" from="RaceWatcher" to="Commentators" method="_on_race_watcher_lead_changed"]

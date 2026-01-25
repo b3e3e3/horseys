@@ -1,7 +1,7 @@
 @tool
 class_name Horsey extends PathFollow3D
 
-@onready var race: Race = owner
+@onready var race: Race
 # @onready var skill_act_points: Array[float] = race.info.skill_act_points
 @onready var mesh: Node3D = get_child(0)
 @onready var path: Path3D = get_parent()
@@ -36,6 +36,11 @@ var total_progress: float = 0.0
 
 var current_lap: int = -1
 
+
+func _init(horsey_info: HorseyInfo = info, active_race: Race = race) -> void:
+	self.info = horsey_info
+	self.race = active_race
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	anim_counter = 0.0
@@ -52,13 +57,13 @@ func process_run(delta: float) -> void:
 	# for stat in stats:
 	stats["speed"].process_stat(delta)
 
-	anim_counter += delta * stats["speed"].current_value * 3
 
-	var inc: float = stats["speed"].current_value
-	progress += inc * delta
+	var inc: float = stats["speed"].current_value * delta
+	anim_counter += inc * stats["speed"].get_utilization() * 2
+	progress += inc
 
 	# total_progress += inc
-	total_progress = total_progress + (inc / path.curve.get_baked_length())
+	total_progress += inc / path.curve.get_baked_length()
 	# print("%s: Progress %f (%f), %f" % [self.display_name, progress, progress_ratio, total_progress])
 
 	# if current_skill_act_point < skill_act_points.size() - 1:
@@ -72,7 +77,7 @@ func process_run(delta: float) -> void:
 	activate_skills()
 
 	position.y = sin(anim_counter) * 0.1 * stats["speed"].get_utilization()
-	rotation.x = cos(anim_counter) * 0.2 * stats["speed"].get_utilization()
+	rotation.x = cos(anim_counter) * 0.1 * stats["speed"].get_utilization()
 	# rotation.y = sin(anim_counter) * 0.1 * stats["speed"].get_utilization()
 	rotation.z = sin(anim_counter) * 0.1 * stats["speed"].get_utilization()
 

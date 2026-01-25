@@ -1,6 +1,7 @@
 class_name HorseyInfo extends Resource
 
 @export var display_name: String = "Horsey"
+@export var scene: PackedScene
 
 @export_category("Stats")
 @export var stats: Dictionary[String, Stat] = {

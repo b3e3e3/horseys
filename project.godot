@@ -34,7 +34,7 @@ general/text_to_speech=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/custom_data_plugin/plugin.cfg", "res://addons/debloat_array/plugin.cfg", "res://addons/resourcey/plugin.cfg")
+enabled=PackedStringArray("res://addons/debloat_array/plugin.cfg")
 
 [physics]
 

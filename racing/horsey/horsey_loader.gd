@@ -1,8 +1,8 @@
 @tool
 class_name HorseyLoader extends RefCounted
 
-const DEFAULT_SKILL_PATH: String = "res://skilltest.json"
-const DEFAULT_HORSEY_PATH: String = "res://test.json"
+const DEFAULT_SKILL_PATH: String = "res://data/skills.json"
+const DEFAULT_HORSEY_PATH: String = "res://data/horseys.json"
 
 
 func load_json_file(path: String) -> Dictionary:
@@ -23,6 +23,7 @@ func load_json_file(path: String) -> Dictionary:
 
 func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_PATH) -> HorseyInfo:
 	var data := load_json_file(path)
+	assert(data.has(horsey_id), "Could not find horsey %s" % horsey_id)
 
 	print("Matching version...")
 	match int(data.get("version", 1)):
@@ -36,6 +37,7 @@ func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_PATH
 
 func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_PATH) -> Skill:
 	var data := load_json_file(path)
+	assert(data.has(skill_id), "Could not find skill %s" % skill_id)
 
 	match int(data.get("version", 1)):
 		1:
@@ -47,7 +49,11 @@ func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_PATH) -
 
 func load_horsey_from_JSON_v1(data: Dictionary) -> HorseyInfo:
 	var horsey := HorseyInfo.new()
+	
 	horsey.display_name = data.get("name", "Wild Horse")
+	if data.has("scene"):
+		horsey.scene = load(data.get("scene"))
+
 	print("Importing horse %s" % horsey.display_name)
 
 	var stats: Dictionary = data.get("stats", {})
@@ -78,15 +84,17 @@ func load_skill_from_JSON_v1(data: Dictionary) -> Skill:
 				skill.conditions.append(condition)
 
 	var effects: Dictionary = data.get("effects", {})
+	
 	for e in effects.keys():
 		var edata = effects[e]
+		
 		match e:
 			"boost":
 				assert(edata is Dictionary)
 				print("Found boost effect")
 				var effect := BoostEffect.new()
 				for s in edata.keys():
-					print("Found stat %s (%s)" % [s, effect.stats[s]])
+					# print("Found stat %s (%s)" % [s, effect.stats[s]])
 					var stat = edata[s]
 					var value: StatValue
 					if stat is Dictionary:
@@ -99,6 +107,7 @@ func load_skill_from_JSON_v1(data: Dictionary) -> Skill:
 						value.min_value = stat
 						value.max_value = stat
 					effect.stats[s] = value
+				skill.effects.append(effect)
 			"print":
 				print("Print test: %s" % edata)
 	return skill

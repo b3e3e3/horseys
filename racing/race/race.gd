@@ -7,6 +7,8 @@ signal started
 @export var ui_node: Control
 @export var cameras: Array[CameraController]
 
+@onready var loader := HorseyLoader.new()
+
 
 # @onready var nametag: Control = preload("res://racing/nametag.tscn").instantiate()
 
@@ -50,6 +52,29 @@ func get_horseys(ignore_camera: bool = true) -> Array[Horsey]:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
+	var ids: Array[String] = ["blue_horsey", "red_horsey", "uranium_johnson", "beige_horsey"]
+
+	for i in range(ids.size()):
+		var id := ids[i]
+		var horsey_info := loader.load_horsey_from_JSON(id)
+		var horsey := Horsey.new(horsey_info, self)
+		horsey.add_child(horsey_info.scene.instantiate())
+
+		var pos := 0.0
+		if ids.size() > 1:
+			var total_w: float = (ids.size() - 1)
+			var step: float = total_w / (ids.size() - 1)
+			var start: float = -total_w / 2
+
+			pos = start + i * step
+		
+		horsey.h_offset = pos
+
+		$RacePath.add_child(horsey)
+
+		horsey.name = horsey.display_name
+
 	for c in race_path.get_children():
 		if c is Horsey:
 			horseys.append(c)
