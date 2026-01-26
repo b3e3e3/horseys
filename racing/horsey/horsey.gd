@@ -1,4 +1,3 @@
-@tool
 class_name Horsey extends PathFollow3D
 
 @onready var race: Race

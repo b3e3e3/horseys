@@ -1,4 +1,3 @@
-@tool
 class_name HorseyLoader extends RefCounted
 
 const DEFAULT_SKILL_DIR_PATH: String = "res://data/skills/"
@@ -36,7 +35,7 @@ func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_DIR_PAT
 
 func load_horsey_from_JSON_v1(data: Dictionary) -> HorseyInfo:
 	var horsey := HorseyInfo.new()
-	
+
 	horsey.display_name = data.get("name", "Wild Horse")
 	if data.has("scene"):
 		horsey.scene = load(data.get("scene"))
@@ -71,10 +70,10 @@ func load_skill_from_JSON_v1(data: Dictionary) -> Skill:
 				skill.conditions.append(condition)
 
 	var effects: Dictionary = data.get("effects", {})
-	
+
 	for e in effects.keys():
 		var edata = effects[e]
-		
+
 		match e:
 			"boost":
 				assert(edata is Dictionary)

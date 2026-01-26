@@ -20,12 +20,12 @@ func _ready() -> void:
 	tabs.size_flags_horizontal = SIZE_EXPAND_FILL
 
 	$MainContainer.add_child(tabs)
-	
+
 
 func create_control(data: Dictionary, prop_name = "") -> Control:
 	var control: Control
 	var label: Control
-	
+
 	if prop_name is String and not prop_name.is_empty():
 		label = Label.new()
 		label.text = prop_name
@@ -45,7 +45,7 @@ func create_control(data: Dictionary, prop_name = "") -> Control:
 			else:
 				control = LineEdit.new()
 		"object":
-			var multi := data.has("additionalProperties")
+			var multi := data.has("additionalProperties") and data.get("additionalProperties") is Dictionary
 			print(multi)
 			if multi:
 				control = create_multi_object_control(data, prop_name)
@@ -58,33 +58,41 @@ func create_control(data: Dictionary, prop_name = "") -> Control:
 			control.text = "%s (%s) has no match" % [prop_name, data.get("type")]
 
 	var prop_container := HBoxContainer.new()
-	
+
 	if label:
 		prop_container.add_child(label)
 		label.size_flags_horizontal = SIZE_EXPAND_FILL
-	
+
 	prop_container.add_child(control)
 
 	prop_container.size_flags_horizontal = SIZE_EXPAND_FILL
 	control.size_flags_horizontal = SIZE_EXPAND_FILL
-	
-	
+
+
 	return prop_container
+
 
 func create_multi_object_control(data: Dictionary, prop_name: String = "Multi") -> Control:
 	var main_container := VBoxContainer.new()
 	var scroll_container := ScrollContainer.new()
 	var items_container := VBoxContainer.new()
 	scroll_container.custom_minimum_size.y = 100
-	
+
 	var add_button := Button.new()
 	add_button.text = "+Add"
 
 	var add_select := OptionButton.new()
 
-	var properties := data.get("properties") as Dictionary
-	for p in properties:
-		add_select.add_item(p)
+	var properties := data.get("properties", {}) as Dictionary
+	var additional_properties = data.get("additionalProperties")
+
+	if data.has("properties"):
+		for p in properties:
+			add_select.add_item(p)
+	# if data.has("additionalProperties") and additional_properties is Dictionary:
+	# 	for p in additional_properties:
+	# 		add_select.add_item(p)
+	# 	)
 
 	add_button.pressed.connect(func():
 		var idx := add_select.get_item_text(add_select.selected)
@@ -114,11 +122,16 @@ func create_array_control(data: Dictionary, prop_name: String = "Array") -> Cont
 	add_button.text = "+Add"
 
 	add_button.pressed.connect(func():
-		var items := data.get("items") as Array
+		var items = data.get("items")
 
-		var new_obj := create_control(items[0])
-		print(items[0])
-		items_container.add_child(new_obj)
+		if items is Array:
+			var new_obj := create_control(items[0])
+			print(items[0])
+			items_container.add_child(new_obj)
+		elif items is Dictionary:
+			var new_obj := create_object_control(items)
+			print(items)
+			items_container.add_child(new_obj)
 	)
 
 	scroll_container.add_child(items_container)
@@ -133,23 +146,31 @@ func create_array_control(data: Dictionary, prop_name: String = "Array") -> Cont
 	return main_container
 
 func create_object_control(data: Dictionary, prop_name: String = "") -> Control:
-	var main_container := PanelContainer.new()
+	var main_container := MarginContainer.new()
+	var panel_container := PanelContainer.new()
 	var scroll_container := ScrollContainer.new()
 	var obj_container := VBoxContainer.new()
-		
+
 
 	var properties: Dictionary = data.get("properties", {})
-	
-	for p in properties:
-		if p in IGNORE: continue
-		var prop = properties.get(p)
+	var additional_properties = data.get("additionalProperties")
+
+	var handle := func(prop: Dictionary, p: String):
 		var control := create_control(prop, p)
 		obj_container.add_child.call_deferred(control)
-		# scroll_container.add_child(obj_container)
-	
-	main_container.add_child(obj_container)
+
+	for p in properties:
+		handle.call(properties.get(p), p)
+
+	if additional_properties is Dictionary:
+		handle.call(additional_properties, "")
+
+
+	panel_container.add_child(obj_container)
+	main_container.add_child(panel_container)
 
 	main_container.size_flags_horizontal = SIZE_EXPAND_FILL
+	panel_container.size_flags_horizontal = SIZE_EXPAND_FILL
 	scroll_container.size_flags_horizontal = SIZE_EXPAND_FILL
 	obj_container.size_flags_horizontal = SIZE_EXPAND_FILL
 
