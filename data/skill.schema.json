@@ -1,32 +1,5 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$defs": {
-        "stat": {
-            "type": "object",
-            "additionalProperties": {
-                "oneOf": [
-                    {
-                        "type": "number"
-                    },
-                    {
-                        "type": "object",
-                        "properties": {
-                            "min": {
-                                "type": "number"
-                            },
-                            "max": {
-                                "type": "number"
-                            }
-                        },
-                        "required": [
-                            "min",
-                            "max"
-                        ]
-                    }
-                ]
-            }
-        }
-    },
     "type": "object",
     "properties": {
         "version": {
@@ -55,16 +28,35 @@
             "additionalProperties": false
         },
         "effects": {
-            "type": "object",
-            "properties": {
-                "boost": {
-                    "$ref": "#/$defs/stat"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": {
+                    "oneOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "min": {
+                                    "type": "number"
+                                },
+                                "max": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "min",
+                                "max"
+                            ]
+                        }
+                    ]
                 }
             }
         }
     },
     "required": [
-        "$schema",
         "version",
         "name",
         "wit_effectiveness",

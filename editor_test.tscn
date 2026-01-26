@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://5dx3ecwp22gb"]
+
+[ext_resource type="Script" uid="uid://cpmt3b5lc0ieo" path="res://schema_editor.gd" id="1_qysju"]
+
+[node name="EditorTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qysju")
+
+[node name="MainContainer" type="FlowContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

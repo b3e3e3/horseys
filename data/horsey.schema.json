@@ -37,7 +37,6 @@
     },
     "required": [
         "version",
-        "id",
         "name",
         "stats",
         "skills",
