@@ -32,6 +32,10 @@ config/icon="res://icon.svg"
 
 general/text_to_speech=true
 
+[autoload]
+
+Global="*res://global.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/debloat_array/plugin.cfg")

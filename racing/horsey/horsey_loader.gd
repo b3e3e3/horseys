@@ -5,25 +5,12 @@ const DEFAULT_SKILL_DIR_PATH: String = "res://data/skills/"
 const DEFAULT_HORSEY_DIR_PATH: String = "res://data/horseys/"
 
 
-func load_json_file(path: String) -> Dictionary:
-	print("Loading horsey JSON file...")
-	assert(FileAccess.file_exists(path), "Could not find JSON file at %s" % path)
 
-	var file = FileAccess.open(path, FileAccess.READ)
-	assert(FileAccess.get_open_error() == OK, "Could not open JSON file at %s" % path)
-
-	print("Parsing...")
-	var parse_result = JSON.parse_string(file.get_as_text())
-	file.close()
-
-	assert(parse_result, "Could not parse JSON file at %s" % path)
-
-	return parse_result
 
 
 func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_DIR_PATH) -> HorseyInfo:
 	var full_path := "%s%s.json" % [path, horsey_id]
-	var data := load_json_file(full_path)
+	var data := Global.load_json_file(full_path)
 
 	print("Matching version...")
 	match int(data.get("version", 1)):
@@ -37,7 +24,7 @@ func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_DIR_
 
 func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_DIR_PATH) -> Skill:
 	var full_path := "%s%s.json" % [path, skill_id]
-	var data := load_json_file(full_path)
+	var data := Global.load_json_file(full_path)
 
 	match int(data.get("version", 1)):
 		1:
