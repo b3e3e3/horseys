@@ -1,0 +1,9 @@
+avcodec-*.dll
+avfilter-*.dll
+avutil-*.dll
+swresample-*.dll
+avdevice-*.dll
+avformat-*.dll
+swscale-*.dll
+vc_redist.x64.exe
+Qt6WebEngineCore.dll
