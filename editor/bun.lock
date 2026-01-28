@@ -1,0 +1,27 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "horsey-editor",
+      "dependencies": {
+        "@json-editor/json-editor": "^2.15.2",
+        "@types/json-editor": "^0.0.10",
+        "spectre.css": "^0.5.9",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+  },
+  "packages": {
+    "@json-editor/json-editor": ["@json-editor/json-editor@2.15.2", "", { "dependencies": { "core-js": "^3.27.2" } }, "sha512-vUQ7Oy+7VfNIzu6irtPz5qfHbMNTlQWUbHJ7eunxFza+SBwUXfq2Uh5QYD2d6hLDhF22sYh8DPpLWFixQrt1+Q=="],
+
+    "@types/json-editor": ["@types/json-editor@0.0.10", "", {}, "sha512-zVE3AH4z5+kCxOcxwORNNpsCtvf+PWDijUsnYpfpoWmk5AxPqiEPOYkszWosrkHcPaK5+StOv4iuJ/ygXlGeFQ=="],
+
+    "core-js": ["core-js@3.48.0", "", {}, "sha512-zpEHTy1fjTMZCKLHUZoVeylt9XrzaIN2rbPXEt0k+q7JE5CkCZdo6bNq55bn24a69CH7ErAVLKijxJja4fw+UQ=="],
+
+    "spectre.css": ["spectre.css@0.5.9", "", {}, "sha512-9jUqwZmCnvflrxFGcK+ize43TvjwDjqMwZPVubEtSIHzvinH0TBUESm1LcOJx3Ur7bdPaeOHQIjOqBl1Y5kLFw=="],
+
+    "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+  }
+}

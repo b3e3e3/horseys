@@ -1,0 +1,17 @@
+{
+  "name": "horsey-editor",
+  "module": "server.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@json-editor/json-editor": "^2.15.2",
+    "@types/json-editor": "^0.0.10",
+    "bulma": "^1.0.4"
+  }
+}

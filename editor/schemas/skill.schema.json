@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "default": 1
+    },
+    "name": {
+      "type": "string",
+      "default": "Unknown Power"
+    },
+    "wit_effectiveness": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Phase",
+            "type": "string",
+            "enum": [
+              "EARLY",
+              "MID",
+              "LATE",
+              "FINAL",
+              "FINISH"
+            ]
+          }
+        ]
+      }
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Boost",
+            "type": "object",
+            "properties": {
+              "stat": {
+                "type": "string",
+                "enum": ["speed", "wit"]
+              },
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"                
+              }
+            },
+            "required": [
+              "stat",
+              "min",
+              "max"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "name",
+    "wit_effectiveness",
+    "conditions",
+    "effects"
+  ]
+}

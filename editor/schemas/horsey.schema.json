@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "integer",
+            "default": 1
+        },
+        "name": {
+            "type": "string",
+            "default": "Wild Horse"
+        },
+        "scene": {
+            "type": "string"
+        },
+        "stats": {
+            "type": "object",
+            "properties": {
+                "speed": {
+                    "type": "number"
+                },
+                "wit": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "speed",
+                "wit"
+            ]
+        },
+        "skills": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "required": [
+        "version",
+        "name",
+        "stats",
+        "skills",
+        "scene"
+    ]
+}
