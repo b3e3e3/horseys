@@ -5,7 +5,13 @@
 		},
 		{
 			"path": "game"
+		},
+		{
+			"path": "editor-old"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"typescript.tsdk": "editor/node_modules/typescript/lib",
+		"editor.formatOnSave": true
+	}
 }
