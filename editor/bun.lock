@@ -6,6 +6,7 @@
       "dependencies": {
         "@json-editor/json-editor": "^2.15.2",
         "@types/json-editor": "^0.0.10",
+        "@types/node": "^25.1.0",
         "spectre.css": "^0.5.9",
       },
       "peerDependencies": {
@@ -18,10 +19,14 @@
 
     "@types/json-editor": ["@types/json-editor@0.0.10", "", {}, "sha512-zVE3AH4z5+kCxOcxwORNNpsCtvf+PWDijUsnYpfpoWmk5AxPqiEPOYkszWosrkHcPaK5+StOv4iuJ/ygXlGeFQ=="],
 
+    "@types/node": ["@types/node@25.1.0", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-t7frlewr6+cbx+9Ohpl0NOTKXZNV9xHRmNOvql47BFJKcEG1CxtxlPEEe+gR9uhVWM4DwhnvTF110mIL4yP9RA=="],
+
     "core-js": ["core-js@3.48.0", "", {}, "sha512-zpEHTy1fjTMZCKLHUZoVeylt9XrzaIN2rbPXEt0k+q7JE5CkCZdo6bNq55bn24a69CH7ErAVLKijxJja4fw+UQ=="],
 
     "spectre.css": ["spectre.css@0.5.9", "", {}, "sha512-9jUqwZmCnvflrxFGcK+ize43TvjwDjqMwZPVubEtSIHzvinH0TBUESm1LcOJx3Ur7bdPaeOHQIjOqBl1Y5kLFw=="],
 
     "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+
+    "undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
   }
 }

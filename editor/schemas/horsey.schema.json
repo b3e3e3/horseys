@@ -10,22 +10,41 @@
             "type": "string",
             "default": "Wild Horse"
         },
-        "scene": {
-            "type": "string"
-        },
         "stats": {
             "type": "object",
             "properties": {
                 "speed": {
-                    "type": "number"
+                    "type": "number",
+                    "default": 100.0,
+                    "maximum": 1200.0
                 },
-                "wit": {
-                    "type": "number"
+                "stamina": {
+                    "type": "number",
+                    "default": 100.0,
+                    "maximum": 1200.0
+                },
+                "power": {
+                    "type": "number",
+                    "default": 100.0,
+                    "maximum": 1200.0
+                },
+                "resolve": {
+                    "type": "number",
+                    "default": 100.0,
+                    "maximum": 1200.0
+                },
+                "brainpower": {
+                    "type": "number",
+                    "default": 100.0,
+                    "maximum": 1200.0
                 }
             },
             "required": [
                 "speed",
-                "wit"
+                "stamina",
+                "power",
+                "resolve",
+                "brainpower"
             ]
         },
         "skills": {
@@ -35,6 +54,10 @@
                     "type": "string"
                 }
             ]
+        },
+        "scene": {
+            "type": "string",
+            "default": "none"
         }
     },
     "required": [

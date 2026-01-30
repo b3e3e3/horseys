@@ -1,0 +1,14 @@
+{
+    "$schema": "../../../schemas/horsey.schema.json",
+    "version": 1,
+    "name": "Uranium Johnson",
+    "scene": "res://racing/horsey/models/uranium_johnson.tscn",
+    "stats": {
+      "speed": 51.0,
+      "wit": 10.0
+    },
+    "skills": [
+      "scary_move",
+      "evil_step"
+    ]
+}

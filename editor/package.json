@@ -9,6 +9,7 @@
   "dependencies": {
     "@json-editor/json-editor": "^2.15.2",
     "@types/json-editor": "^0.0.10",
+    "@types/node": "^25.1.0",
     "spectre.css": "^0.5.9"
   }
 }
