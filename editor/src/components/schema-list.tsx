@@ -4,6 +4,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
 
 const items = [
 	{
@@ -30,8 +31,8 @@ export function SchemaList(props: {
 						<ul>
 							{item.files.map((fileName) => (
 								<li key={`${item.value}/${fileName}`}>
-									<a
-										href="#"
+									<Button
+										variant={"link"}
 										className="hover:underline"
 										onClick={() =>
 											props.onFileSelected?.(
@@ -41,7 +42,7 @@ export function SchemaList(props: {
 										}
 									>
 										{fileName}
-									</a>
+									</Button>
 								</li>
 							))}
 						</ul>

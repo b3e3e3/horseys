@@ -1,17 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "editor"
-		},
-		{
-			"path": "game"
-		},
-		{
-			"path": "editor-old"
-		}
-	],
-	"settings": {
-		"typescript.tsdk": "editor/node_modules/typescript/lib",
-		"editor.formatOnSave": true
-	}
+  "folders": [
+    {
+      "path": "editor",
+    },
+    {
+      "path": "game",
+    },
+  ],
+  "settings": {
+    "typescript.tsdk": "editor/node_modules/typescript/lib",
+    "editor.formatOnSave": true,
+  },
 }
