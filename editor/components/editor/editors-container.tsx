@@ -1,15 +1,9 @@
 import React from "react"
 
-import * as Skill from "../../schemas/skill.schema.json"
-import * as Horsey from "../../schemas/horsey.schema.json"
-
+import { SchemaType } from "@/src/schemas"
+import JsonEditor, { EditorIds, EditorKey } from "@/components/editor/editor"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-
-import Form from "@rjsf/shadcn"
-import { RJSFSchema } from "@rjsf/utils"
-
-import validator from "@rjsf/validator-ajv8"
 import {
 	Dialog,
 	DialogClose,
@@ -20,7 +14,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog"
-import { Plus, X } from "lucide-react"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -29,49 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ButtonGroup } from "@/components/ui/button-group"
 
-const SCHEMAS: { Horsey: RJSFSchema; Skill: RJSFSchema } = {
-	Horsey: Horsey as RJSFSchema,
-	Skill: Skill as RJSFSchema,
-}
-
-type SchemaType = "Horsey" | "Skill"
-
-type Editor = {
-	type: SchemaType
-	isUnsaved?: boolean
-}
-
-type EditorKey = string
-
-type EditorIds = Record<EditorKey, Editor>
-
-type JsonEditorProps = {
-	schemaType: SchemaType
-	editorData?: unknown
-	onChange?: (formData: any) => void
-	onSubmit?: (formData: any) => void
-}
-
-function JsonEditor({
-	schemaType,
-	editorData,
-	onChange,
-	onSubmit,
-}: JsonEditorProps) {
-	return (
-		<Form
-			schema={SCHEMAS[schemaType]}
-			formData={editorData}
-			validator={validator}
-			onChange={({ formData }) => {
-				onChange?.(formData)
-			}}
-			onSubmit={({ formData }) => {
-				onSubmit?.(formData)
-			}}
-		/>
-	)
-}
+import { Plus, X } from "lucide-react"
 
 export default function EditorsContainer() {
 	const [editorsById, setEditorById] = React.useState<EditorIds>({})
@@ -139,32 +90,53 @@ export default function EditorsContainer() {
 			return prev.filter((x) => x !== id)
 		})
 
-		// delete editorDataRef.current[id]
 		setEditorDataById((prev) => {
 			const { [id]: _, ...rest } = prev
 			return rest
 		})
 	}
 
-	function handleEditorChange(id: EditorKey, formData: any) {
-		setEditorDataById((prev) => {
-			if (prev[id] === formData) return prev
+	const handleEditorChange = React.useCallback(
+		(id: EditorKey, formData: any) => {
+			setEditorDataById((prev) => {
+				if (prev[id] === formData) return prev
 
-			return {
-				...prev,
-				[id]: formData,
-			}
-		})
+				return {
+					...prev,
+					[id]: formData,
+				}
+			})
 
-		setEditorById((prevEditor) => ({
-			...prevEditor,
-			[id]: {
-				...prevEditor[id],
-				isUnsaved: true,
-			},
-		}))
-	}
+			setEditorById((prevEditor) => ({
+				...prevEditor,
+				[id]: {
+					...prevEditor[id],
+					isUnsaved: true,
+				},
+			}))
+		},
+		[],
+	)
 
+	const addButton = (
+		<Button variant={"ghost"}>
+			<Plus />
+		</Button>
+	)
+	const noEditorsSplash = (
+		<div className="w-full">
+			<h3 className="text-center text-gray-400 w-full">
+				No editors open!{" "}
+				<NewDropdown>
+					<DropdownMenuTrigger asChild>
+						<Button variant={"link"} className="underline">
+							Create a file?
+						</Button>
+					</DropdownMenuTrigger>
+				</NewDropdown>
+			</h3>
+		</div>
+	)
 	return (
 		<>
 			<Dialog>
@@ -172,25 +144,28 @@ export default function EditorsContainer() {
 					<TabsList>
 						{editorOrder.map((id) => {
 							const data = editorDataById[id]
+							const unsavedMarker = (
+								<span className="text-destructive">*</span>
+							)
+							const closeButton = (
+								<Button
+									size="xs"
+									className="m-auto"
+									variant={"ghost"}
+								>
+									<X />
+								</Button>
+							)
 							return (
 								<ButtonGroup>
 									<TabsTrigger value={id} key={id}>
 										{data.name ?? "Untitled"}
-										{editorsById[id].isUnsaved && (
-											<span className="text-destructive">
-												*
-											</span>
-										)}
+										{editorsById[id].isUnsaved &&
+											unsavedMarker}
 									</TabsTrigger>
 									{activeEditorId == id ? (
 										<DialogTrigger asChild>
-											<Button
-												size="xs"
-												className="m-auto"
-												variant={"ghost"}
-											>
-												<X />
-											</Button>
+											{closeButton}
 										</DialogTrigger>
 									) : null}
 								</ButtonGroup>
@@ -198,31 +173,12 @@ export default function EditorsContainer() {
 						})}
 						<NewDropdown>
 							<DropdownMenuTrigger asChild>
-								<Button variant={"ghost"}>
-									<Plus />
-								</Button>
+								{addButton}
 							</DropdownMenuTrigger>
 						</NewDropdown>
 					</TabsList>
 
-					{/* No editors open splash */}
-					{Object.keys(editorsById).length == 0 && (
-						<div className="w-full">
-							<h3 className="text-center text-gray-400 w-full">
-								No editors open!{" "}
-								<NewDropdown>
-									<DropdownMenuTrigger asChild>
-										<Button
-											variant={"link"}
-											className="underline"
-										>
-											Create a file?
-										</Button>
-									</DropdownMenuTrigger>
-								</NewDropdown>
-							</h3>
-						</div>
-					)}
+					{Object.keys(editorsById).length == 0 && noEditorsSplash}
 
 					{/* Editor windows */}
 					{editorOrder.map((id) => {
