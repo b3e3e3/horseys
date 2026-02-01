@@ -2,7 +2,6 @@
 // import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
-import { SchemaList } from "../../components/schemaList"
 import { ThemeProvider } from "../../components/themeProvider"
 import { GodotProvider } from "@/components/godotProvider"
 
