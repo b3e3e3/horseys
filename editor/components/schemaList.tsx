@@ -5,26 +5,23 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
+// import { useState } from "react"
 
-const items = [
-	{
-		value: "horseys",
-		trigger: "Horseys",
-		files: ["horsey1.json", "horsey2.json"],
-	},
-	{
-		value: "skills",
-		trigger: "Skills",
-		files: ["skill1.json", "skill2.json"],
-	},
-]
+export type FileListItem = {
+	value: string
+	trigger: string
+	files: string[]
+}
 
 export function SchemaList(props: {
+	items: FileListItem[]
 	onFileSelected?: (name: string, from: string) => void
 }) {
+	const [listItems, setListItems] = useState<FileListItem[]>(props.items)
 	return (
 		<Accordion type="multiple">
-			{items.map((item) => (
+			{listItems.map((item) => (
 				<AccordionItem key={item.value} value={item.value}>
 					<AccordionTrigger>{item.trigger}</AccordionTrigger>
 					<AccordionContent>

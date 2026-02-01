@@ -1,0 +1,11 @@
+{
+	"$schema": "../../schemas/horsey.schema.json",
+	"version": 1,
+	"name": "Beige Horsey",
+	"scene": "res://racing/horsey/models/beige_horsey.tscn",
+	"stats": {
+		"speed": 51.0,
+		"wit": 10.0
+	},
+	"skills": ["scary_move", "evil_step"]
+}

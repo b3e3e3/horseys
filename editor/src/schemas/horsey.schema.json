@@ -42,11 +42,8 @@
 		},
 		"skills": {
 			"type": "array",
-			"items": [
-				{
-					"type": "string"
-				}
-			]
+			"uniqueItems": true,
+			"items": { "type": "string" }
 		},
 		"scene": {
 			"type": "string",

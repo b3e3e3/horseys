@@ -157,7 +157,7 @@ export default function EditorsContainer() {
 								</Button>
 							)
 							return (
-								<ButtonGroup>
+								<ButtonGroup key={id}>
 									<TabsTrigger value={id} key={id}>
 										{data.name ?? "Untitled"}
 										{editorsById[id].isUnsaved &&

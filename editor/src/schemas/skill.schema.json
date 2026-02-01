@@ -11,8 +11,10 @@
 		},
 		"wit_effectiveness": {
 			"type": "number",
+			"default": 0.99,
 			"minimum": 0.0,
-			"maximum": 1.0
+			"maximum": 1.0,
+			"multipleOf": 0.01
 		},
 		"conditions": {
 			"type": "array",

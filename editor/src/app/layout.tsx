@@ -2,8 +2,9 @@
 // import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
-import { SchemaList } from "../../components/schema-list"
-import { ThemeProvider } from "../../components/theme-provider"
+import { SchemaList } from "../../components/schemaList"
+import { ThemeProvider } from "../../components/themeProvider"
+import { GodotProvider } from "@/components/godotProvider"
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -36,24 +37,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<div className="min-h-screen">
-						<div className="flex">
-							<aside className="w-64 bg-background border-r">
-								<div className="p-4">
-									<SchemaList
-										onFileSelected={(name, from) =>
-											console.log(
-												`Loading file ${name} from ${from}...`,
-											)
-										}
-									/>
-								</div>
-							</aside>
-							<main className="flex-1 overflow-auto p-5">
-								{children}
-							</main>
-						</div>
-					</div>
+					<GodotProvider>{children}</GodotProvider>
 				</ThemeProvider>
 			</body>
 		</html>
