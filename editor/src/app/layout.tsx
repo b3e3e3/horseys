@@ -38,6 +38,11 @@ export default function RootLayout({
 				>
 					<GodotProvider>{children}</GodotProvider>
 				</ThemeProvider>
+				<script>
+					{`if ("godot" in window) {
+						window.addEventListener("godot.ready", (() => console.log("WORLD!")), { once: true })
+					} else (() => console.log("WORLD..."))()`}
+				</script>
 			</body>
 		</html>
 	)

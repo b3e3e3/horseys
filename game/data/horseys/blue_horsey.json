@@ -2,13 +2,16 @@
     "$schema": "../horsey.schema.json",
     "version": 1,
     "name": "Blue Horsey",
-    "scene": "res://racing/horsey/models/blue_horsey.tscn",
     "stats": {
         "speed": 50.0,
-        "wit": 10.0
+        "stamina": 100,
+        "power": 100,
+        "resolve": 100,
+        "brainpower": 10.0
     },
     "skills": [
         "scary_move",
         "evil_step"
-    ]
+    ],
+    "scene": "res://racing/horsey/models/blue_horsey.tscn"
 }

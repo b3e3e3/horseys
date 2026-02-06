@@ -37,11 +37,10 @@ func save_horsey(file_name: String) -> String:
 
 func save_skill(file_name: String, text: String) -> String:
 	var file := FileAccess.open(HORSEYS_DIR + "/" + file_name, FileAccess.READ_WRITE)
-	file.
+	# file.
 	file.close()
 	return text
 
 func _init() -> void:
 	load_horseys()
 	load_skills()
-

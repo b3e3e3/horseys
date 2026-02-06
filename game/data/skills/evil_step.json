@@ -3,16 +3,22 @@
   "version": 1,
   "name": "Evil Step",
   "wit_effectiveness": 1.0,
-  "conditions": {
-    "phase": "LATE"
-  },
-  "effects": {
-    "boost": {
-      "speed": {
-        "min": 40.0,
-        "max": 150.0
-      }
+  "conditions": [
+    {
+      "condition_type": "PHASE",
+      "phase": "EARLY"
+    }
+  ],
+  "effects": [
+    {
+      "effect_type": "STAT_BOOST",
+      "stat": "speed",
+      "min": 40.0,
+      "max": 150.0
     },
-    "print": "Evil step is happening!"
-  }
+    {
+      "effect_type": "PRINT",
+      "message": "hi"
+    }
+  ]
 }

@@ -19,11 +19,50 @@
 		"conditions": {
 			"type": "array",
 			"items": {
+				"title": "Condition",
+				"properties": {
+					"condition_type": {
+						"type": "string",
+						"enum": [
+							"PHASE",
+							"PROXIMITY"
+						]
+					}
+				},
 				"oneOf": [
 					{
-						"title": "Phase",
-						"type": "string",
-						"enum": ["EARLY", "MID", "LATE", "FINAL", "FINISH"]
+						"title": "Phase Condition",
+						"type": "object",
+						"properties": {
+							"condition_type": {
+								"const": "PROXIMITY"
+							},
+							"phase": {
+								"type": "string",
+								"enum": [
+									"EARLY",
+									"MID",
+									"LATE",
+									"FINAL",
+									"FINISH"
+								]
+							}
+						}
+					},
+					{
+						"title": "Proximity",
+						"type": "object",
+						"properties": {
+							"min": {
+								"type": "number"
+							},
+							"max": {
+								"type": "number"
+							}
+						},
+						"required": [
+							"min"
+						]
 					}
 				]
 			}
@@ -31,11 +70,32 @@
 		"effects": {
 			"type": "array",
 			"items": {
+				"title": "Skill Effect",
+				"type": "object",
+				"properties": {
+					"effect_type": {
+						"type": "string",
+						"enum": [
+							"STAT_BOOST",
+							"STAT_DEBUFF_SELF",
+							"STAT_DEBUFF_OTHERS",
+							"PRINT"
+						]
+					}
+				},
 				"oneOf": [
 					{
-						"title": "Boost",
-						"type": "object",
+						"title": "Stat Effect",
 						"properties": {
+							"effect_type": {
+								"type": "string",
+								"enum": [
+									"STAT_BOOST",
+									"STAT_DEBUFF_SELF",
+									"STAT_DEBUFF_OTHERS",
+									"PRINT"
+								]
+							},
 							"stat": {
 								"type": "string",
 								"enum": [
@@ -53,8 +113,32 @@
 								"type": "number"
 							}
 						},
-						"required": ["stat", "min", "max"]
+						"required": [
+							"effect_type",
+							"stat",
+							"min",
+							"max"
+						]
+					},
+					{
+						"title": "Print Effect",
+						"properties": {
+							"effect_type": {
+								"type": "string",
+								"const": "PRINT"
+							},
+							"message": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"effect_type",
+							"message"
+						]
 					}
+				],
+				"required": [
+					"effect_type"
 				]
 			}
 		}

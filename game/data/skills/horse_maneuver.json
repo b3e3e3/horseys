@@ -3,15 +3,18 @@
   "version": 1,
   "name": "Horse Maneuver",
   "wit_effectiveness": 1.0,
-  "conditions": {
-    "phase": "MID"
-  },
-  "effects": {
-    "boost": {
-      "speed": {
-        "min": 50.0,
-        "max": 100.0
-      }
+  "conditions": [
+    {
+      "condition_type": "PHASE",
+      "phase": "MID"
     }
-  }
+  ],
+  "effects": [
+    {
+      "effect_type": "STAT_BOOST",
+      "min": 50.0,
+      "max": 100.0,
+      "stat": "speed"
+    }
+  ]
 }

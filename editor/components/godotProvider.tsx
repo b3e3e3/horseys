@@ -1,43 +1,54 @@
 "use client"
 
-import { getGlobalFileList } from "@/src/godot/actions"
-import { GlobalCtx } from "@/src/godot/types"
+import { getDummyFileContents, getDummyFilesFromDir } from "@/src/godot/actions"
+// import { getDummyFileList } from "@/src/godot/actions"
+import { GodotGlobal } from "@/src/godot/types"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const GodotContext = createContext<any>(null)
 
-const init = async () => {
-	const global: GlobalCtx = {
-		horseys: {
-			value: [],
-		},
-		skills: {
-			value: [],
-		},
-	}
-	const fileList = await getGlobalFileList()
-
-	Object.entries(fileList).forEach(([type, files]) => {
-		global[type].value = files
-	})
-
-	return global
-}
+export const ctxIsGodot = (ctx: any) => ctx["___callbacks"] !== undefined
 
 export function useGodot() {
-	const [$g, set$g] = useState<GlobalCtx | null>(null)
+	const [$g, set$g] = useState<GodotGlobal | null>(null)
 
 	useEffect(() => {
-		const the = () => {
-			init().then((ctx) => {
-				;(window as any).$g ??= ctx
-				set$g((window as any).$g)
-			})
+		if ((window as any).$g) {
+			console.log("Found Godot context in window.")
 		}
 
-		if ("godot" in window) {
-			window.addEventListener("godot.ready", the, { once: true })
-		} else the()
+
+		console.log("Initialized :P");
+
+		var dummyGlobal: GodotGlobal = {
+			ctx: {
+				horseys: { value: [] },
+				skills: { value: [] },
+			},
+			loader: {
+				getFilesInDir: (dirName: string) => ["foobar.json"],//getDummyFilesFromDir(dirName),
+				getFileContents: (fileName: string, from: string) => `{"name": "NaH"}`,//getDummyFileContents(fileName, from)
+			}
+		};
+
+		// if ((window as any).$g) {
+		// 	const g = (window as any).$g
+		// 	g.loader = {
+		// 		getFilesInDir: async (dirName: string) => {
+		// 			(window as any).$g.loader.getFilesIndir(dirName)
+		// 		},
+		// 		getFileContents: async (fileName: string, from: string) => {
+		// 			(window as any).$g.loader.getFileContents()
+		// 		}
+		// 	}
+
+		// 	set$g(g)
+		// } else {
+		// 	set$g(dummyGlobal)
+		// }
+		set$g((window as any).$g ?? dummyGlobal)
+
+		// the()
 	}, [])
 
 	return $g

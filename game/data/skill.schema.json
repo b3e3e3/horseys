@@ -1,44 +1,162 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "properties": {
-    "version": {
-      "type": "integer"
-    },
-    "name": {
-      "type": "string"
-    },
-    "wit_effectiveness": {
-      "type": "number"
-    },
-    "conditions": {
-      "type": "object",
-      "properties": {
-        "phase": {
-          "type": "string",
-          "enum": ["EARLY", "MID", "LATE", "FINAL", "FINISH"]
-        }
-      },
-      "additionalProperties": false
-    },
-    "effects": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": {
-          "type": "object",
-          "properties": {
-            "min": {
-              "type": "number"
-            },
-            "max": {
-              "type": "number"
+    "type": "object",
+    "properties": {
+        "version": {
+            "type": "integer",
+            "default": 1
+        },
+        "name": {
+            "type": "string",
+            "default": "Unknown Power"
+        },
+        "wit_effectiveness": {
+            "type": "number",
+            "default": 0.99,
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "multipleOf": 0.01
+        },
+        "conditions": {
+            "type": "array",
+            "items": {
+                "title": "Condition",
+                "type": "object",
+                "properties": {
+                    "condition_type": {
+                        "type": "string",
+                        "enum": [
+                            "PHASE",
+                            "PROXIMITY"
+                        ]
+                    }
+                },
+                "oneOf": [
+                    {
+                        "title": "Phase Condition",
+                        "properties": {
+                            "condition_type": {
+                                "const": "PHASE"
+                            },
+                            "phase": {
+                                "type": "string",
+                                "enum": [
+                                    "EARLY",
+                                    "MID",
+                                    "LATE",
+                                    "FINAL",
+                                    "FINISH"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "phase"
+                        ]
+                    },
+                    {
+                        "title": "Proximity",
+                        "type": "object",
+                        "properties": {
+                            "condition_type": {
+                                "type": "string",
+                                "const": "PROXIMITY"
+                            },
+                            "min": {
+                                "type": "number"
+                            },
+                            "max": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "min"
+                        ]
+                    }
+                ],
+                "required": [
+                    "condition_type"
+                ]
             }
-          },
-          "required": ["min", "max"]
+        },
+        "effects": {
+            "type": "array",
+            "items": {
+                "title": "Skill Effect",
+                "type": "object",
+                "properties": {
+                    "effect_type": {
+                        "type": "string",
+                        "enum": [
+                            "STAT_BOOST",
+                            "STAT_DEBUFF_SELF",
+                            "STAT_DEBUFF_OTHERS",
+                            "PRINT"
+                        ]
+                    }
+                },
+                "oneOf": [
+                    {
+                        "title": "Stat Effect",
+                        "properties": {
+                            "effect_type": {
+                                "type": "string",
+                                "enum": [
+                                    "STAT_BOOST",
+                                    "STAT_DEBUFF_SELF",
+                                    "STAT_DEBUFF_OTHERS"
+                                ]
+                            },
+                            "stat": {
+                                "type": "string",
+                                "enum": [
+                                    "speed",
+                                    "stamina",
+                                    "power",
+                                    "resolve",
+                                    "brainpower"
+                                ]
+                            },
+                            "min": {
+                                "type": "number"
+                            },
+                            "max": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "effect_type",
+                            "stat",
+                            "min",
+                            "max"
+                        ]
+                    },
+                    {
+                        "title": "Print Effect",
+                        "properties": {
+                            "effect_type": {
+                                "type": "string",
+                                "const": "PRINT"
+                            },
+                            "message": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "effect_type",
+                            "message"
+                        ]
+                    }
+                ],
+                "required": [
+                    "effect_type"
+                ]
+            }
         }
-      }
-    }
-  },
-  "required": ["version", "name", "wit_effectiveness", "conditions", "effects"]
+    },
+    "required": [
+        "version",
+        "name",
+        "wit_effectiveness",
+        "conditions",
+        "effects"
+    ]
 }

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { PropsWithChildren } from "react"
 
 import { SchemaType } from "@/src/schemas"
 import JsonEditor, { EditorIds, EditorKey } from "@/components/editor/editor"
@@ -23,11 +23,14 @@ import {
 import { ButtonGroup } from "@/components/ui/button-group"
 
 import { Plus, X } from "lucide-react"
-import { GlobalCtx } from "@/src/godot/types"
+import { GodotGlobal } from "@/src/godot/types"
 import { SchemaList } from "@/components/schemaList"
-import { getDataFileContents } from "@/src/godot/actions"
+import { getDummyFileContents } from "@/src/godot/actions"
+import { ctxIsGodot } from "../godotProvider"
+import { ConnectFlags } from "@/src/godot/signals"
 
-export default function EditorsContainer({ context }: { context: GlobalCtx }) {
+// TODO: why does ctx get stored in an object {ctx: {...}}? this is not defined anywhere??
+export default function EditorsContainer({ global: { ctx, loader } }: { global: GodotGlobal }) {
 	const [editorsById, setEditorById] = React.useState<EditorIds>({})
 	const [editorOrder, setEditorOrder] = React.useState<string[]>([])
 	const [activeEditorId, setActiveEditorId] = React.useState<EditorKey>("")
@@ -126,6 +129,7 @@ export default function EditorsContainer({ context }: { context: GlobalCtx }) {
 			<Plus />
 		</Button>
 	)
+
 	const noEditorsSplash = (
 		<div className="w-full">
 			<h3 className="text-center text-gray-400 w-full">
@@ -140,33 +144,45 @@ export default function EditorsContainer({ context }: { context: GlobalCtx }) {
 			</h3>
 		</div>
 	)
+
 	return (
 		<div className="flex h-full">
 			<aside className="w-64 bg-background border-r">
 				<div className="p-4">
 					<SchemaList
 						onFileSelected={async (name: string, from: string) => {
+							loader.testFuncRemoveAsap?.()
 							console.log(`Loading file ${name} from ${from}...`)
-							const contents = await getDataFileContents(
+							// const contents = loader.getFileContents(
+							// 	name,
+							// 	from,
+							// ) ?? "{}"
+							loader.fileLoaded?.connect((contents, dirName) => {
+								if (dirName !== from) return
+
+								console.log("Got contents:", contents)
+								const data = JSON.parse(contents)
+								createEditor(
+									from == "horseys" ? "Horsey" : "Skill",
+									data,
+								)
+							}, ConnectFlags.CONNECT_ONE_SHOT)
+
+							loader.getFileContents(
 								name,
 								from,
-							)
-							const data = JSON.parse(contents)
-							createEditor(
-								from == "horseys" ? "Horsey" : "Skill",
-								data,
 							)
 						}}
 						items={[
 							{
 								value: "horseys",
 								trigger: "Horseys",
-								files: context.horseys.value,
+								files: ctx.horseys.value,
 							},
 							{
 								value: "skills",
 								trigger: "Skills",
-								files: context.skills.value,
+								files: ctx.skills.value,
 							},
 						]}
 					/>

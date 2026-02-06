@@ -4,96 +4,99 @@ const DEFAULT_SKILL_DIR_PATH: String = "res://data/skills/"
 const DEFAULT_HORSEY_DIR_PATH: String = "res://data/horseys/"
 
 
-
-
-
-func load_horsey_from_JSON(horsey_id: String, path: String = DEFAULT_HORSEY_DIR_PATH) -> HorseyInfo:
+func load_horsey(horsey_id: String, path: String = DEFAULT_HORSEY_DIR_PATH) -> HorseyInfo:
 	var full_path := "%s%s.json" % [path, horsey_id]
 	var data := Global.load_json_file(full_path)
 
 	print("Matching version...")
 	match int(data.get("version", 1)):
 		1:
-			return load_horsey_from_JSON_v1(
+			return parse_horsey_from_JSON_v1(
 				data
 			)
 		_: print("Version %s not found." % data.get("version"))
 
 	return null
 
-func load_skill_from_JSON(skill_id: String, path: String = DEFAULT_SKILL_DIR_PATH) -> Skill:
+func load_skill(skill_id: String, path: String = DEFAULT_SKILL_DIR_PATH) -> Skill:
 	var full_path := "%s%s.json" % [path, skill_id]
 	var data := Global.load_json_file(full_path)
 
 	match int(data.get("version", 1)):
 		1:
-			return load_skill_from_JSON_v1(
+			return parse_skill_from_JSON_v1(
 				data
 			)
 
 	return null
 
-func load_horsey_from_JSON_v1(data: Dictionary) -> HorseyInfo:
+func parse_horsey_from_JSON_v1(data: Dictionary) -> HorseyInfo:
 	var horsey := HorseyInfo.new()
 
+	# load basic data
 	horsey.display_name = data.get("name", "Wild Horse")
-	if data.has("scene"):
-		horsey.scene = load(data.get("scene"))
 
 	print("Importing horse %s" % horsey.display_name)
 
+	# load stats
 	var stats: Dictionary = data.get("stats", {})
 	for s in horsey.stats.keys():
 		if not stats.has(s): continue
 		print("Setting stat %s to %s" % [s, stats[s]])
 		horsey.stats[s].base_value = stats[s]
 
+	# load skills
 	var skills: Array = data.get("skills", [])
 	for s in skills:
-		horsey.skills.append(load_skill_from_JSON(s))
+		# horsey.skills.append(load_skill(s))
+		horsey.skills.append(load_skill(s))
+
+	# load scene
+	if data.has("scene"):
+		horsey.scene = load(data.get("scene"))
 
 	return horsey
 
-func load_skill_from_JSON_v1(data: Dictionary) -> Skill:
+func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 	var skill := CompoundSkill.new()
+
+	# load basic data
 	skill.display_name = data.get("name", "Mysterious Skill")
 	skill.wit_effectiveness = data.get("wit_effectiveness", skill.wit_effectiveness)
+	
 	print("Importing skill %s" % skill.display_name)
 
-	var conditions: Dictionary = data.get("conditions", {})
-	for c in conditions.keys():
-		var cdata = conditions[c]
-		match c:
-			"phase":
+	# load conditions
+	var conditions: Array = data.get("conditions", [])
+	for c in conditions:
+		match c.get("condition_type"):
+			"PHASE":
 				print("Found phase condition")
-				var condition := PhaseCondition.new(RaceInfo.Phase.get(cdata))
+				var condition := PhaseCondition.new(RaceInfo.Phase.get(c.get("phase")))
 				skill.conditions.append(condition)
+			# TODO: PProximity type
+			_:
+				print("Didn't find a condition type match for %s" % c.get("condition_type", "unknown!"))
 
-	var effects: Dictionary = data.get("effects", {})
-
-	for e in effects.keys():
-		var edata = effects[e]
-
-		match e:
-			"boost":
-				assert(edata is Dictionary)
+	# load effects
+	var effects: Array = data.get("effects", [])
+	for e in effects:
+		match e.get("effect_type"):
+			"STAT_BOOST":
 				print("Found boost effect")
 				var effect := BoostEffect.new()
-				for s in edata.keys():
-					# print("Found stat %s (%s)" % [s, effect.stats[s]])
-					var stat = edata[s]
-					var value: StatValue
-					if stat is Dictionary:
-						value = RandValue.new()
-						value.min_value = stat["min"]
-						value.max_value = stat["max"]
-					else:
-						# TODO: single value class
-						value = RandValue.new()
-						value.min_value = stat
-						value.max_value = stat
-					effect.stats[s] = value
+				
+				var value := RandValue.new()
+				value.min_value = e.get("min")
+				value.max_value = e.get("max", value.min_value)
+
+				var stat_name = e.get("stat", "unknown!")
+				effect.stats[stat_name] = value
+
 				skill.effects.append(effect)
-			"print":
-				print("Print test: %s" % edata)
+			"PRINT":
+				print("Print test: %s" % e.get("message", "unknown!"))
+			_:
+				print("Didn't find an effect type match for %s" % e.get("effect_type", "unknown!"))
+	
 	return skill

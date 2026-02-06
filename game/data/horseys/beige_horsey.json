@@ -1,14 +1,17 @@
 {
-    "$schema": "../horsey.schema.json",
-    "version": 1,
-    "name": "Beige Horsey",
-    "scene": "res://racing/horsey/models/beige_horsey.tscn",
-    "stats": {
-      "speed": 51.0,
-      "wit": 10.0
-    },
-    "skills": [
-      "scary_move",
-      "evil_step"
-    ]
+  "$schema": "../horsey.schema.json",
+  "version": 1,
+  "name": "Beige Horsey",
+  "stats": {
+    "speed": 51.0,
+    "stamina": 100,
+    "power": 100,
+    "resolve": 100,
+    "brainpower": 10.0
+  },
+  "skills": [
+    "scary_move",
+    "evil_step"
+  ],
+  "scene": "res://racing/horsey/models/beige_horsey.tscn"
 }

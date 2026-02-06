@@ -4,7 +4,7 @@ extends Node3D
 
 
 func _ready() -> void:
-	var horsey := loader.load_horsey_from_JSON("orange_horsey")
+	var horsey := loader.load_horsey("orange_horsey")
 	print("===========\nLoaded %s")
 	print("Name: %s" % horsey.display_name)
 	print("Stats:")

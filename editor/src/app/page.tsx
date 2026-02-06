@@ -3,6 +3,8 @@
 import EditorsContainer from "@/components/editor/editorsContainer"
 import { use$g } from "@/components/godotProvider"
 
+
+
 export default function Home() {
 	const $g = use$g()
 
@@ -10,7 +12,7 @@ export default function Home() {
 
 	return (
 		<div className="h-screen">
-			<EditorsContainer context={$g} />
+			<EditorsContainer global={$g} />
 		</div>
 	)
 }
