@@ -1,17 +1,17 @@
 {
-    "$schema": "../../../schemas/skill.schema.json",
-    "version": 1,
-    "name": "Scary Move",
-    "wit_effectiveness": 1.0,
-    "conditions": {
-      "phase": "MID"
-    },
-    "effects": {
-      "boost": {
-        "speed": {
-          "min": 40.0,
-          "max": 80.0
-        }
+  "$schema": "../../../schemas/skill.schema.json",
+  "version": 1,
+  "name": "Scary Move",
+  "bp_effectiveness": 1.0,
+  "conditions": {
+    "phase": "MID"
+  },
+  "effects": {
+    "boost": {
+      "speed": {
+        "min": 40.0,
+        "max": 80.0
       }
     }
+  }
 }

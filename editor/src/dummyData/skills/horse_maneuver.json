@@ -2,7 +2,7 @@
   "$schema": "../../../schemas/skill.schema.json",
   "version": 1,
   "name": "Horse Maneuver",
-  "wit_effectiveness": 1.0,
+  "bp_effectiveness": 1.0,
   "conditions": {
     "phase": "MID"
   },

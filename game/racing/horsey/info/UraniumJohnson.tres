@@ -82,7 +82,7 @@ script = ExtResource("1_bbryu")
 display_name = "Uranium Johnson"
 stats = Dictionary[String, Object]({
 "speed": SubResource("Resource_ptd4f"),
-"wit": SubResource("Resource_yjgrf")
+"brainpower": SubResource("Resource_yjgrf")
 })
 skills = Array[ExtResource("2_cql4h")]([SubResource("Resource_ixaum"), SubResource("Resource_dr2qv")])
 metadata/_custom_type_script = "uid://xu1hcxh2c5b2"

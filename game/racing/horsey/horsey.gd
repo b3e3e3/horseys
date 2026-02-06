@@ -9,11 +9,6 @@ class_name Horsey extends PathFollow3D
 
 @export var info: HorseyInfo = HorseyInfo.new()
 
-# @export_category("Stats")
-# @export var stats: Dictionary[String, Stat] = {
-# 	"speed": CurveStat.new(),
-# 	"wit": Stat.new(),
-# }
 var stats: Dictionary[String, Stat]:
 	get:
 		return info.stats if info else {}
@@ -60,9 +55,8 @@ func process_run(delta: float) -> void:
 	var inc: float = stats["speed"].current_value * delta
 	anim_counter += inc * stats["speed"].get_utilization() * 2
 	progress += inc
-
-	# total_progress += inc
 	total_progress += inc / path.curve.get_baked_length()
+
 	# print("%s: Progress %f (%f), %f" % [self.display_name, progress, progress_ratio, total_progress])
 
 	# if current_skill_act_point < skill_act_points.size() - 1:
@@ -80,12 +74,8 @@ func process_run(delta: float) -> void:
 	# rotation.y = sin(anim_counter) * 0.1 * stats["speed"].get_utilization()
 	rotation.z = sin(anim_counter) * 0.1 * stats["speed"].get_utilization()
 
-func inspire() -> void:
-	print("Inspired")
-	stats["speed"].boost_value = randf_range(0.5, 3.0)
-
 func activate_skills() -> void:
 	for skill in skills:
-		if skill.can_activate(race.info, self):
+		if skill.can_activate(race.info, self ):
 			print(self.display_name, " activated skill ", skill.display_name)
-			skill.activate(race.info, self)
+			skill.activate(race.info, self )

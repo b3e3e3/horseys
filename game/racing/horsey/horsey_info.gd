@@ -6,7 +6,7 @@ class_name HorseyInfo extends Resource
 @export_category("Stats")
 @export var stats: Dictionary[String, Stat] = {
 	"speed": CurveStat.new("Speed"),
-	"wit": Stat.new("Wit"),
+	"brainpower": Stat.new("Brainpower"),
 }
 
 @export_category("Skills")

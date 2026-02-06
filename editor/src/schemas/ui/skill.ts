@@ -15,7 +15,7 @@ const SkillUISchema: UiSchema = {
 				{
 					"ui:col": {
 						className: "col-span-6",
-						children: ["wit_effectiveness"],
+						children: ["bp_effectiveness"],
 					},
 				},
 				{
@@ -33,7 +33,7 @@ const SkillUISchema: UiSchema = {
 			],
 		},
 	},
-	wit_effectiveness: {
+	bp_effectiveness: {
 		"ui:widget": "range",
 		"ui:options": {
 			step: 0.05,

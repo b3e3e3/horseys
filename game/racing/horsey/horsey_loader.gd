@@ -62,7 +62,7 @@ func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 
 	# load basic data
 	skill.display_name = data.get("name", "Mysterious Skill")
-	skill.wit_effectiveness = data.get("wit_effectiveness", skill.wit_effectiveness)
+	skill.bp_effectiveness = data.get("bp_effectiveness", skill.bp_effectiveness)
 	
 	print("Importing skill %s" % skill.display_name)
 

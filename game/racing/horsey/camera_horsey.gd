@@ -19,6 +19,3 @@ func process_run(delta: float) -> void:
 
 	anim_counter += delta * stats["speed"].current_value * 20
 	progress_ratio = controller.horseys[0].progress_ratio
-
-func inspire() -> void:
-	pass

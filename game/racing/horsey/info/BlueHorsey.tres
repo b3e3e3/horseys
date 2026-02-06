@@ -27,7 +27,7 @@ script = ExtResource("1_dhx1k")
 display_name = "Blue Horsey"
 stats = Dictionary[String, Object]({
 "speed": SubResource("Resource_mk2c7"),
-"wit": SubResource("Resource_58og8")
+"brainpower": SubResource("Resource_58og8")
 })
 skills = Array[ExtResource("2_6b3mg")]([ExtResource("3_4hg73")])
 metadata/_custom_type_script = "uid://xu1hcxh2c5b2"

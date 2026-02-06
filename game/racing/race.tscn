@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://mgd1vu84lnus"]
+[gd_scene format=3 uid="uid://mgd1vu84lnus"]
 
 [ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race/race.gd" id="1_7xiek"]
 [ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race/race_info.gd" id="2_enxwj"]
@@ -42,14 +42,14 @@ albedo_texture = SubResource("NoiseTexture2D_gyya5")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyya5"]
 material = SubResource("StandardMaterial3D_vk53d")
-size = Vector2(200, 200)
+size = Vector2(400, 200)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fpa16"]
 
 [sub_resource type="Curve3D" id="Curve3D_fpa16"]
 closed = true
 _data = {
-"points": PackedVector3Array(20, 0, 0, -20, 0, 0, 0, 0, 40, 0, 0, 40, 0, 0, -40, -80, 0, 0, -20, 0, 0, 20, 0, 0, 0, 0, -40, 0, 0, -40, 0, 0, 40, 80, 0, 0),
+"points": PackedVector3Array(40, 0, 0, -40, 0, 0, 0, 0, 80, 0, 0, 80, 0, 0, -80, -160, 0, 0, -40, 0, 0, 40, 0, 0, 0, 0, -80, 0, 0, -80, 0, 0, 80, 160, 0, 0),
 "tilts": PackedFloat32Array(0, 0.34906584, 0, 0.34906584)
 }
 point_count = 4
@@ -59,66 +59,66 @@ properties/0/path = NodePath("RacePath/PathFollow3D:progress_ratio")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Race" type="Node3D" node_paths=PackedStringArray("race_path", "cameras")]
+[node name="Race" type="Node3D" unique_id=301350355 node_paths=PackedStringArray("race_path", "cameras")]
 script = ExtResource("1_7xiek")
 info = SubResource("Resource_bg0ai")
 race_path = NodePath("RacePath")
 cameras = [NodePath("RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"), NodePath("ProgressOverviewCamera"), NodePath("RacePath/LapLeadCameraHorsey/HorseyLapLead"), NodePath("ComeupOverviewCamera")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1688906858]
 environment = SubResource("Environment_7xiek")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1559505737]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=551361707]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=848686228]
 mesh = SubResource("PlaneMesh_gyya5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1778564295]
 shape = SubResource("WorldBoundaryShape3D_fpa16")
 
-[node name="RacePath" type="Path3D" parent="."]
+[node name="RacePath" type="Path3D" parent="." unique_id=651593930]
 curve = SubResource("Curve3D_fpa16")
 debug_custom_color = Color(1, 0, 0, 1)
 
-[node name="ProgressLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
-transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)
+[node name="ProgressLeadCameraHorsey" type="PathFollow3D" parent="RacePath" unique_id=1206473560]
+transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 80)
 script = ExtResource("4_gyya5")
 
-[node name="HorseyProgressLead" type="Node3D" parent="RacePath/ProgressLeadCameraHorsey"]
+[node name="HorseyProgressLead" type="Node3D" parent="RacePath/ProgressLeadCameraHorsey" unique_id=1841888003]
 transform = Transform3D(-0.9036569, 0, 0.42825714, 0, 1, 0, -0.42825714, 0, -0.9036569, 1.007576, 1.129, -3.9188337)
 script = ExtResource("9_kufqj")
 
-[node name="Camera3D" type="Camera3D" parent="RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"]
+[node name="Camera3D" type="Camera3D" parent="RacePath/ProgressLeadCameraHorsey/HorseyProgressLead" unique_id=1559258608]
 transform = Transform3D(1.0000131, 0, 0, 0, 1.0000069, 0, 0, 0, 1.0000135, 0, 0, 0)
 
-[node name="LapLeadCameraHorsey" type="PathFollow3D" parent="RacePath"]
-transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 40)
+[node name="LapLeadCameraHorsey" type="PathFollow3D" parent="RacePath" unique_id=1222026362]
+transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 80)
 script = ExtResource("4_gyya5")
 
-[node name="HorseyLapLead" type="Node3D" parent="RacePath/LapLeadCameraHorsey"]
+[node name="HorseyLapLead" type="Node3D" parent="RacePath/LapLeadCameraHorsey" unique_id=2047616693]
 transform = Transform3D(-0.9036569, 0, 0.42825714, 0, 1, 0, -0.42825714, 0, -0.9036569, 1.007576, 1.129, -3.9188337)
 script = ExtResource("9_kufqj")
 sort_type = 1
 
-[node name="Camera3D" type="Camera3D" parent="RacePath/LapLeadCameraHorsey/HorseyLapLead"]
+[node name="Camera3D" type="Camera3D" parent="RacePath/LapLeadCameraHorsey/HorseyLapLead" unique_id=1466568319]
 transform = Transform3D(1.0000131, 0, 0, 0, 1.0000069, 0, 0, 0, 1.0000135, 0, 0, 0)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1873567682]
 replication_config = SubResource("SceneReplicationConfig_7xiek")
 
-[node name="ProgressOverviewCamera" type="Node3D" parent="."]
+[node name="ProgressOverviewCamera" type="Node3D" parent="." unique_id=1285176335]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.098, 0)
 script = ExtResource("10_ipldh")
 
-[node name="Camera3D" type="Camera3D" parent="ProgressOverviewCamera"]
+[node name="Camera3D" type="Camera3D" parent="ProgressOverviewCamera" unique_id=1581291080]
 
-[node name="ComeupOverviewCamera" type="Node3D" parent="."]
+[node name="ComeupOverviewCamera" type="Node3D" parent="." unique_id=969865908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.098, 0)
 script = ExtResource("10_ipldh")
 sort_type = 2
 
-[node name="Camera3D" type="Camera3D" parent="ComeupOverviewCamera"]
+[node name="Camera3D" type="Camera3D" parent="ComeupOverviewCamera" unique_id=765591872]

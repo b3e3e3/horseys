@@ -9,7 +9,7 @@
             "type": "string",
             "default": "Unknown Power"
         },
-        "wit_effectiveness": {
+        "bp_effectiveness": {
             "type": "number",
             "default": 0.99,
             "minimum": 0.0,
@@ -155,7 +155,7 @@
     "required": [
         "version",
         "name",
-        "wit_effectiveness",
+        "bp_effectiveness",
         "conditions",
         "effects"
     ]

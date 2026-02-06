@@ -1,22 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjo1c4enrgngf"]
+[gd_scene format=3 uid="uid://bjo1c4enrgngf"]
 
 [ext_resource type="PackedScene" uid="uid://mgd1vu84lnus" path="res://racing/race.tscn" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cnwiiypx4tcdm" path="res://racing/race/race_watcher.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://bn5su7ct1cnrq" path="res://racing/commentary/commentators.gd" id="3_h2yge"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=1495296358]
 
-[node name="Race" parent="." node_paths=PackedStringArray("ui_node") instance=ExtResource("1_ig7tw")]
+[node name="Race" parent="." unique_id=27907233 node_paths=PackedStringArray("ui_node") instance=ExtResource("1_ig7tw")]
 ui_node = NodePath("../CanvasLayer/Control")
 
-[node name="RaceWatcher" type="Node" parent="." node_paths=PackedStringArray("race")]
+[node name="RaceWatcher" type="Node" parent="." unique_id=1769239080 node_paths=PackedStringArray("race")]
 script = ExtResource("2_0xm2m")
 race = NodePath("../Race")
 metadata/_custom_type_script = "uid://cnwiiypx4tcdm"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1250047656]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1794480328]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1678192025]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +40,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="HorseList" type="VBoxContainer" parent="CanvasLayer/Control"]
+[node name="HorseList" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=2008496645]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -49,7 +49,7 @@ anchor_bottom = 1.0
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Commentators" type="Node" parent="." node_paths=PackedStringArray("subtitles", "race")]
+[node name="Commentators" type="Node" parent="." unique_id=1591721960 node_paths=PackedStringArray("subtitles", "race")]
 script = ExtResource("3_h2yge")
 subtitles = NodePath("../CanvasLayer/Control/Label")
 race = NodePath("../Race")
