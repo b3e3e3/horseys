@@ -7,7 +7,7 @@ signal started
 @export var ui_node: Control
 @export var cameras: Array[CameraController]
 
-@onready var loader := HorseyLoader.new()
+var loader: HorseyLoader
 
 
 # @onready var nametag: Control = preload("res://racing/nametag.tscn").instantiate()
@@ -29,7 +29,7 @@ func __sort_by_lap_leader(a: Horsey, b: Horsey):
 	return true if a.progress_ratio > b.progress_ratio else false
 
 func __sort_by_comeup(a: Horsey, b: Horsey):
-	return true if a.stats["speed"].current_value > b.stats["speed"].current_value else false
+	return true if a.stats["speed"].get_value() > b.stats["speed"].get_value() else false
 
 func get_sorted(sort_type: Sort = Sort.PROGRESS) -> Array[Horsey]:
 	var arr := horseys
@@ -49,6 +49,9 @@ func get_horseys(ignore_camera: bool = true) -> Array[Horsey]:
 			return horsey is not CameraHorsey
 		)
 	return horseys
+
+func _enter_tree() -> void:
+	loader = HorseyLoader.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

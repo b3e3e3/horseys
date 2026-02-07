@@ -1,17 +1,11 @@
-[gd_resource type="Resource" script_class="CurveStat" format=3 uid="uid://csy8y3i0q5mio"]
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://csy8y3i0q5mio"]
 
-[ext_resource type="Script" uid="uid://dcyj381mnkg6e" path="res://racing/stats/curve_stat.gd" id="2_k1td4"]
-
-[sub_resource type="Curve" id="Curve_05jci"]
-_limits = [0.0, 1.0, 0.0, 1200.0]
-_data = [Vector2(0, 0), 0.0, 0.0026666669, 0, 1, Vector2(75, 0.2), 0.0026666669, 0.0022266668, 1, 1, Vector2(150, 0.367), 0.0022266668, 0.001064, 1, 1, Vector2(400, 0.633), 0.001064, 0.0005, 1, 1, Vector2(800, 0.833), 0.0005, 0.00050000014, 1, 1, Vector2(1000, 0.933), 0.00050000014, 0.00033499987, 1, 1, Vector2(1200, 1), 0.00033499987, 0.0, 1, 0]
-point_count = 7
-metadata/_snap_enabled = true
-metadata/_snap_count = 20
+[ext_resource type="Curve" uid="uid://cn2145hndkc5c" path="res://racing/stats/stamina_curve.tres" id="1_y37jt"]
+[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stats/stat.gd" id="2_k1td4"]
 
 [resource]
 script = ExtResource("2_k1td4")
-curve = SubResource("Curve_05jci")
 display_name = "Stamina"
-stat_travel_rate = 1.0
-metadata/_custom_type_script = "uid://dcyj381mnkg6e"
+curve = ExtResource("1_y37jt")
+curve_scale = 2.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"

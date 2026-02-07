@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CurveStat" format=3 uid="uid://crglm6hte0up6"]
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://crglm6hte0up6"]
 
-[ext_resource type="Script" uid="uid://dcyj381mnkg6e" path="res://racing/stats/curve_stat.gd" id="1_ai087"]
+[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stats/stat.gd" id="1_ai087"]
 
 [sub_resource type="Curve" id="Curve_05jci"]
 _limits = [0.0, 1.0, 0.0, 1200.0]
@@ -11,9 +11,5 @@ metadata/_snap_count = 20
 
 [resource]
 script = ExtResource("1_ai087")
-curve = SubResource("Curve_05jci")
-offset_value = 0.0
-scale = 1.0
 display_name = "Stamina"
-stat_decline_rate = 50.0
-metadata/_custom_type_script = "uid://dcyj381mnkg6e"
+curve = SubResource("Curve_05jci")

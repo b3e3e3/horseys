@@ -7,8 +7,8 @@ class_name HorseyInfo extends Resource
 @export var stats: Dictionary[String, Stat] = {
 	"speed": load("res://racing/stats/speed_stat.tres").duplicate(),
 	"stamina": load("res://racing/stats/stamina_stat.tres").duplicate(),
-	"power": CurveStat.new("Power"),
-	"resolve": CurveStat.new("Resolve"),
+	"power": Stat.new("Power"),
+	"resolve": Stat.new("Resolve"),
 	"brainpower": load("res://racing/stats/brainpower_stat.tres").duplicate(),
 }
 

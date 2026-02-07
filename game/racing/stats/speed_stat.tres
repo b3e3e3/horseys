@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="CurveStat" format=3 uid="uid://c0sj4h4mni6bp"]
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://c0sj4h4mni6bp"]
 
 [ext_resource type="Curve" uid="uid://blbutw07i20lo" path="res://racing/stats/speed_curve.tres" id="1_417m1"]
-[ext_resource type="Script" uid="uid://dcyj381mnkg6e" path="res://racing/stats/curve_stat.gd" id="2_u7von"]
+[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stats/stat.gd" id="2_417m1"]
 
 [resource]
-script = ExtResource("2_u7von")
-scale = 2.0
+script = ExtResource("2_417m1")
 display_name = "Speed"
+curve_scale = 5.0
 offset_value = 15.0
-stat_travel_rate = 0.1
-metadata/_custom_type_script = "uid://dcyj381mnkg6e"
+stat_travel_speed = 50.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"

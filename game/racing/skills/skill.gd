@@ -22,7 +22,7 @@ func activate(_info: RaceInfo, _horsey: Horsey) -> void:
 func can_activate(_info: RaceInfo, horsey: Horsey) -> bool:
 	if current_status == Status.ACTIVE: return false
 	var random := randf()
-	return random < minf(bp_effectiveness * horsey.stats["brainpower"].current_value, 1.0)
+	return random < minf(bp_effectiveness * horsey.stats["brainpower"].get_value(), 1.0)
 
 func reset() -> void:
 	current_status = Status.IDLE

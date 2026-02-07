@@ -59,13 +59,13 @@ func boost_stat(stat_name: String, by: Variant, duration: float = 3.0):
 	print("%s boost finished" % stat_name)
 
 func process_stats(delta: float) -> void:
-	var stam_rate = (stats["stamina"].scale - (stats["stamina"].base_value / (stats["stamina"].max_value * 100)))
+	# var stam_rate = (stats["stamina"].scale - (stats["stamina"].base_value / (stats["stamina"].max_value * 100)))
 	# stats["stamina"].stat_travel_rate = delta
 	# print((stats["stamina"].base_value / (stats["stamina"].max_value / 2)))
-	stats["stamina"].set_target(0)
+	stats["stamina"].target_value = 0
 
 	if stats["stamina"].get_value() <= 0:
-		stats["speed"].set_target(0)
+		stats["speed"].target_value = 0
 
 	for stat in stats.values():
 		stat.process_stat(delta)
@@ -79,7 +79,7 @@ func process_run(delta: float) -> void:
 	process_stats(delta)
 
 
-	var inc: float = stats["speed"].current_value * delta
+	var inc: float = stats["speed"].get_value() * delta
 	anim_counter += inc * stats["speed"].get_utilization() * 2
 	progress += inc
 	total_progress += inc / path.curve.get_baked_length()
