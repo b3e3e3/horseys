@@ -18,12 +18,12 @@ func can_activate(info: RaceInfo, horsey: Horsey) -> bool:
 	match condition_style:
 		"ALL":
 			for c in conditions:
-				if c.can_activate(info, horsey) == false:
+				if c.can_activate(self , info, horsey) == false:
 					return false
-		"ANY":
-			for c in conditions:
-				if c.can_activate(info, horsey) == true:
-					return true
-			result = false
+		# "ANY":
+		# 	for c in conditions:
+		# 		if c.can_activate(info, horsey) == true:
+		# 			return true
+		# 	result = false
 
 	return result

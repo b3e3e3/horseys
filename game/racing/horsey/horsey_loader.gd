@@ -42,8 +42,8 @@ func parse_horsey_from_JSON_v1(data: Dictionary) -> HorseyInfo:
 	var stats: Dictionary = data.get("stats", {})
 	for s in horsey.stats.keys():
 		if not stats.has(s): continue
-		print("Setting stat %s to %s" % [s, stats[s]])
 		horsey.stats[s].base_value = stats[s]
+		print("Setting stat %s to %s" % [s, horsey.stats[s].base_value])
 
 	# load skills
 	var skills: Array = data.get("skills", [])
@@ -74,6 +74,16 @@ func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 				print("Found phase condition")
 				var condition := PhaseCondition.new(RaceInfo.Phase.get(c.get("phase")))
 				skill.conditions.append(condition)
+			"ANY_PHASE":
+				print("Found any phase condition")
+				var phases: Array = c.get("phases", [])
+				var any := AnyCondition.new()
+
+				for p in phases:
+					var condition := PhaseCondition.new(RaceInfo.Phase.get(p))
+					any.conditions.append(condition)
+				
+				skill.conditions.append(any)
 			# TODO: PProximity type
 			_:
 				print("Didn't find a condition type match for %s" % c.get("condition_type", "unknown!"))

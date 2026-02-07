@@ -3,8 +3,8 @@
     "version": 1,
     "name": "Blue Horsey",
     "stats": {
-        "speed": 50.0,
-        "stamina": 100,
+        "speed": 400.0,
+        "stamina": 1200.0,
         "power": 100,
         "resolve": 100,
         "brainpower": 10.0

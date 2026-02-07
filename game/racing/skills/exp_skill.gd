@@ -35,7 +35,7 @@ func evaluate_exp(command, context: Dictionary = {}) -> Variant:
 		push_error(expression.get_error_text())
 		return null
 
-	var result = expression.execute(context.values(), self)
+	var result = expression.execute(context.values(), self )
 
 	if expression.has_execute_failed(): return null
 	return result

@@ -3,8 +3,8 @@
   "version": 1,
   "name": "Red Horsey",
   "stats": {
-    "speed": 45.0,
-    "stamina": 100,
+    "speed": 1200.0,
+    "stamina": 500.0,
     "power": 100,
     "resolve": 100,
     "brainpower": 10.0

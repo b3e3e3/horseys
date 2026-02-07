@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CurveStat" format=3 uid="uid://csy8y3i0q5mio"]
+
+[ext_resource type="Script" uid="uid://dcyj381mnkg6e" path="res://racing/stats/curve_stat.gd" id="2_k1td4"]
+
+[sub_resource type="Curve" id="Curve_05jci"]
+_limits = [0.0, 1.0, 0.0, 1200.0]
+_data = [Vector2(0, 0), 0.0, 0.0026666669, 0, 1, Vector2(75, 0.2), 0.0026666669, 0.0022266668, 1, 1, Vector2(150, 0.367), 0.0022266668, 0.001064, 1, 1, Vector2(400, 0.633), 0.001064, 0.0005, 1, 1, Vector2(800, 0.833), 0.0005, 0.00050000014, 1, 1, Vector2(1000, 0.933), 0.00050000014, 0.00033499987, 1, 1, Vector2(1200, 1), 0.00033499987, 0.0, 1, 0]
+point_count = 7
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[resource]
+script = ExtResource("2_k1td4")
+curve = SubResource("Curve_05jci")
+offset_value = 0.0
+display_name = "Stamina"
+stat_decline_rate = 5.0
+metadata/_custom_type_script = "uid://dcyj381mnkg6e"

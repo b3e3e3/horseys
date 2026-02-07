@@ -3,8 +3,8 @@
 	"version": 1.0,
 	"name": "Beige Horsey",
 	"stats": {
-		"speed": 51.0,
-		"stamina": 100.0,
+		"speed": 500.0,
+		"stamina": 400.0,
 		"power": 100.0,
 		"resolve": 100.0,
 		"brainpower": 10.0

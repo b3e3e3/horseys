@@ -30,6 +30,8 @@ var total_progress: float = 0.0
 
 var current_lap: int = -1
 
+var skill_act_counter: int = 0
+
 
 func _init(horsey_info: HorseyInfo = info, active_race: Race = race) -> void:
 	self.info = horsey_info
@@ -47,9 +49,19 @@ func advance_lap():
 		skill.reset()
 	# print("%s: Lap %d" % [self.name, current_lap])
 
+func process_stats(delta: float) -> void:
+	for stat in stats.values():
+		stat.process_stat(delta)
+	
+	# TODO: custom stat classes with process_stat that handles these
+	
+	stats["stamina"].decline_stat(delta)
+	if stats["stamina"].current_value <= 0:
+		stats["speed"].decline_stat(delta)
+
 func process_run(delta: float) -> void:
 	# for stat in stats:
-	stats["speed"].process_stat(delta)
+	process_stats(delta)
 
 
 	var inc: float = stats["speed"].current_value * delta
@@ -75,6 +87,10 @@ func process_run(delta: float) -> void:
 	rotation.z = sin(anim_counter) * 0.1 * stats["speed"].get_utilization()
 
 func activate_skills() -> void:
+	skill_act_counter += 1
+	if skill_act_counter % 90 != 0:
+		return
+	
 	for skill in skills:
 		if skill.can_activate(race.info, self ):
 			print(self.display_name, " activated skill ", skill.display_name)

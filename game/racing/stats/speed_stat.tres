@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CurveStat" format=3 uid="uid://c0sj4h4mni6bp"]
+
+[ext_resource type="Curve" uid="uid://blbutw07i20lo" path="res://racing/stats/speed_curve.tres" id="1_417m1"]
+[ext_resource type="Script" uid="uid://dcyj381mnkg6e" path="res://racing/stats/curve_stat.gd" id="2_u7von"]
+
+[resource]
+script = ExtResource("2_u7von")
+offset_value = 15.0
+scale = 1.0
+display_name = "Brainpower"
+stat_decline_rate = 50.0
+metadata/_custom_type_script = "uid://dcyj381mnkg6e"

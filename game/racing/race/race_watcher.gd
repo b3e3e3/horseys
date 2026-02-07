@@ -4,25 +4,27 @@ signal lead_changed(new_lead: Horsey, prev_lead: Horsey)
 
 @export var race: Race
 
-
 var prev_lead: Horsey = null
 
+@onready var tracker_label := Label.new()
+
+
+func update_text(horseys: Array[Horsey]) -> void:
+	tracker_label.text = ""
+	for i in range(horseys.size()):
+		var h := horseys[i]
+		tracker_label.text += "%d. %s: %f" % [i + 1, h.display_name, h.total_progress]
+		tracker_label.text += " | speed: %d | stamina: %d" % [h.stats["speed"].current_value, h.stats["stamina"].current_value]
+		tracker_label.text += "\n"
 
 func _ready() -> void:
-	for i in range(race.horseys.size()):
-		var h := race.horseys[i]
-		var label := Label.new()
-		label.text = "%d. %s: %f" % [i+1, h.display_name, h.total_progress]
-		%HorseList.add_child(label)
+	update_text(race.horseys)
+	%HorseList.add_child(tracker_label)
 
 func _process(_delta: float) -> void:
 	await get_tree().create_timer(0.3).timeout
 	var horseys := race.get_sorted()
-
-	for i in range(horseys.size()):
-		var h := horseys[i]
-		var label := %HorseList.get_child(i)
-		label.text = "%d. %s: %f" % [i+1, h.display_name, h.total_progress]
+	update_text(horseys)
 
 	if prev_lead and prev_lead != horseys[0]:
 		# var diff := prev_lead.total_progress - horseys[0].total_progress

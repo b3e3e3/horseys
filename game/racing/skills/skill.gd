@@ -10,13 +10,19 @@ enum Status {
 
 var current_status: Status = Status.IDLE
 
+var last_activate_time: int = 0
+
+
+func has_activated() -> bool: return last_activate_time > 0
 
 func activate(_info: RaceInfo, _horsey: Horsey) -> void:
+	last_activate_time = Time.get_ticks_msec()
 	current_status = Status.ACTIVE
 
 func can_activate(_info: RaceInfo, horsey: Horsey) -> bool:
-	return current_status != Status.ACTIVE \
-	and randf() < minf(bp_effectiveness * horsey.stats["brainpower"].current_value, 1.0)
+	if current_status == Status.ACTIVE: return false
+	var random := randf()
+	return random < minf(bp_effectiveness * horsey.stats["brainpower"].current_value, 1.0)
 
 func reset() -> void:
 	current_status = Status.IDLE
