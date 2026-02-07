@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_u7von")
+scale = 2.0
+display_name = "Speed"
 offset_value = 15.0
-scale = 1.0
-display_name = "Brainpower"
-stat_decline_rate = 50.0
+stat_travel_rate = 0.1
 metadata/_custom_type_script = "uid://dcyj381mnkg6e"

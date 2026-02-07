@@ -10,5 +10,7 @@
   "settings": {
     "typescript.tsdk": "editor/node_modules/typescript/lib",
     "editor.formatOnSave": true,
+    "godotTools.editorPath.godot4": "C:/Users/jblik/AppData/Roaming/Godot/app_userdata/Godot Version Manager/versions/Godot_v4.6-stable_win64.exe",
+    "godotTools.inlayHints.gdscript": true,
   },
 }

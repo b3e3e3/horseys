@@ -5,4 +5,4 @@ class_name BoostEffect extends SkillEffect
 
 func activate(_info: RaceInfo, horsey: Horsey):
 	for s in stats:
-		horsey.stats[s].boost_value = stats[s].get_value()
+		horsey.boost_stat(s, stats[s].get_value())

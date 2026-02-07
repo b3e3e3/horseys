@@ -12,7 +12,8 @@ func _ready() -> void:
 
 
 func process_run(delta: float) -> void:
-	stats["speed"].set_value(move_toward(stats["speed"].current_value, controller.horseys[0].stats["speed"].current_value, delta * 10))
+	# stats["speed"].set_value(move_toward(stats["speed"].current_value, controller.horseys[0].stats["speed"].current_value, delta * 10))
+	stats["speed"].set_target(controller.horseys[0].stats["speed"].current_value)
 
 	controller.look_at(controller.horseys[0].global_position)
 	controller.camera.fov = BASE_FOV + (stats["speed"].current_value / 10)

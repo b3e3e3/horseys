@@ -49,15 +49,30 @@ func advance_lap():
 		skill.reset()
 	# print("%s: Lap %d" % [self.name, current_lap])
 
+func boost_stat(stat_name: String, by: Variant, duration: float = 3.0):
+	print("Boosting stat %s by %f for %ds" % [stat_name, by, duration])
+
+	stats[stat_name].target_value += by
+	await get_tree().create_timer(duration).timeout
+	stats[stat_name].target_value -= by
+
+	print("%s boost finished" % stat_name)
+
 func process_stats(delta: float) -> void:
+	var stam_rate = (stats["stamina"].scale - (stats["stamina"].base_value / (stats["stamina"].max_value * 100)))
+	# stats["stamina"].stat_travel_rate = delta
+	# print((stats["stamina"].base_value / (stats["stamina"].max_value / 2)))
+	stats["stamina"].set_target(0)
+
+	if stats["stamina"].get_value() <= 0:
+		stats["speed"].set_target(0)
+
 	for stat in stats.values():
 		stat.process_stat(delta)
 	
 	# TODO: custom stat classes with process_stat that handles these
 	
-	stats["stamina"].decline_stat(delta)
-	if stats["stamina"].current_value <= 0:
-		stats["speed"].decline_stat(delta)
+	# stats["stamina"].decline_stat(delta) # this is already taken care of by move_towards_target_value in process_stat
 
 func process_run(delta: float) -> void:
 	# for stat in stats:

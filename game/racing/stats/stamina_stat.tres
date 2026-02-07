@@ -12,7 +12,6 @@ metadata/_snap_count = 20
 [resource]
 script = ExtResource("2_k1td4")
 curve = SubResource("Curve_05jci")
-offset_value = 0.0
 display_name = "Stamina"
-stat_decline_rate = 5.0
+stat_travel_rate = 1.0
 metadata/_custom_type_script = "uid://dcyj381mnkg6e"
