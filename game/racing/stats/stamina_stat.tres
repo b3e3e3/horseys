@@ -8,4 +8,5 @@ script = ExtResource("2_k1td4")
 display_name = "Stamina"
 curve = ExtResource("1_y37jt")
 curve_scale = 2.0
+stat_travel_speed = 5.0
 metadata/_custom_type_script = "uid://b6shcxyolmom0"
