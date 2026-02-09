@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bufecoyvkxb1n"]
+
+[ext_resource type="Script" uid="uid://t6eohv44dima" path="res://racing/horsey/horsey.gd" id="1_fv5kw"]
+[ext_resource type="PackedScene" uid="uid://sivk4pyybbbg" path="res://racing/horsey/models/beige_horsey.tscn" id="1_xbnre"]
+[ext_resource type="PackedScene" uid="uid://cifleitmp1peh" path="res://racing/skills/ui/skill_toast.tscn" id="2_fv5kw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2xnf1"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="Horsey" type="PathFollow3D" unique_id=941065090]
+script = ExtResource("1_fv5kw")
+
+[node name="PlaceholderHorsey" parent="." unique_id=1671135741 instance=ExtResource("1_xbnre")]
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1013242443]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3, 0)
+visible = false
+centered = false
+pixel_size = 0.002
+billboard = 1
+fixed_size = true
+texture = SubResource("ViewportTexture_2xnf1")
+
+[node name="SkillToastPoint" type="Node3D" parent="." unique_id=1875414997]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3, 0)
+
+[node name="Panel" parent="." unique_id=2081873021 node_paths=PackedStringArray("follow_target") instance=ExtResource("2_fv5kw")]
+size_flags_horizontal = 3
+follow_target = NodePath("../SkillToastPoint")
+offset = Vector2(0, 0)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=2094124866]
+custom_minimum_size = Vector2(768, 128)
+anchors_preset = -1
+anchor_right = 0.33333334
+anchor_bottom = 0.09876543
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1033756041]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(384, 64)
+render_target_update_mode = 4
+
+[connection signal="skill_activated" from="." to="Panel" method="_on_horsey_skill_activated"]

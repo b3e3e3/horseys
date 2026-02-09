@@ -1,5 +1,7 @@
 class_name Horsey extends PathFollow3D
 
+signal skill_activated(skill: Skill)
+
 @onready var race: Race
 # @onready var skill_act_points: Array[float] = race.info.skill_act_points
 @onready var mesh: Node3D = get_child(0)
@@ -47,6 +49,9 @@ func initialize():
 func _ready() -> void:
 	anim_counter = 0.0
 	initialize()
+
+	if info.scene:
+		add_child(info.scene.instantiate())
 
 func advance_lap():
 	current_lap += 1
@@ -133,3 +138,4 @@ func activate_skills() -> void:
 		if skill.can_activate(race.info, self ):
 			print(self.display_name, " activated skill ", skill.display_name, ". Phase? ", race.info.Phase.find_key(race.info.get_current_phase(self )))
 			skill.activate(race.info, self )
+			skill_activated.emit(skill)

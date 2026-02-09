@@ -52,6 +52,8 @@ func get_horseys(ignore_camera: bool = true) -> Array[Horsey]:
 
 func _enter_tree() -> void:
 	loader = HorseyLoader.new()
+	var placeholder := find_child("PlaceholderHorsey")
+	if placeholder: placeholder.queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -60,8 +62,11 @@ func _ready() -> void:
 	for i in range(ids.size()):
 		var id := ids[i]
 		var horsey_info := loader.load_horsey(id)
-		var horsey := Horsey.new(horsey_info, self )
-		horsey.add_child(horsey_info.scene.instantiate())
+		# var horsey := Horsey.new(horsey_info, self )
+		var horsey: Horsey = load("res://racing/horsey/horsey.tscn").instantiate()
+		horsey.info = horsey_info
+		horsey.race = self
+		# horsey.add_child(horsey_info.scene.instantiate())
 
 		var pos := 0.0
 		if ids.size() > 1:
