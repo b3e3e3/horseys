@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="CompoundSkill" load_steps=10 format=3 uid="uid://c6iqiy7qf4ln6"]
+[gd_resource type="Resource" script_class="CompoundSkill" format=3 uid="uid://c6iqiy7qf4ln6"]
 
 [ext_resource type="Script" uid="uid://cxb0t1ogc7dit" path="res://racing/skills/conditions/skill_condition.gd" id="1_o5nrd"]
 [ext_resource type="Script" uid="uid://belidhfjcd420" path="res://racing/skills/conditions/phase_condition.gd" id="2_y475s"]
 [ext_resource type="Script" uid="uid://2xr2fp0y4vkj" path="res://racing/skills/effects/skill_effect.gd" id="3_5mbpk"]
-[ext_resource type="Script" uid="uid://dplyijyp361j4" path="res://racing/skills/effects/boost_effect.gd" id="4_4cc6b"]
+[ext_resource type="Script" uid="uid://dplyijyp361j4" path="res://racing/skills/effects/boost_stat_effect.gd" id="4_4cc6b"]
 [ext_resource type="Script" uid="uid://crrxdwehuib3n" path="res://racing/stats/rand_value.gd" id="5_7asfs"]
 [ext_resource type="Script" uid="uid://8ks6eybggo6f" path="res://racing/skills/compound_skill.gd" id="6_1i1u4"]
 

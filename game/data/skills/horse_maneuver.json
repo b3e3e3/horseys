@@ -5,14 +5,28 @@
   "bp_effectiveness": 1.0,
   "conditions": [
     {
-      "condition_type": "PHASE",
-      "phase": "MID"
+      "condition_type": "ANY_PHASE",
+      "phases": [
+        "EARLY",
+        "LATE",
+        "FINAL"
+      ]
+    },
+    {
+      "condition_type": "COOLDOWN",
+      "time": 10000
     }
   ],
   "effects": [
     {
+      "effect_type": "STAT_SET",
+      "min": 75.0,
+      "max": 200.0,
+      "stat": "stamina"
+    },
+    {
       "effect_type": "STAT_BOOST",
-      "min": 50.0,
+      "min": 0.0,
       "max": 100.0,
       "stat": "speed"
     }

@@ -11,7 +11,11 @@ enum Status {
 var current_status: Status = Status.IDLE
 
 var last_activate_time: int = 0
+var _last_activate_phase: RaceInfo.Phase
 
+
+func has_activated_this_phase(info: RaceInfo, horsey: Horsey) -> bool:
+	return info.get_current_phase(horsey) == _last_activate_phase
 
 func has_activated() -> bool: return last_activate_time > 0
 
@@ -22,7 +26,7 @@ func activate(_info: RaceInfo, _horsey: Horsey) -> void:
 func can_activate(_info: RaceInfo, horsey: Horsey) -> bool:
 	if current_status == Status.ACTIVE: return false
 	var random := randf()
-	return random < minf(bp_effectiveness * horsey.stats["brainpower"].get_value(), 1.0)
+	return random < minf(bp_effectiveness * horsey.stats["brainpower"].get_value(), 1.0) and not current_status == Status.ACTIVE
 
 func reset() -> void:
 	current_status = Status.IDLE

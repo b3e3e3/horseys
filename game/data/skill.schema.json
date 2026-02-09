@@ -86,8 +86,8 @@
                                 "const": "COOLDOWN"
                             },
                             "time": {
-                                "type": "number",
-                                "default": "30000.0"
+                                "type": "integer",
+                                "default": 30000
                             }
                         },
                         "required": [
@@ -129,6 +129,7 @@
                         "type": "string",
                         "enum": [
                             "STAT_BOOST",
+                            "STAT_SET",
                             "STAT_DEBUFF_SELF",
                             "STAT_DEBUFF_OTHERS",
                             "PRINT"
@@ -143,6 +144,7 @@
                                 "type": "string",
                                 "enum": [
                                     "STAT_BOOST",
+                                    "STAT_SET",
                                     "STAT_DEBUFF_SELF",
                                     "STAT_DEBUFF_OTHERS"
                                 ]

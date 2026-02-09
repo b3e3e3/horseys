@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://csy8y3i0q5mio"]
+[gd_resource type="Resource" script_class="StaminaStat" format=3 uid="uid://csy8y3i0q5mio"]
 
 [ext_resource type="Curve" uid="uid://cn2145hndkc5c" path="res://racing/stats/stamina_curve.tres" id="1_y37jt"]
-[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stats/stat.gd" id="2_k1td4"]
+[ext_resource type="Script" uid="uid://cxhcc1bn4k8v6" path="res://racing/stats/stamina_stat.gd" id="2_y37jt"]
 
 [resource]
-script = ExtResource("2_k1td4")
+script = ExtResource("2_y37jt")
 display_name = "Stamina"
 curve = ExtResource("1_y37jt")
-curve_scale = 2.0
-stat_travel_speed = 5.0
+curve_scale = 10.0
+stat_travel_speed = 2.0
 metadata/_custom_type_script = "uid://b6shcxyolmom0"

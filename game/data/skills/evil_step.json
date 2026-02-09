@@ -5,14 +5,8 @@
   "bp_effectiveness": 1.0,
   "conditions": [
     {
-      "condition_type": "ANY_PHASE",
-      "phases": [
-        "EARLY",
-        "LATE"
-      ]
-    },
-    {
-      "condition_type": "COOLDOWN"
+      "condition_type": "COOLDOWN",
+      "time": 10000
     }
   ],
   "effects": [

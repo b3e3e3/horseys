@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Stat" format=3 uid="uid://c2jypfqpgvy4e"]
+
+[ext_resource type="Curve" uid="uid://blbutw07i20lo" path="res://racing/stats/speed_curve.tres" id="1_kpq3g"]
+[ext_resource type="Script" uid="uid://b6shcxyolmom0" path="res://racing/stats/stat.gd" id="2_p5h3u"]
+
+[resource]
+script = ExtResource("2_p5h3u")
+display_name = "Power"
+offset_value = 5.0
+stat_travel_speed = 2.0
+metadata/_custom_type_script = "uid://b6shcxyolmom0"

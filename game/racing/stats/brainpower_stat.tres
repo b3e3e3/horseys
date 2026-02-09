@@ -11,5 +11,5 @@ metadata/_snap_count = 20
 
 [resource]
 script = ExtResource("1_ai087")
-display_name = "Stamina"
+display_name = "Brainpower"
 curve = SubResource("Curve_05jci")
