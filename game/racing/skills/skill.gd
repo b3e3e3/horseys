@@ -11,7 +11,7 @@ enum Status {
 var current_status: Status = Status.IDLE
 
 var last_activate_time: int = 0
-var _last_activate_phase: RaceInfo.Phase
+var _last_activate_phase: RaceInfo.Phase = RaceInfo.Phase.START
 
 
 func has_activated_this_phase(info: RaceInfo, horsey: Horsey) -> bool:

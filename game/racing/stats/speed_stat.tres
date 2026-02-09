@@ -8,5 +8,6 @@ script = ExtResource("2_417m1")
 display_name = "Speed"
 curve_scale = 5.0
 offset_value = 15.0
+target_value = null
 stat_travel_speed = 50.0
 metadata/_custom_type_script = "uid://b6shcxyolmom0"

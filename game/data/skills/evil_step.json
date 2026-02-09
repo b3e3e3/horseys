@@ -7,14 +7,21 @@
     {
       "condition_type": "COOLDOWN",
       "time": 10000
+    },
+    {
+      "condition_type": "ANY_PHASE",
+      "phases": [
+        "MID",
+        "LATE"
+      ]
     }
   ],
   "effects": [
     {
       "effect_type": "STAT_BOOST",
       "stat": "speed",
-      "min": 100.0,
-      "max": 350.0
+      "min": 50.0,
+      "max": 175.0
     },
     {
       "effect_type": "PRINT",

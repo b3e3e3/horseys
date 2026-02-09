@@ -159,6 +159,10 @@
                                     "brainpower"
                                 ]
                             },
+                            "duration": {
+                                "type": "number",
+                                "default": 3.0
+                            },
                             "min": {
                                 "type": "number"
                             },

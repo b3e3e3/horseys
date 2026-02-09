@@ -116,6 +116,8 @@ func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 				var effect := BoostStatEffect.new()
 				var value := _parse_stat_value_v1(e)
 
+				effect.duration = e.get("duration", 3.0)
+
 				effect.stats[stat_name] = value
 				skill.effects.append(effect)
 			"STAT_SET":
@@ -124,6 +126,8 @@ func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 				
 				var effect := SetStatEffect.new()
 				var value := _parse_stat_value_v1(e)
+
+				effect.duration = e.get("duration", -1)
 
 				effect.stats[stat_name] = value
 				skill.effects.append(effect)

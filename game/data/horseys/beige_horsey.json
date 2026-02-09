@@ -3,15 +3,14 @@
 	"version": 1.0,
 	"name": "Beige Horsey",
 	"stats": {
-		"speed": 500.0,
-		"stamina": 400.0,
-		"power": 100.0,
+		"speed": 6.0,
+		"stamina": 1200.0,
+		"power": 1200.0,
 		"resolve": 100.0,
-		"brainpower": 10.0
+		"brainpower": 1200.0
 	},
 	"skills": [
-		"scary_move",
-		"evil_step"
+		"the_final_question"
 	],
 	"scene": "res://racing/horsey/models/beige_horsey.tscn"
 }

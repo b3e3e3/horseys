@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c464g5o1rcs7q"
-path="res://.godot/imported/enemy_spawn_down.png-958a279fb52201087c245ac630ca272d.ctex"
+uid="uid://tdeh7t00766b"
+path="res://.godot/imported/stamina_icon.png-71d5fd4a154b651e4e39e004f0d72a22.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/rpg icons/Buffs/enemy_spawn_down.png"
-dest_files=["res://.godot/imported/enemy_spawn_down.png-958a279fb52201087c245ac630ca272d.ctex"]
+source_file="res://racing/stats/ui/stamina_icon.png"
+dest_files=["res://.godot/imported/stamina_icon.png-71d5fd4a154b651e4e39e004f0d72a22.ctex"]
 
 [params]
 

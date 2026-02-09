@@ -7,7 +7,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="Gradient" id="Gradient_jp7f1"]
-colors = PackedColorArray(0.9764706, 0.6392157, 0.105882354, 0.42745098, 1, 0.9882353, 0.2509804, 0.85490197)
+colors = PackedColorArray(0.17, 0.17, 0.17, 0.15686275, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kd182"]
 gradient = SubResource("Gradient_jp7f1")

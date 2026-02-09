@@ -13,3 +13,4 @@ metadata/_snap_count = 20
 script = ExtResource("1_ai087")
 display_name = "Brainpower"
 curve = SubResource("Curve_05jci")
+curve_scale = 1.0

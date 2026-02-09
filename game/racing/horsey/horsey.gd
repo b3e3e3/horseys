@@ -65,20 +65,24 @@ func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.
 	print("Temporarily boosting stat %s by %f for %ds" % [stat_name, by, duration])
 
 	stats[stat_name].target_value += by
-	await get_tree().create_timer(duration).timeout
-	stats[stat_name].target_value -= by
+	stats[stat_name].status = Stat.Status.BOOSTING
+	if duration > 0:
+		stats[stat_name].status = Stat.Status.IDLE
+		await get_tree().create_timer(duration).timeout
+		stats[stat_name].target_value -= by
 
-	print("%s boost finished" % stat_name)
+		print("%s boost finished" % stat_name)
 
 func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0):
 	print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
 
 	var old_value = stats[stat_name].get_driver_value()
 	stats[stat_name].set_driver_value(to)
-	await get_tree().create_timer(duration).timeout
-	stats[stat_name].set_driver_value(old_value)
+	if duration > 0:
+		await get_tree().create_timer(duration).timeout
+		stats[stat_name].set_driver_value(old_value)
 
-	print("%s set finished" % stat_name)
+		print("%s set finished" % stat_name)
 
 
 func process_stats(delta: float) -> void:
@@ -87,13 +91,15 @@ func process_stats(delta: float) -> void:
 	# print((stats["stamina"].base_value / (stats["stamina"].max_value / 2)))
 	# stats["stamina"].target_value = 0
 	# if stats["stamina"].get_value() <= 0:
-	var speed_target = stats["speed"].base_value * ceil(stats["stamina"].get_utilization())
+	var speed_target = stats["speed"].target_value * ceil(stats["stamina"].get_utilization())
+	var power_modifier := 10.0
 	if speed_target >= stats["speed"].get_driver_value():
-		stats["speed"].stat_travel_speed = (stats["power"].get_value()) * 3
+		stats["speed"].stat_travel_speed = (stats["power"].get_value()) * power_modifier
 	else:
-		stats["speed"].stat_travel_speed = ((stats["power"].offset_value + stats["power"].curve_scale) - (stats["power"].get_value() - stats["power"].offset_value)) * 3
+		stats["speed"].stat_travel_speed = ((stats["power"].offset_value + stats["power"].curve_scale) - (stats["power"].get_value() - stats["power"].offset_value))
 
-	stats["speed"].target_value = speed_target
+	# if stats["speed"].status != Stat.Status.BOOSTING:
+	stats["speed"].base_value = speed_target
 
 	for stat in stats.values():
 		stat.process_stat(delta)
@@ -108,7 +114,7 @@ func process_run(delta: float) -> void:
 
 
 	var inc: float = stats["speed"].get_value() * delta
-	anim_counter += inc * stats["speed"].get_utilization() + 0.1
+	anim_counter += inc * stats["speed"].get_utilization() + 0.3
 	progress += inc
 	total_progress += inc / path.curve.get_baked_length()
 

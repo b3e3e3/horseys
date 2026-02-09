@@ -1,0 +1,21 @@
+{
+    "$schema": "../skill.schema.json",
+    "version": 1,
+    "name": "The Final Question?!",
+    "bp_effectiveness": 1.0,
+    "conditions": [
+        {
+            "condition_type": "PHASE",
+            "phase": "LATE"
+        }
+    ],
+    "effects": [
+        {
+            "effect_type": "STAT_BOOST",
+            "stat": "speed",
+            "min": 700.0,
+            "max": 1200.0,
+            "duration": 10
+        }
+    ]
+}

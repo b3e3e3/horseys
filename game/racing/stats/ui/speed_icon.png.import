@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1royi4l5lxw2"
-path="res://.godot/imported/healing_spell.png-e2056a53ba555b8c505ad0484c4aa43c.ctex"
+uid="uid://cfltsfydgxeq4"
+path="res://.godot/imported/speed_icon.png-47ba93cd5a7b911a1a9d333d3789fafb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/rpg icons/Spells/healing_spell.png"
-dest_files=["res://.godot/imported/healing_spell.png-e2056a53ba555b8c505ad0484c4aa43c.ctex"]
+source_file="res://racing/stats/ui/speed_icon.png"
+dest_files=["res://.godot/imported/speed_icon.png-47ba93cd5a7b911a1a9d333d3789fafb.ctex"]
 
 [params]
 

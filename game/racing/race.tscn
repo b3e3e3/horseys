@@ -32,24 +32,24 @@ noise_type = 0
 frequency = 0.2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gyya5"]
-width = 4096
-height = 2048
 noise = SubResource("FastNoiseLite_vk53d")
 color_ramp = SubResource("Gradient_7xiek")
+seamless = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk53d"]
 albedo_texture = SubResource("NoiseTexture2D_gyya5")
+uv1_scale = Vector3(20, 20, 20)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gyya5"]
 material = SubResource("StandardMaterial3D_vk53d")
-size = Vector2(400, 200)
+size = Vector2(500, 500)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fpa16"]
 
 [sub_resource type="Curve3D" id="Curve3D_fpa16"]
 closed = true
 _data = {
-"points": PackedVector3Array(40, 0, 0, -40, 0, 0, 0, 0, 80, 0, 0, 80, 0, 0, -80, -160, 0, 0, -40, 0, 0, 40, 0, 0, 0, 0, -80, 0, 0, -80, 0, 0, 80, 160, 0, 0),
+"points": PackedVector3Array(40, 0, 0, -40, 0, 0, 0, 0, 97, 0, 0, 80, 0, 0, -80, -210, 0, 0, -40, 0, 0, 40, 0, 0, 0, 0, -97, 0, 0, -80, 0, 0, 80, 210, 0, 0),
 "tilts": PackedFloat32Array(0, 0.34906584, 0, 0.34906584)
 }
 point_count = 4
@@ -85,7 +85,7 @@ curve = SubResource("Curve3D_fpa16")
 debug_custom_color = Color(1, 0, 0, 1)
 
 [node name="ProgressLeadCameraHorsey" type="PathFollow3D" parent="RacePath" unique_id=1206473560]
-transform = Transform3D(-4.3710777e-08, 0, 0.9999858, 0, 0.9999914, 0, -0.999986, 0, -4.3710767e-08, 0, 0, 80)
+transform = Transform3D(-4.371047e-08, 0, 0.99997896, 0, 0.999984, 0, -0.999979, 0, -4.3710468e-08, 0, 0, 97)
 script = ExtResource("4_gyya5")
 
 [node name="HorseyProgressLead" type="Node3D" parent="RacePath/ProgressLeadCameraHorsey" unique_id=1841888003]
@@ -96,7 +96,7 @@ script = ExtResource("9_kufqj")
 transform = Transform3D(1.0000131, 0, 0, 0, 1.0000069, 0, 0, 0, 1.0000135, 0, 0, 0)
 
 [node name="LapLeadCameraHorsey" type="PathFollow3D" parent="RacePath" unique_id=1222026362]
-transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 80)
+transform = Transform3D(-4.3710823e-08, 0, 0.9999864, 0, 0.9999931, 0, -0.99998707, 0, -4.3710795e-08, 0, 0, 97)
 script = ExtResource("4_gyya5")
 
 [node name="HorseyLapLead" type="Node3D" parent="RacePath/LapLeadCameraHorsey" unique_id=2047616693]

@@ -3,6 +3,7 @@ class_name RaceInfo extends Resource
 const DEBUG_reset_on_lap: bool = true
 
 enum Phase {
+	START,
 	EARLY,
 	MID,
 	LATE,
@@ -12,6 +13,7 @@ enum Phase {
 
 # @export var skill_act_points: Array[float] = [0.25, 0.5, 0.75, 1.0,]
 @export var phases: Dictionary[Phase, float] = {
+	Phase.START: - 1.0,
 	Phase.EARLY: 0.0,
 	Phase.MID: 0.3,
 	Phase.LATE: 0.6,

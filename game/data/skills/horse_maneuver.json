@@ -20,9 +20,10 @@
   "effects": [
     {
       "effect_type": "STAT_SET",
-      "min": 75.0,
-      "max": 200.0,
-      "stat": "stamina"
+      "min": 25.0,
+      "max": 100.0,
+      "stat": "stamina",
+      "duration": 3.0
     },
     {
       "effect_type": "STAT_BOOST",
