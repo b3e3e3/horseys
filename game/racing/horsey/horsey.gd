@@ -64,12 +64,14 @@ func advance_lap():
 func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.0):
 	print("Temporarily boosting stat %s by %f for %ds" % [stat_name, by, duration])
 
-	stats[stat_name].target_value += by
-	stats[stat_name].status = Stat.Status.BOOSTING
+	# stats[stat_name].target_value += by
+	# stats[stat_name].status = Stat.Status.BOOSTING
+	stats[stat_name].add_target_boost(by)
 	if duration > 0:
-		stats[stat_name].status = Stat.Status.IDLE
+		# stats[stat_name].status = Stat.Status.IDLE
 		await get_tree().create_timer(duration).timeout
-		stats[stat_name].target_value -= by
+		# stats[stat_name].target_value -= by
+		stats[stat_name].remove_target_boost(by)
 
 		print("%s boost finished" % stat_name)
 
@@ -91,15 +93,14 @@ func process_stats(delta: float) -> void:
 	# print((stats["stamina"].base_value / (stats["stamina"].max_value / 2)))
 	# stats["stamina"].target_value = 0
 	# if stats["stamina"].get_value() <= 0:
-	var speed_target = stats["speed"].target_value * ceil(stats["stamina"].get_utilization())
+	var speed_target = stats["speed"].base_value * ceil(stats["stamina"].get_utilization())
 	var power_modifier := 10.0
 	if speed_target >= stats["speed"].get_driver_value():
 		stats["speed"].stat_travel_speed = (stats["power"].get_value()) * power_modifier
 	else:
-		stats["speed"].stat_travel_speed = ((stats["power"].offset_value + stats["power"].curve_scale) - (stats["power"].get_value() - stats["power"].offset_value))
+		stats["speed"].stat_travel_speed = ((stats["power"].curve_scale + stats["power"].offset_value) - (stats["power"].get_value() - stats["power"].offset_value))
 
-	# if stats["speed"].status != Stat.Status.BOOSTING:
-	stats["speed"].base_value = speed_target
+	stats["speed"].target_value = speed_target
 
 	for stat in stats.values():
 		stat.process_stat(delta)
@@ -114,7 +115,7 @@ func process_run(delta: float) -> void:
 
 
 	var inc: float = stats["speed"].get_value() * delta
-	anim_counter += inc * stats["speed"].get_utilization() + 0.3
+	anim_counter += inc * stats["speed"].get_utilization() + 0.1
 	progress += inc
 	total_progress += inc / path.curve.get_baked_length()
 

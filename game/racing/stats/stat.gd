@@ -1,10 +1,5 @@
 class_name Stat extends Resource
 
-enum Status {
-	IDLE,
-	BOOSTING,
-}
-
 @export var display_name: String
 
 @export var curve: Curve = preload("res://racing/stats/speed_curve.tres") # TODO! don't assume speed curve
@@ -21,7 +16,7 @@ var max_value: Variant = 1200.0
 
 var _driver_value: Variant
 
-var status: Status = Status.IDLE
+var _target_boosts: Array = []
 
 
 func initialize_values(\
@@ -40,7 +35,7 @@ func _init(name: String = "Unnamed Stat"):
 		self.display_name = name
 
 func _to_string() -> String:
-	return "%s: %.3f - %.3f/%.3f(T:%.3s)" % [ self.display_name, self.get_value(), self.get_driver_value(), self.base_value, self.target_value]
+	return "%s: %.3f - %.3f/%.3f(T:%.3s)" % [ self.display_name, self.get_value(), self.get_driver_value(), self.base_value, self.get_target_value_with_boosts()]
 
 func _get_sampled_value(val: Variant) -> Variant:
 	return curve_scale * curve.sample(val) + offset_value
@@ -48,6 +43,21 @@ func _get_sampled_value(val: Variant) -> Variant:
 func _get_sampled_value_exceeding_domain(val: Variant) -> Variant:
 	var _sample_base = val / curve.max_domain
 	return (_get_sampled_value(val) + _sample_base)
+
+func get_target_boost(idx: int) -> Variant:
+	return _target_boosts.get(idx)
+
+func add_target_boost(value: Variant) -> void:
+	_target_boosts.append(value)
+
+func remove_target_boost(value: Variant) -> void: # TODO: don't do this by value maybe?
+	_target_boosts.remove_at(_target_boosts.find(value))
+
+func get_target_value_with_boosts() -> Variant:
+	var sum := func(accum, boost):
+		return accum + boost
+
+	return _target_boosts.reduce(sum, target_value)
 
 func set_driver_value(new_val: Variant) -> void:
 	_driver_value = new_val
@@ -62,7 +72,8 @@ func get_value() -> Variant:
 func process_stat(delta: float) -> void:
 	# if target_value == null: target_value = get_driver_value()
 	var travel_delta = delta * stat_travel_speed
-	_driver_value = move_toward(get_driver_value(), target_value, travel_delta)
+	# _driver_value = move_toward(get_driver_value(), target_value, travel_delta)
+	_driver_value = move_toward(get_driver_value(), get_target_value_with_boosts(), travel_delta)
 
 # func get_effectiveness() -> float:
 # 	return min(_driver_value / max_value, max_effectiveness)

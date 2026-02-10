@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://d1sj76rg7jehq"]
+[gd_scene format=4 uid="uid://d1sj76rg7jehq"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7l3r5"]
 frequency = 1.0
@@ -51,8 +51,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3io2s")
 
-[node name="Uranium Johnson" type="Node3D"]
+[node name="Uranium Johnson" type="Node3D" unique_id=2094701269]
 
-[node name="HorseLores" type="MeshInstance3D" parent="."]
+[node name="HorseLores" type="MeshInstance3D" parent="." unique_id=1431856416]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_tc7g5")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://sivk4pyybbbg"]
+[gd_scene format=4 uid="uid://sivk4pyybbbg"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5cung"]
 frequency = 0.0207
@@ -47,8 +47,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3io2s")
 
-[node name="Beige Horsey" type="Node3D"]
+[node name="Beige Horsey" type="Node3D" unique_id=1807023516]
 
-[node name="HorseLores" type="MeshInstance3D" parent="."]
+[node name="HorseLores" type="MeshInstance3D" parent="." unique_id=1024728264]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_158lw")
