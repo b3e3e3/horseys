@@ -2,10 +2,14 @@ class_name Race extends Node3D
 
 signal started
 
+@export var skip_intro: bool = false
+
 @export var info: RaceInfo
 @export var race_path: Path3D
 @export var ui_node: Control
 @export var cameras: Array[CameraController]
+
+@export var intro_camera: CameraController
 
 var loader: HorseyLoader
 
@@ -86,26 +90,33 @@ func _ready() -> void:
 		if c is Horsey:
 			horseys.append(c)
 
+	if not skip_intro:
+		intro_camera.camera.make_current()
+		%IntroAnimationPlayer.play("intro_camera")
+	else:
+		_on_intro_animation_finished()
+
 
 	# if ui_node:
 	# 	ui_node.add_child(nametag)
 
 	# await get_tree().create_timer(3).timeout
+
+func start_race():
 	started.emit()
 	state = &"running"
 
 	for c in cameras:
 		c.camera.clear_current(false)
 
-	cycle_camera()
-
-func cycle_camera():
+func cycle_camera(repeat: bool = false):
 	var controller := cameras.pop_front() as CameraController
 	controller.camera.make_current()
 	cameras.push_back(controller)
 
-	await get_tree().create_timer(3).timeout
-	cycle_camera()
+	if repeat:
+		await get_tree().create_timer(3).timeout
+		cycle_camera(repeat)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -121,3 +132,12 @@ func _process(delta: float) -> void:
 	if state == &"running":
 		for h in horseys:
 			h.process_run(delta)
+
+
+func _on_intro_animation_finished(_anim_name: StringName = "") -> void:
+	# cycle_camera()
+	if not skip_intro:
+		await get_tree().create_timer(3).timeout
+	
+	start_race()
+	cycle_camera(true)

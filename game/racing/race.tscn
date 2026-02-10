@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race/race.gd" id="1_7xiek"]
 [ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race/race_info.gd" id="2_enxwj"]
 [ext_resource type="Script" uid="uid://b7muwcg8hcju" path="res://racing/horsey/camera_horsey.gd" id="4_gyya5"]
+[ext_resource type="Texture2D" uid="uid://bjgpdydgy3x1j" path="res://racing/race/ui/big_race.png" id="6_a482t"]
+[ext_resource type="AudioStream" uid="uid://qepvk34uq64j" path="res://racing/race/sound/321 go horsey.wav" id="7_w8etc"]
+[ext_resource type="AudioStream" uid="uid://cu3icb6du8j1k" path="res://racing/race/sound/horsey cheers.wav" id="8_d5ilh"]
 [ext_resource type="Script" uid="uid://cbmbwmwmtfk1j" path="res://racing/camera/camera_controller.gd" id="9_kufqj"]
 [ext_resource type="Script" uid="uid://2hay8ugp6nxm" path="res://racing/camera/overview_camera.gd" id="10_ipldh"]
 
@@ -59,11 +62,146 @@ properties/0/path = NodePath("RacePath/PathFollow3D:progress_ratio")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Race" type="Node3D" unique_id=301350355 node_paths=PackedStringArray("race_path", "cameras")]
+[sub_resource type="Animation" id="Animation_a482t"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/TextureRect:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_w8etc"]
+resource_name = "intro_camera"
+length = 6.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -1, 0, 3, 1.5, 1, -1, 0, -3, 1.5333333, 1, 8.611856, 4.278582, 0, 2.5, 1, -1.56705, 4.278857, 0, 2.5333333, 1, 1.0341883, 0.50736547, 0, 3, 1, 4.6197433, -0.90834546, 0, 3.0333333, 1, 2.5276957, 3.1950579, 0, 4, 1, 2.1443343, -0.8602648, 0, 4.0333333, 1, 2.2891538, 0.4638586, -1.5968399, 5, 1, 2.2891538, 0.4638586, 6.260994, 5.0666666, 1, -8.855, 0, 0, 5.4333334, 1, 1, 0.5, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(1.5, 1, 0, -0.70710677, 0, 0.70710677, 1.5333333, 1, -0.5, -0.5, -0.5, 0.5, 2.5, 1, 0.5, 0.5, 0.5, -0.5, 2.5333333, 1, 0.092295974, -0.7010574, 0.09229595, 0.7010574, 3, 1, 0.092295974, -0.7010574, 0.09229595, 0.7010574, 3.0333333, 1, -0.46087393, -0.5362791, -0.4608739, 0.536279, 4, 1, 0.269252, -0.65383744, 0.26925236, 0.65383726, 4.0333333, 1, 0, 0.8792041, 0, -0.47644535, 5, 1, 0, 0.8792041, 0, -0.47644538, 5.0666666, 1, 0, -0.70710677, 0, 0.70710677, 5.4333334, 1, 0, -0.70710677, 0, 0.70710677)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/TextureRect:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.4999999, 1.7666667, 2.5333333, 2.6999998, 3.4666667, 3.6333332, 4.4, 4.566667, 5.3333335),
+"transitions": PackedFloat32Array(1, 0.2176377, 1.6817932, 0.2176377, 1.6817929, 0.2176377, 1.6817929, 3.7321322, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(704, 552), Vector2(594, 388), Vector2(704, 552), Vector2(594, 388), Vector2(704, 552), Vector2(594, 388), Vector2(704, 552), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/TextureRect:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.4999999, 1.7666667, 2.5333333, 2.6999998, 3.4666667, 3.6333332, 4.4, 4.566667, 5.3333335),
+"transitions": PackedFloat32Array(1, 0.2176377, 1.6817932, 0.2176377, 1.6817929, 0.2176377, 1.6817929, 3.7321322, 1),
+"update": 0,
+"values": [Vector2(576, 324), Vector2(224, 48), Vector2(279, 130), Vector2(224, 48), Vector2(279, 130), Vector2(224, 48), Vector2(279, 130), Vector2(224, 48), Vector2(576, 324)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Control/TextureRect:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.5, 5.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("321 Go")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Crowd")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d5ilh"]
+_data = {
+&"RESET": SubResource("Animation_a482t"),
+&"intro_camera": SubResource("Animation_w8etc")
+}
+
+[node name="Race" type="Node3D" unique_id=301350355 node_paths=PackedStringArray("race_path", "cameras", "intro_camera")]
 script = ExtResource("1_7xiek")
 info = SubResource("Resource_bg0ai")
 race_path = NodePath("RacePath")
 cameras = [NodePath("RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"), NodePath("ProgressOverviewCamera"), NodePath("RacePath/LapLeadCameraHorsey/HorseyLapLead"), NodePath("ComeupOverviewCamera")]
+intro_camera = NodePath("IntroCamera")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1688906858]
 environment = SubResource("Environment_7xiek")
@@ -122,3 +260,45 @@ script = ExtResource("10_ipldh")
 sort_type = 2
 
 [node name="Camera3D" type="Camera3D" parent="ComeupOverviewCamera" unique_id=765591872]
+
+[node name="IntroCamera" type="Node3D" parent="." unique_id=1806945474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, 97)
+script = ExtResource("9_kufqj")
+metadata/_custom_type_script = "uid://cbmbwmwmtfk1j"
+
+[node name="Camera3D" type="Camera3D" parent="IntroCamera" unique_id=1569055322]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="IntroAnimationPlayer" type="AnimationPlayer" parent="IntroCamera" unique_id=1573371946]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_d5ilh")
+
+[node name="Control" type="Control" parent="IntroCamera" unique_id=343804894]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="IntroCamera/Control" unique_id=1352605721]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_a482t")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="321 Go" type="AudioStreamPlayer" parent="IntroCamera" unique_id=1739544817]
+stream = ExtResource("7_w8etc")
+
+[node name="Crowd" type="AudioStreamPlayer" parent="IntroCamera" unique_id=945749769]
+stream = ExtResource("8_d5ilh")
+
+[connection signal="animation_finished" from="IntroCamera/IntroAnimationPlayer" to="." method="_on_intro_animation_finished"]

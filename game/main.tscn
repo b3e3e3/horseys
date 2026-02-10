@@ -7,6 +7,8 @@
 [node name="Node3D" type="Node3D" unique_id=1495296358]
 
 [node name="Race" parent="." unique_id=27907233 node_paths=PackedStringArray("ui_node") instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0037078857, -0.03896761, 0.030659437)
+skip_intro = true
 ui_node = NodePath("../CanvasLayer/Control")
 
 [node name="RaceWatcher" type="Node" parent="." unique_id=1769239080 node_paths=PackedStringArray("race")]
@@ -58,4 +60,5 @@ lead_changed_phrases = Array[String](["Holy shrimp! {new} has swiped the lead fr
 check_in_phrases = Array[String](["A stunning display from {lead} leading the caravan.", "{random} is looking like a shrimp eating {lead}'s dust!", "Who will take the reigns?", "Where is {last} in all this right about now?", "I am pumped.", "{lead} sweep!!!", "I'm hoping for a dramatic turnaround from {random}, and a miracle for {last}."])
 metadata/_custom_type_script = "uid://bn5su7ct1cnrq"
 
+[connection signal="started" from="Race" to="Commentators" method="start"]
 [connection signal="lead_changed" from="RaceWatcher" to="Commentators" method="_on_race_watcher_lead_changed"]

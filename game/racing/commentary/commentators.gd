@@ -18,12 +18,15 @@ var voice: String
 # var phrase: String = ""
 
 func _ready():
-	check_in_timer.autostart = true
+	check_in_timer.autostart = false
 	check_in_timer.wait_time = 4.0
 	check_in_timer.timeout.connect(_on_check_in_timer_timeout)
 	add_child(check_in_timer)
 
 	subtitles.text = ""
+
+func start():
+	check_in_timer.start()
 
 
 # func _process(_delta: float) -> void:
@@ -43,7 +46,6 @@ func load_voices() -> Array:
 	# 				print("Found %s" % file_name)
 	# 		file_name = dir.get_next()
 	# return arr as Array
-
 	return DisplayServer.tts_get_voices_for_language("en") as Array
 
 func is_speaking() -> bool:
@@ -56,8 +58,8 @@ func stop_speaking() -> void:
 	# 	tts.stop()
 
 func _on_race_watcher_lead_changed(new_lead: Horsey, prev_lead: Horsey) -> void:
-	var phrase := get_phrase(lead_changed_phrases)\
-		.replace("{new}", new_lead.display_name)\
+	var phrase := get_phrase(lead_changed_phrases) \
+		.replace("{new}", new_lead.display_name) \
 		.replace("{prev}", prev_lead.display_name)
 	say_phrase(phrase)
 
@@ -69,9 +71,9 @@ func get_phrase(phrases: Array[String]) -> String:
 	while random == null or random == lead:
 		random = race.get_horseys().pick_random()
 
-	return phrases.pick_random()\
-	.replace("{random}", race.get_horseys().pick_random().display_name)\
-	.replace("{lead}", lead.display_name)\
+	return phrases.pick_random() \
+	.replace("{random}", race.get_horseys().pick_random().display_name) \
+	.replace("{lead}", lead.display_name) \
 	.replace("{last}", last.display_name)
 
 func say_phrase(phrase: String) -> void:

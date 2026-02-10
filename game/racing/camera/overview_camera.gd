@@ -3,6 +3,7 @@ extends CameraController
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not horseys or horseys.is_empty(): return
 	var horsey := horseys[0]
 	look_at_horsey(horsey, delta * 10)
 
