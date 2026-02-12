@@ -5,9 +5,9 @@
     "stats": {
         "speed": 400.0,
         "stamina": 1200.0,
-        "power": 100,
-        "resolve": 100,
-        "brainpower": 10.0
+        "power": 400.0,
+        "resolve": 100.0,
+        "brainpower": 300.0
     },
     "skills": [
         "scary_move",

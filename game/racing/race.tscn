@@ -6,8 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://bjgpdydgy3x1j" path="res://racing/race/ui/big_race.png" id="6_a482t"]
 [ext_resource type="AudioStream" uid="uid://qepvk34uq64j" path="res://racing/race/sound/321 go horsey.wav" id="7_w8etc"]
 [ext_resource type="AudioStream" uid="uid://cu3icb6du8j1k" path="res://racing/race/sound/horsey cheers.wav" id="8_d5ilh"]
+[ext_resource type="Texture2D" uid="uid://ybvdsctc2fkw" path="res://racing/race/ui/3.png" id="9_ksr1j"]
 [ext_resource type="Script" uid="uid://cbmbwmwmtfk1j" path="res://racing/camera/camera_controller.gd" id="9_kufqj"]
 [ext_resource type="Script" uid="uid://2hay8ugp6nxm" path="res://racing/camera/overview_camera.gd" id="10_ipldh"]
+[ext_resource type="Texture2D" uid="uid://d0c51lheyl1rv" path="res://racing/race/ui/2.png" id="10_tn6yf"]
+[ext_resource type="Texture2D" uid="uid://c23ortivwlanv" path="res://racing/race/ui/1.png" id="11_0kgim"]
+[ext_resource type="Texture2D" uid="uid://duy78u7f7ctrq" path="res://racing/race/ui/go.png" id="12_83ypj"]
+[ext_resource type="Texture2D" uid="uid://bnfnho874ly8t" path="res://racing/race/ui/results_text.png" id="13_tn6yf"]
 
 [sub_resource type="Resource" id="Resource_bg0ai"]
 script = ExtResource("2_enxwj")
@@ -74,7 +79,7 @@ tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Control/TextureRect:size")
+tracks/1/path = NodePath("IntroScreen/TextureRect:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -86,7 +91,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Control/TextureRect:position")
+tracks/2/path = NodePath("IntroScreen/TextureRect:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -98,7 +103,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Control/TextureRect:visible")
+tracks/3/path = NodePath("IntroScreen/TextureRect:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -128,7 +133,7 @@ tracks/1/keys = PackedFloat32Array(1.5, 1, 0, -0.70710677, 0, 0.70710677, 1.5333
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Control/TextureRect:size")
+tracks/2/path = NodePath("IntroScreen/TextureRect:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -140,7 +145,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Control/TextureRect:position")
+tracks/3/path = NodePath("IntroScreen/TextureRect:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -152,7 +157,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Control/TextureRect:visible")
+tracks/4/path = NodePath("IntroScreen/TextureRect:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -196,8 +201,287 @@ _data = {
 &"intro_camera": SubResource("Animation_w8etc")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_ksr1j"]
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_ksr1j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tn6yf"]
+resource_name = "finish"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0kgim"]
+_data = {
+&"RESET": SubResource("Animation_ksr1j"),
+&"finish": SubResource("Animation_tn6yf")
+}
+
+[sub_resource type="Animation" id="Animation_4r5jw"]
+resource_name = "321go"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("3:visible")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0000002, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, false, false, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("2:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0000002, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, false, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("1:visible")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0000002, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, true, false, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Go:visible")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0000002, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, false, false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_kxgak"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("1:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Go:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_btr7t"]
+_data = {
+&"321go": SubResource("Animation_4r5jw"),
+&"RESET": SubResource("Animation_kxgak")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0kgim"]
+viewport_path = NodePath("ResultsScreen/MarginContainer/Control/Panel/TextureRect/SubViewport")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83ypj"]
+atlas = ExtResource("13_tn6yf")
+region = Rect2(0, 0, 439, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5jw"]
+atlas = ExtResource("13_tn6yf")
+region = Rect2(439, 0, 439, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxgak"]
+atlas = ExtResource("13_tn6yf")
+region = Rect2(878, 0, 439, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btr7t"]
+atlas = ExtResource("13_tn6yf")
+region = Rect2(1317, 0, 439, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdw63"]
+atlas = ExtResource("13_tn6yf")
+region = Rect2(1756, 0, 439, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rewjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83ypj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxgak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btr7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdw63")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_0kgim"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_83ypj"]
+resource_name = "results"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/Panel:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-512, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4r5jw"]
+_data = {
+&"RESET": SubResource("Animation_0kgim"),
+&"results": SubResource("Animation_83ypj")
+}
+
 [node name="Race" type="Node3D" unique_id=301350355 node_paths=PackedStringArray("race_path", "cameras", "intro_camera")]
 script = ExtResource("1_7xiek")
+skip_intro = true
 info = SubResource("Resource_bg0ai")
 race_path = NodePath("RacePath")
 cameras = [NodePath("RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"), NodePath("ProgressOverviewCamera"), NodePath("RacePath/LapLeadCameraHorsey/HorseyLapLead"), NodePath("ComeupOverviewCamera")]
@@ -267,33 +551,11 @@ script = ExtResource("9_kufqj")
 metadata/_custom_type_script = "uid://cbmbwmwmtfk1j"
 
 [node name="Camera3D" type="Camera3D" parent="IntroCamera" unique_id=1569055322]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0, 0)
 
 [node name="IntroAnimationPlayer" type="AnimationPlayer" parent="IntroCamera" unique_id=1573371946]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_d5ilh")
-
-[node name="Control" type="Control" parent="IntroCamera" unique_id=343804894]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="IntroCamera/Control" unique_id=1352605721]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("6_a482t")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="321 Go" type="AudioStreamPlayer" parent="IntroCamera" unique_id=1739544817]
 stream = ExtResource("7_w8etc")
@@ -301,4 +563,210 @@ stream = ExtResource("7_w8etc")
 [node name="Crowd" type="AudioStreamPlayer" parent="IntroCamera" unique_id=945749769]
 stream = ExtResource("8_d5ilh")
 
+[node name="IntroScreen" type="Control" parent="IntroCamera" unique_id=343804894]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="IntroCamera/IntroScreen" unique_id=1352605721]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -351.99997
+offset_top = -275.99994
+offset_right = 352.0
+offset_bottom = 275.99994
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_a482t")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FinishScreen" type="Control" parent="." unique_id=1710534797]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="FinishScreen" unique_id=537105152]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Finish!"
+label_settings = SubResource("LabelSettings_ksr1j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FinishScreen" unique_id=418638628]
+libraries/ = SubResource("AnimationLibrary_0kgim")
+
+[node name="321GoScreen" type="Control" parent="." unique_id=1268900520]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="3" type="TextureRect" parent="321GoScreen" unique_id=117163993]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -311.0
+offset_top = -141.53847
+offset_right = 311.0
+offset_bottom = 141.53845
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_ksr1j")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="2" type="TextureRect" parent="321GoScreen" unique_id=982434253]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -311.0
+offset_top = -141.53847
+offset_right = 311.0
+offset_bottom = 141.53845
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_tn6yf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="1" type="TextureRect" parent="321GoScreen" unique_id=1564887833]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -311.0
+offset_top = -141.53847
+offset_right = 311.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_0kgim")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Go" type="TextureRect" parent="321GoScreen" unique_id=543228063]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -311.0
+offset_top = -141.53847
+offset_right = 311.0
+offset_bottom = 141.53845
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_83ypj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="321GoScreen" unique_id=1709886955]
+libraries/ = SubResource("AnimationLibrary_btr7t")
+
+[node name="ResultsScreen" type="Control" parent="." unique_id=2129633733]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ResultsScreen" unique_id=1698740698]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Control" type="Control" parent="ResultsScreen/MarginContainer" unique_id=1270610104]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="ResultsScreen/MarginContainer/Control" unique_id=444449487]
+layout_mode = 0
+offset_right = 449.0
+offset_bottom = 583.0
+
+[node name="TextureRect" type="TextureRect" parent="ResultsScreen/MarginContainer/Control/Panel" unique_id=1014071383]
+layout_mode = 0
+anchor_right = 12.8
+anchor_bottom = 4.0
+offset_right = -5235.2
+offset_bottom = -2172.0
+texture = SubResource("ViewportTexture_0kgim")
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="ResultsScreen/MarginContainer/Control/Panel/TextureRect" unique_id=1882424751]
+transparent_bg = true
+size = Vector2i(512, 160)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ResultsScreen/MarginContainer/Control/Panel/TextureRect/SubViewport" unique_id=1541156784]
+sprite_frames = SubResource("SpriteFrames_rewjt")
+frame_progress = 0.3731007
+centered = false
+
+[node name="Label" type="Label" parent="ResultsScreen/MarginContainer/Control/Panel" unique_id=381591336]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017463235
+anchor_top = 0.24315068
+anchor_right = 0.38602942
+anchor_bottom = 1.020548
+offset_left = 11.159008
+offset_top = 0.2431488
+offset_right = -77.32721
+offset_bottom = -377.9795
+text = "1. Horsey
+2. Horsey
+3. Horsey "
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ResultsScreen" unique_id=1343836749]
+libraries/ = SubResource("AnimationLibrary_4r5jw")
+
+[connection signal="countdown_started" from="." to="321GoScreen/AnimationPlayer" method="play" binds= ["321go"]]
+[connection signal="finished" from="." to="FinishScreen/AnimationPlayer" method="play" binds= ["finish"]]
 [connection signal="animation_finished" from="IntroCamera/IntroAnimationPlayer" to="." method="_on_intro_animation_finished"]
+[connection signal="animation_finished" from="FinishScreen/AnimationPlayer" to="ResultsScreen/AnimationPlayer" method="play" unbinds=1 binds= ["results"]]

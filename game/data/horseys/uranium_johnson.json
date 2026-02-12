@@ -5,8 +5,8 @@
   "stats": {
     "speed": 500.0,
     "stamina": 600.0,
-    "power": 100,
-    "resolve": 100,
+    "power": 100.0,
+    "resolve": 100.0,
     "brainpower": 10.0
   },
   "skills": [

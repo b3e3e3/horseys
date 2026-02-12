@@ -8,5 +8,5 @@ class_name BoostStatEffect extends SkillEffect
 func activate(_info: RaceInfo, horsey: Horsey):
 	for s in stats:
 		var val = stats[s].get_value()
-		print("Boosting stat %s by %f" % [s, val])
+		print("Boosting stat %s by %f for duration %s" % [s, val, duration])
 		horsey.temporarily_boost_stat(s, val, duration)

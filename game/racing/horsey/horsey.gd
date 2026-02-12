@@ -1,13 +1,11 @@
 class_name Horsey extends PathFollow3D
 
 signal skill_activated(skill: Skill)
+signal crossed_finish
 
 @onready var race: Race
-# @onready var skill_act_points: Array[float] = race.info.skill_act_points
 @onready var mesh: Node3D = get_child(0)
 @onready var path: Path3D = get_parent()
-
-@export var current_skill_act_point: int = 0
 
 @export var info: HorseyInfo = HorseyInfo.new()
 
@@ -55,25 +53,28 @@ func _ready() -> void:
 
 func advance_lap():
 	current_lap += 1
-	current_skill_act_point = 0
 	# DEBUG: reset skills
-	initialize()
+	# initialize()
 	# print("%s: Lap %d" % [self.name, current_lap])
+	
+	if current_lap == 1: # HACK
+		crossed_finish.emit()
+	
 
 # TODO: refactor to Stat while maintaining the timer
 func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.0):
-	print("Temporarily boosting stat %s by %f for %ds" % [stat_name, by, duration])
+	print("Temporarily boosting stat %s by %f for duration %ds" % [stat_name, by, duration])
 
 	# stats[stat_name].target_value += by
 	# stats[stat_name].status = Stat.Status.BOOSTING
-	stats[stat_name].add_target_boost(by)
-	if duration > 0:
-		# stats[stat_name].status = Stat.Status.IDLE
-		await get_tree().create_timer(duration).timeout
-		# stats[stat_name].target_value -= by
-		stats[stat_name].remove_target_boost(by)
+	var boost_id := stats[stat_name].add_target_boost(by)
+	# if duration > 0:
+	# stats[stat_name].status = Stat.Status.IDLE
+	await get_tree().create_timer(duration).timeout
+	# stats[stat_name].target_value -= by
+	stats[stat_name].remove_target_boost(boost_id)
 
-		print("%s boost finished" % stat_name)
+	print("%ds %s boost finished" % [duration, stat_name])
 
 func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0):
 	print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
@@ -94,11 +95,14 @@ func process_stats(delta: float) -> void:
 	# stats["stamina"].target_value = 0
 	# if stats["stamina"].get_value() <= 0:
 	var speed_target = stats["speed"].base_value * ceil(stats["stamina"].get_utilization())
-	var power_modifier := 10.0
-	if speed_target >= stats["speed"].get_driver_value():
-		stats["speed"].stat_travel_speed = (stats["power"].get_value()) * power_modifier
+	var accel_modifier := 1.0
+	var decel_modifier := 0.2
+	if stats["speed"].get_target_value_with_boosts() >= stats["speed"].get_driver_value():
+		stats["speed"].stat_travel_speed = stats["power"].get_value() * accel_modifier
 	else:
-		stats["speed"].stat_travel_speed = ((stats["power"].curve_scale + stats["power"].offset_value) - (stats["power"].get_value() - stats["power"].offset_value))
+		stats["speed"].stat_travel_speed = stats["power"].get_value() * decel_modifier
+		# stats["speed"].stat_travel_speed = ((stats["power"].curve_scale) - (stats["power"].get_value()))
+	print("%s travel speed: %s. %s >= %s? %s" % [display_name, stats["speed"].stat_travel_speed, speed_target, stats["speed"].get_driver_value(), speed_target >= stats["speed"].get_driver_value()])
 
 	stats["speed"].target_value = speed_target
 
@@ -115,7 +119,7 @@ func process_run(delta: float) -> void:
 
 
 	var inc: float = stats["speed"].get_value() * delta
-	anim_counter += inc * stats["speed"].get_utilization() + 0.1
+	anim_counter += inc * stats["speed"].get_utilization() * 3 + 0.1
 	progress += inc
 	total_progress += inc / path.curve.get_baked_length()
 

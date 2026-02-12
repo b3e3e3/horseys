@@ -11,15 +11,15 @@
     {
       "condition_type": "ANY_PHASE",
       "phases": [
-        "MID",
-        "LATE"
+        "EARLY",
+        "MID"
       ]
     }
   ],
   "effects": [
     {
       "effect_type": "STAT_BOOST",
-      "stat": "speed",
+      "stat": "stamina",
       "min": 50.0,
       "max": 175.0
     },

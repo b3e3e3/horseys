@@ -26,6 +26,8 @@ func _ready():
 	subtitles.text = ""
 
 func start():
+	if not is_node_ready():
+		await ready
 	check_in_timer.start()
 
 

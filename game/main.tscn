@@ -8,7 +8,6 @@
 
 [node name="Race" parent="." unique_id=27907233 node_paths=PackedStringArray("ui_node") instance=ExtResource("1_ig7tw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0037078857, -0.03896761, 0.030659437)
-skip_intro = true
 ui_node = NodePath("../CanvasLayer/Control")
 
 [node name="RaceWatcher" type="Node" parent="." unique_id=1769239080 node_paths=PackedStringArray("race")]
@@ -19,6 +18,7 @@ metadata/_custom_type_script = "uid://cnwiiypx4tcdm"
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1250047656]
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1794480328]
+z_index = -1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

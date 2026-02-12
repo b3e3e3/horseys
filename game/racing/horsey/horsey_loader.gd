@@ -117,6 +117,7 @@ func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 				var value := _parse_stat_value_v1(e)
 
 				effect.duration = e.get("duration", 3.0)
+				print("Found stat effect duration %.3f" % [effect.duration])
 
 				effect.stats[stat_name] = value
 				skill.effects.append(effect)

@@ -1,6 +1,10 @@
 class_name Race extends Node3D
 
+signal intro_started
+signal countdown_started
 signal started
+signal finished
+
 
 @export var skip_intro: bool = false
 
@@ -12,6 +16,9 @@ signal started
 @export var intro_camera: CameraController
 
 var loader: HorseyLoader
+
+
+var _delta_mult := 1.0
 
 
 # @onready var nametag: Control = preload("res://racing/nametag.tscn").instantiate()
@@ -82,6 +89,8 @@ func _ready() -> void:
 		
 		horsey.h_offset = pos
 
+		horsey.crossed_finish.connect(_on_horsey_crossed_finish.bind(horsey))
+
 		$RacePath.add_child(horsey)
 
 		horsey.name = horsey.display_name
@@ -93,6 +102,7 @@ func _ready() -> void:
 	if not skip_intro:
 		intro_camera.camera.make_current()
 		%IntroAnimationPlayer.play("intro_camera")
+		intro_started.emit()
 	else:
 		_on_intro_animation_finished()
 
@@ -101,6 +111,10 @@ func _ready() -> void:
 	# 	ui_node.add_child(nametag)
 
 	# await get_tree().create_timer(3).timeout
+
+func _on_horsey_crossed_finish(horsey: Horsey):
+	finished.emit() # TODO: laps?
+	print("%s finished first!" % [horsey.display_name])
 
 func start_race():
 	started.emit()
@@ -129,14 +143,17 @@ func _process(delta: float) -> void:
 	# nametag.activate(horseys[0])
 	# nametag.position = nametag.position.lerp(get_viewport().get_camera_3d().unproject_position(horseys[0].global_position + (Vector3.UP * 2)), delta * 50)
 
+	_delta_mult = 10.0 if Input.is_key_pressed(KEY_SPACE) else 1.0
+
 	if state == &"running":
 		for h in horseys:
-			h.process_run(delta)
+			h.process_run(delta * _delta_mult)
 
 
 func _on_intro_animation_finished(_anim_name: StringName = "") -> void:
 	# cycle_camera()
 	if not skip_intro:
+		countdown_started.emit()
 		await get_tree().create_timer(3).timeout
 	
 	start_race()
