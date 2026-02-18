@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react"
+import React, { PropsWithChildren, useEffect } from "react"
 
 import { SchemaType } from "@/src/schemas"
 import JsonEditor, { EditorIds, EditorKey } from "@/components/editor/editor"
@@ -23,20 +23,79 @@ import {
 import { ButtonGroup } from "@/components/ui/button-group"
 
 import { Plus, X } from "lucide-react"
-import { GodotGlobal } from "@/src/godot/types"
 import { SchemaList } from "@/components/schemaList"
-import { getDummyFileContents } from "@/src/godot/actions"
-import { ctxIsGodot } from "../godotProvider"
-import { ConnectFlags } from "@/src/godot/signals"
+import { flushSync } from "react-dom"
+
+export function requestFilesInDir(dir_name: string) {
+	(window as GodotWindow).sendIpcMessage?.(JSON.stringify({
+		type: "request_files_in_dir",
+		dir: dir_name,
+	}))
+}
+
+export function requestFileContents(file_name: string, dir_name: string) {
+	(window as GodotWindow).sendIpcMessage?.(JSON.stringify({
+		type: "request_file_contents",
+		file: file_name,
+		dir: dir_name,
+	}))
+}
 
 // TODO: why does ctx get stored in an object {ctx: {...}}? this is not defined anywhere??
-export default function EditorsContainer({ global: { ctx, loader } }: { global: GodotGlobal }) {
+export default function EditorsContainer() {
 	const [editorsById, setEditorById] = React.useState<EditorIds>({})
 	const [editorOrder, setEditorOrder] = React.useState<string[]>([])
 	const [activeEditorId, setActiveEditorId] = React.useState<EditorKey>("")
 	const [editorDataById, setEditorDataById] = React.useState<
 		Record<EditorKey, any>
 	>({})
+
+	const [horseyFileList, setHorseyFileList] = React.useState<[string] | []>([])
+	const [skillFileList, setSkillFileList] = React.useState<[string] | []>([]);
+
+
+	useEffect(() => {
+		(window as GodotWindow).onIpcMessage = function (msg) {
+			var response = JSON.parse(msg)
+			if (typeof response === "string") {
+				console.log("WARNING: IPC response is string", msg)
+				return
+			}
+			var type = response["type"]
+
+			console.log("Got IPC message: ", type, response["data"])
+			switch (type) {
+				case "files_in_dir":
+					var data = response["data"]
+					var dir = response["dir"] as string
+					switch (dir) {
+						case "horseys":
+							console.log("Setting horsey file list")
+							setHorseyFileList(data)
+							break
+						case "skills":
+							console.log("Setting skills file list")
+							setSkillFileList(data)
+							break
+						default:
+							console.log("Couldn't find dir ", dir)
+							break
+					}
+
+					break
+				case "file_contents":
+					var data = JSON.parse(response["data"])
+					var dir = response["dir"] as string
+					break
+				default:
+					console.log("Couldn't find IPC type ", type)
+					break
+			}
+		}
+
+		requestFilesInDir("horseys")
+		requestFilesInDir("skills");
+	})
 
 	const countByType = (type: SchemaType) =>
 		Object.values(editorsById).filter((e) => e.type === type).length
@@ -151,38 +210,23 @@ export default function EditorsContainer({ global: { ctx, loader } }: { global: 
 				<div className="p-4">
 					<SchemaList
 						onFileSelected={async (name: string, from: string) => {
-							loader.testFuncRemoveAsap?.()
 							console.log(`Loading file ${name} from ${from}...`)
 							// const contents = loader.getFileContents(
 							// 	name,
 							// 	from,
 							// ) ?? "{}"
-							loader.fileLoaded?.connect((contents, dirName) => {
-								if (dirName !== from) return
 
-								console.log("Got contents:", contents)
-								const data = JSON.parse(contents)
-								createEditor(
-									from == "horseys" ? "Horsey" : "Skill",
-									data,
-								)
-							}, ConnectFlags.CONNECT_ONE_SHOT)
-
-							loader.getFileContents(
-								name,
-								from,
-							)
 						}}
 						items={[
 							{
 								value: "horseys",
 								trigger: "Horseys",
-								files: ctx.horseys.value,
+								files: horseyFileList,
 							},
 							{
 								value: "skills",
 								trigger: "Skills",
-								files: ctx.skills.value,
+								files: skillFileList,
 							},
 						]}
 					/>

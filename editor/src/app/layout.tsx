@@ -3,7 +3,6 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "../../components/themeProvider"
-import { GodotProvider } from "@/components/godotProvider"
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -36,7 +35,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<GodotProvider>{children}</GodotProvider>
+					{children}
 				</ThemeProvider>
 				<script>
 					{`if ("godot" in window) {

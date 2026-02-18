@@ -1,34 +1,33 @@
-import { promises as fs } from "fs"
+import * as fs from "fs"
 
 const dummyBaseDir = `${process.cwd()}/src/dummyData`
 
-export async function loadDummyFileList(): Promise<Record<string, string[]>> {
+export function loadDummyFileList(): Record<string, string[]> {
 	const dirs = ["horseys", "skills"]
 	const fileNames: Record<string, string[]> = {}
 
 	for (const dirName of dirs) {
-		fileNames[dirName] = await loadDummyFilesFromDir(dirName)
+		fileNames[dirName] = loadDummyFilesFromDir(dirName)
 	}
 
 	return fileNames
 }
 
-export async function loadDummyFilesFromDir(dirName: string): Promise<string[]> {
+export function loadDummyFilesFromDir(dirName: string): string[] {
 	const files = []
-	const dir = await fs.readdir(`${dummyBaseDir}/${dirName}`)
+	const dir = fs.readdirSync(`${dummyBaseDir}/${dirName}`)
 	for (const fileName of dir) {
-		// const file = await fs.readFile(fileName, { encoding: "utf8" })
 		files.push(fileName)
 	}
 
 	return files
 }
 
-export async function loadDummyFile(
+export function loadDummyFile(
 	fileName: string,
 	from: string,
-): Promise<string> {
-	const file = await fs.readFile(`${dummyBaseDir}/${from}/${fileName}`, {
+): string {
+	const file = fs.readFileSync(`${dummyBaseDir}/${from}/${fileName}`, {
 		encoding: "utf8",
 	})
 	return file
