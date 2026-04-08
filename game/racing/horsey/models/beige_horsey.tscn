@@ -1,5 +1,8 @@
 [gd_scene format=4 uid="uid://sivk4pyybbbg"]
 
+[ext_resource type="PackedScene" uid="uid://dhu03munhu5b0" path="res://RiggedLores.blend" id="1_158lw"]
+[ext_resource type="PackedScene" uid="uid://bbu6hgnbqevff" path="res://racing/horsey/models/SPRINGBONES.tscn" id="2_x1kol"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5cung"]
 frequency = 0.0207
 
@@ -51,4 +54,47 @@ shadow_mesh = SubResource("ArrayMesh_3io2s")
 
 [node name="HorseLores" type="MeshInstance3D" parent="." unique_id=1024728264]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+visible = false
 mesh = SubResource("ArrayMesh_158lw")
+
+[node name="RiggedLores" parent="." unique_id=278737971 instance=ExtResource("1_158lw")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Body_Lores_GEO" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="0" unique_id=1222136666]
+surface_material_override/0 = SubResource("StandardMaterial3D_pfp5v")
+
+[node name="SpringBoneSimulator3D" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="1" unique_id=883068110 instance=ExtResource("2_x1kol")]
+settings/0/joints/0/bone_name = "spine.010"
+settings/0/joints/0/bone = 9
+settings/0/joints/1/bone_name = "spine.011"
+settings/0/joints/1/bone = 10
+settings/1/joints/0/bone_name = "shoulder.L"
+settings/1/joints/0/bone = 11
+settings/1/joints/1/bone_name = "front_thigh.L"
+settings/1/joints/1/bone = 12
+settings/1/joints/2/bone_name = "front_shin.L"
+settings/1/joints/2/bone = 13
+settings/1/joints/3/bone_name = "front_foot.L"
+settings/1/joints/3/bone = 14
+settings/2/joints/0/bone_name = "shoulder.R"
+settings/2/joints/0/bone = 16
+settings/2/joints/1/bone_name = "front_thigh.R"
+settings/2/joints/1/bone = 17
+settings/2/joints/2/bone_name = "front_shin.R"
+settings/2/joints/2/bone = 18
+settings/2/joints/3/bone_name = "front_foot.R"
+settings/2/joints/3/bone = 19
+settings/3/joints/0/bone_name = "thigh.L"
+settings/3/joints/0/bone = 25
+settings/3/joints/1/bone_name = "shin.L"
+settings/3/joints/1/bone = 26
+settings/3/joints/2/bone_name = "foot.L"
+settings/3/joints/2/bone = 27
+settings/4/joints/0/bone_name = "thigh.R"
+settings/4/joints/0/bone = 29
+settings/4/joints/1/bone_name = "shin.R"
+settings/4/joints/1/bone = 30
+settings/4/joints/2/bone_name = "foot.R"
+settings/4/joints/2/bone = 31
+
+[editable path="RiggedLores"]

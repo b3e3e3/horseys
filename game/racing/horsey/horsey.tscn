@@ -11,6 +11,7 @@ viewport_path = NodePath("SubViewportContainer/SubViewport")
 script = ExtResource("1_fv5kw")
 
 [node name="PlaceholderHorsey" parent="." unique_id=1671135741 instance=ExtResource("1_xbnre")]
+visible = false
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1013242443]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3, 0)
@@ -28,6 +29,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3, 0)
 size_flags_horizontal = 3
 follow_target = NodePath("../SkillToastPoint")
 offset = Vector2(0, 0)
+color = Color(1, 1, 1, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=2094124866]
 custom_minimum_size = Vector2(768, 128)

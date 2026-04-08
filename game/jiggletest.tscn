@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://ggycs3imqu3j"]
+
+[ext_resource type="PackedScene" uid="uid://dhu03munhu5b0" path="res://RiggedLores.blend" id="1_up5lh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_up5lh"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_5wlbd"]
+sky_material = SubResource("ProceduralSkyMaterial_up5lh")
+
+[sub_resource type="Environment" id="Environment_vfurn"]
+background_mode = 2
+sky = SubResource("Sky_5wlbd")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="GDScript" id="GDScript_up5lh"]
+script/source = "extends Node3D
+
+var counter := 0.0
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	counter += delta * 5
+	position.x = cos(counter)
+	position.y = sin(counter*2) * 0.2
+	rotation.x = cos(counter*2) * 0.2
+	rotation.z = sin(counter*2) * 0.2
+	print(position.x)
+	print(counter)
+"
+
+[node name="Node3D" type="Node3D" unique_id=313652891]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1105857376]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=336829185]
+environment = SubResource("Environment_vfurn")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=574025874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1237323, 3.0739114)
+
+[node name="RiggedLores" parent="." unique_id=278737971 instance=ExtResource("1_up5lh")]
+script = SubResource("GDScript_up5lh")
+
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="1" unique_id=2011802017]
+setting_count = 6
+settings/0/root_bone_name = "spine.010"
+settings/0/root_bone = 9
+settings/0/end_bone_name = "spine.011"
+settings/0/end_bone = 10
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 4.0
+settings/0/stiffness/damping_curve = null
+settings/0/drag/value = 0.4
+settings/0/drag/damping_curve = null
+settings/0/gravity/value = 0.0
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/joints/0/bone_name = "spine.010"
+settings/0/joints/0/bone = 9
+settings/0/joints/1/bone_name = "spine.011"
+settings/0/joints/1/bone = 10
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+settings/1/root_bone_name = "shoulder.L"
+settings/1/root_bone = 11
+settings/1/end_bone_name = "front_foot.L"
+settings/1/end_bone = 14
+settings/1/extend_end_bone = false
+settings/1/center_from = 0
+settings/1/individual_config = false
+settings/1/rotation_axis = 3
+settings/1/radius/value = 0.02
+settings/1/radius/damping_curve = null
+settings/1/stiffness/value = 3.0
+settings/1/stiffness/damping_curve = null
+settings/1/drag/value = 0.1
+settings/1/drag/damping_curve = null
+settings/1/gravity/value = 0.0
+settings/1/gravity/damping_curve = null
+settings/1/gravity/direction = Vector3(0, -1, 0)
+settings/1/joints/0/bone_name = "shoulder.L"
+settings/1/joints/0/bone = 11
+settings/1/joints/1/bone_name = "front_thigh.L"
+settings/1/joints/1/bone = 12
+settings/1/joints/2/bone_name = "front_shin.L"
+settings/1/joints/2/bone = 13
+settings/1/joints/3/bone_name = "front_foot.L"
+settings/1/joints/3/bone = 14
+settings/1/enable_all_child_collisions = true
+settings/1/exclude_collision_count = 0
+settings/2/root_bone_name = "shoulder.R"
+settings/2/root_bone = 16
+settings/2/end_bone_name = "front_foot.R"
+settings/2/end_bone = 19
+settings/2/extend_end_bone = false
+settings/2/center_from = 0
+settings/2/individual_config = false
+settings/2/rotation_axis = 3
+settings/2/radius/value = 0.02
+settings/2/radius/damping_curve = null
+settings/2/stiffness/value = 3.0
+settings/2/stiffness/damping_curve = null
+settings/2/drag/value = 0.1
+settings/2/drag/damping_curve = null
+settings/2/gravity/value = 0.0
+settings/2/gravity/damping_curve = null
+settings/2/gravity/direction = Vector3(0, -1, 0)
+settings/2/joints/0/bone_name = "shoulder.R"
+settings/2/joints/0/bone = 16
+settings/2/joints/1/bone_name = "front_thigh.R"
+settings/2/joints/1/bone = 17
+settings/2/joints/2/bone_name = "front_shin.R"
+settings/2/joints/2/bone = 18
+settings/2/joints/3/bone_name = "front_foot.R"
+settings/2/joints/3/bone = 19
+settings/2/enable_all_child_collisions = true
+settings/2/exclude_collision_count = 0
+settings/3/root_bone_name = "thigh.L"
+settings/3/root_bone = 25
+settings/3/end_bone_name = "foot.L"
+settings/3/end_bone = 27
+settings/3/extend_end_bone = false
+settings/3/center_from = 0
+settings/3/individual_config = false
+settings/3/rotation_axis = 3
+settings/3/radius/value = 0.02
+settings/3/radius/damping_curve = null
+settings/3/stiffness/value = 3.0
+settings/3/stiffness/damping_curve = null
+settings/3/drag/value = 0.1
+settings/3/drag/damping_curve = null
+settings/3/gravity/value = 0.0
+settings/3/gravity/damping_curve = null
+settings/3/gravity/direction = Vector3(0, -1, 0)
+settings/3/joints/0/bone_name = "thigh.L"
+settings/3/joints/0/bone = 25
+settings/3/joints/1/bone_name = "shin.L"
+settings/3/joints/1/bone = 26
+settings/3/joints/2/bone_name = "foot.L"
+settings/3/joints/2/bone = 27
+settings/3/enable_all_child_collisions = true
+settings/3/exclude_collision_count = 0
+settings/4/root_bone_name = "thigh.R"
+settings/4/root_bone = 29
+settings/4/end_bone_name = "foot.R"
+settings/4/end_bone = 31
+settings/4/extend_end_bone = false
+settings/4/center_from = 0
+settings/4/individual_config = false
+settings/4/rotation_axis = 3
+settings/4/radius/value = 0.02
+settings/4/radius/damping_curve = null
+settings/4/stiffness/value = 3.0
+settings/4/stiffness/damping_curve = null
+settings/4/drag/value = 0.1
+settings/4/drag/damping_curve = null
+settings/4/gravity/value = 0.0
+settings/4/gravity/damping_curve = null
+settings/4/gravity/direction = Vector3(0, -1, 0)
+settings/4/joints/0/bone_name = "thigh.R"
+settings/4/joints/0/bone = 29
+settings/4/joints/1/bone_name = "shin.R"
+settings/4/joints/1/bone = 30
+settings/4/joints/2/bone_name = "foot.R"
+settings/4/joints/2/bone = 31
+settings/4/enable_all_child_collisions = true
+settings/4/exclude_collision_count = 0
+settings/5/root_bone_name = "spine.008"
+settings/5/root_bone = 7
+settings/5/end_bone_name = "spine.005"
+settings/5/end_bone = 4
+settings/5/extend_end_bone = false
+settings/5/center_from = 0
+settings/5/individual_config = false
+settings/5/rotation_axis = 3
+settings/5/radius/value = 0.02
+settings/5/radius/damping_curve = null
+settings/5/stiffness/value = 0.0
+settings/5/stiffness/damping_curve = null
+settings/5/drag/value = 0.4
+settings/5/drag/damping_curve = null
+settings/5/gravity/value = 0.0
+settings/5/gravity/damping_curve = null
+settings/5/gravity/direction = Vector3(0, -1, 0)
+settings/5/enable_all_child_collisions = true
+settings/5/exclude_collision_count = 0
+
+[editable path="RiggedLores"]

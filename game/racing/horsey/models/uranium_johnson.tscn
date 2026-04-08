@@ -1,9 +1,12 @@
 [gd_scene format=4 uid="uid://d1sj76rg7jehq"]
 
+[ext_resource type="PackedScene" uid="uid://dhu03munhu5b0" path="res://RiggedLores.blend" id="1_2ng2l"]
+[ext_resource type="PackedScene" uid="uid://bbu6hgnbqevff" path="res://racing/horsey/models/SPRINGBONES.tscn" id="2_pfp5v"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7l3r5"]
 frequency = 1.0
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2ng2l"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tc7g5"]
 width = 64
 height = 64
 noise = SubResource("FastNoiseLite_7l3r5")
@@ -13,7 +16,7 @@ transparency = 1
 albedo_color = Color(0.63780427, 1.0752689, 0, 0.76862746)
 metallic = 1.0
 metallic_specular = 1.0
-metallic_texture = SubResource("NoiseTexture2D_2ng2l")
+metallic_texture = SubResource("NoiseTexture2D_tc7g5")
 emission = Color(0.5764706, 1, 0, 1)
 emission_energy_multiplier = 0.0
 rim_enabled = true
@@ -52,7 +55,78 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3io2s")
 
 [node name="Uranium Johnson" type="Node3D" unique_id=2094701269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.054950356, 0)
 
 [node name="HorseLores" type="MeshInstance3D" parent="." unique_id=1431856416]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+visible = false
 mesh = SubResource("ArrayMesh_tc7g5")
+
+[node name="RiggedLores" parent="." unique_id=278737971 instance=ExtResource("1_2ng2l")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Body_Lores_GEO" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="0" unique_id=1222136666]
+surface_material_override/0 = SubResource("StandardMaterial3D_pfp5v")
+
+[node name="SpringBoneSimulator3D" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="1" unique_id=247172981 instance=ExtResource("2_pfp5v")]
+settings/0/joints/0/bone_name = "spine.010"
+settings/0/joints/0/bone = 9
+settings/0/joints/1/bone_name = "spine.011"
+settings/0/joints/1/bone = 10
+settings/1/joints/0/bone_name = "shoulder.L"
+settings/1/joints/0/bone = 11
+settings/1/joints/1/bone_name = "front_thigh.L"
+settings/1/joints/1/bone = 12
+settings/1/joints/2/bone_name = "front_shin.L"
+settings/1/joints/2/bone = 13
+settings/1/joints/3/bone_name = "front_foot.L"
+settings/1/joints/3/bone = 14
+settings/2/joints/0/bone_name = "shoulder.R"
+settings/2/joints/0/bone = 16
+settings/2/joints/1/bone_name = "front_thigh.R"
+settings/2/joints/1/bone = 17
+settings/2/joints/2/bone_name = "front_shin.R"
+settings/2/joints/2/bone = 18
+settings/2/joints/3/bone_name = "front_foot.R"
+settings/2/joints/3/bone = 19
+settings/3/joints/0/bone_name = "thigh.L"
+settings/3/joints/0/bone = 25
+settings/3/joints/1/bone_name = "shin.L"
+settings/3/joints/1/bone = 26
+settings/3/joints/2/bone_name = "foot.L"
+settings/3/joints/2/bone = 27
+settings/4/joint_count = 3
+settings/4/joints/0/rotation_axis = 3
+settings/4/joints/0/radius = 0.1
+settings/4/joints/0/stiffness = 1.0
+settings/4/joints/0/drag = 0.0
+settings/4/joints/0/gravity = 0.0
+settings/4/joints/0/gravity_direction = Vector3(0, -1, 0)
+settings/4/joints/1/rotation_axis = 3
+settings/4/joints/1/radius = 0.1
+settings/4/joints/1/stiffness = 1.0
+settings/4/joints/1/drag = 0.0
+settings/4/joints/1/gravity = 0.0
+settings/4/joints/1/gravity_direction = Vector3(0, -1, 0)
+settings/4/joints/2/rotation_axis = 3
+settings/4/joints/2/radius = 0.1
+settings/4/joints/2/stiffness = 1.0
+settings/4/joints/2/drag = 0.0
+settings/4/joints/2/gravity = 0.0
+settings/4/joints/2/gravity_direction = Vector3(0, -1, 0)
+settings/5/joints/0/bone_name = "spine.002"
+settings/5/joints/0/bone = 2
+settings/5/joints/1/bone_name = "spine.001"
+settings/5/joints/1/bone = 3
+settings/6/joints/0/bone_name = "spine.004"
+settings/6/joints/0/bone = 0
+settings/6/joints/1/bone_name = "spine.005"
+settings/6/joints/1/bone = 4
+settings/6/joints/2/bone_name = "spine.006"
+settings/6/joints/2/bone = 5
+settings/6/joints/3/bone_name = "spine.007"
+settings/6/joints/3/bone = 6
+settings/6/joints/4/bone_name = "spine.008"
+settings/6/joints/4/bone = 7
+
+[editable path="RiggedLores"]

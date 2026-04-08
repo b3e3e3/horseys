@@ -119,7 +119,7 @@ func process_run(delta: float) -> void:
 
 
 	var inc: float = stats["speed"].get_value() * delta
-	anim_counter += inc * stats["speed"].get_utilization() * 3 + 0.1
+	anim_counter += inc * stats["speed"].get_utilization() * 3
 	progress += inc
 	total_progress += inc / path.curve.get_baked_length()
 
@@ -135,10 +135,17 @@ func process_run(delta: float) -> void:
 
 	activate_skills()
 
-	position.y = sin(anim_counter) * 0.01 * (1 + stats["speed"].get_value())
-	rotation.x = cos(anim_counter) * 0.01 * (1 + stats["speed"].get_value())
-	# rotation.y = sin(anim_counter) * 0.1 * (1 + stats["speed"].get_value())
-	rotation.z = sin(anim_counter) * 0.002 * (1 + stats["speed"].get_value())
+	var posytarg = sin(anim_counter) * 0.015 * (1 + stats["speed"].get_value())
+	position.y = posytarg
+	
+	var rotxtarg = cos(anim_counter) * 0.01 * (1 + stats["speed"].get_value())
+	rotation.x = rotxtarg
+
+	var rotztarg = sin(anim_counter) * 0.002 * (1 + stats["speed"].get_value())
+	rotation.z = rotztarg
+
+	# var rotytarg = sin(anim_counter) * 0.1 * (1 + stats["speed"].get_value())
+	# rotation.y = lerp(rotation.y, rotytarg, delta * 50)
 
 func activate_skills() -> void:
 	skill_act_counter += 1
