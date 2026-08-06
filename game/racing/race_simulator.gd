@@ -5,7 +5,7 @@ signal finished
 signal started
 
 @export var race: Race
-@export var simulation_count: int = 100
+@export var simulation_count: int = 1000
 
 var data: Dictionary[Horsey, Dictionary] = {}
 var _sims_completed: int = 0

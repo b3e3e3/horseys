@@ -89,6 +89,7 @@ func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0)
 	# print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
 
 	var old_value = stats[stat_name].get_driver_value()
+	var diff = to - old_value
 	stats[stat_name].set_driver_value(to)
 	if duration > 0:
 		await get_tree().create_timer(duration).timeout
