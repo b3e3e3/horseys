@@ -26,22 +26,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=1678192025]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 547.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 24
-text = "Subtitles "
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
 [node name="HorseList" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=2008496645]
 unique_name_in_owner = true
 layout_mode = 1
@@ -51,9 +35,30 @@ anchor_bottom = 1.0
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=467006856]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.88117284
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer" unique_id=1678192025]
+custom_minimum_size = Vector2(1024, 64)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+text = "Subtitles "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="Commentators" type="Node" parent="." unique_id=1591721960 node_paths=PackedStringArray("subtitles", "race")]
 script = ExtResource("3_h2yge")
-subtitles = NodePath("../CanvasLayer/Control/Label")
+subtitles = NodePath("../CanvasLayer/Control/CenterContainer/Label")
 race = NodePath("../Race")
 stop_short_phrases = Array[String](["What's this?", "Oh!", "Hold on--", "Wait!"])
 lead_changed_phrases = Array[String](["Holy shrimp! {new} has swiped the lead from {prev}.", "Hark! An upset! {new}'s prowess has toppled that of {prev} in one mad dash.", "Jesus Christ get a load of {new} taking the lead!", "{prev} has fallen to {new}! Anyone who placed bets on {prev} better save up for new kneecaps.", "Woooooooooah! {new} is in the lead! Will {prev} catch up once again?", "It's a tornado of speed coming from {new} as that darn horse takes the lead!"])

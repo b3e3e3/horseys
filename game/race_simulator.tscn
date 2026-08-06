@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://tkl4rw81uq7i"]
+
+[ext_resource type="Script" uid="uid://cja0n3kuhrb88" path="res://racing/race_simulator.gd" id="2_4o4up"]
+[ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race/race_info.gd" id="2_h4vpp"]
+[ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race/race.gd" id="2_q3usi"]
+[ext_resource type="Script" uid="uid://wdi1is5owu43" path="res://racing/race_camera_manager.gd" id="4_8hwgy"]
+
+[sub_resource type="Resource" id="Resource_bg0ai"]
+script = ExtResource("2_h4vpp")
+metadata/_custom_type_script = "uid://bo5jycqhseah4"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fpa16"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0lgoi"]
+sky_material = SubResource("ProceduralSkyMaterial_fpa16")
+
+[sub_resource type="Environment" id="Environment_7xiek"]
+background_mode = 2
+sky = SubResource("Sky_0lgoi")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_7xiek"]
+offsets = PackedFloat32Array(0.2769231, 0.7692308)
+colors = PackedColorArray(0.3047361, 0.13201311, 7.219613e-08, 1, 0.031208267, 0.7548751, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vk53d"]
+noise_type = 0
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gyya5"]
+noise = SubResource("FastNoiseLite_vk53d")
+color_ramp = SubResource("Gradient_7xiek")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vk53d"]
+albedo_texture = SubResource("NoiseTexture2D_gyya5")
+uv1_scale = Vector3(20, 20, 20)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gyya5"]
+material = SubResource("StandardMaterial3D_vk53d")
+size = Vector2(500, 500)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fpa16"]
+
+[sub_resource type="Curve3D" id="Curve3D_fpa16"]
+closed = true
+_data = {
+"points": PackedVector3Array(40, 0, 0, -40, 0, 0, 0, 0, 97, 0, 0, 80, 0, 0, -80, -210, 0, 0, -40, 0, 0, 40, 0, 0, 0, 0, -97, 0, 0, -80, 0, 0, 80, 210, 0, 0),
+"tilts": PackedFloat32Array(0, 0.34906584, 0, 0.34906584)
+}
+point_count = 4
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xiek"]
+properties/0/path = NodePath("RacePath/PathFollow3D:progress_ratio")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Node3D" type="Node3D" unique_id=1210739409]
+
+[node name="RaceSimulator" type="Node" parent="." unique_id=1988384467 node_paths=PackedStringArray("race")]
+script = ExtResource("2_4o4up")
+race = NodePath("../Race")
+
+[node name="Race" type="Node3D" parent="." unique_id=301350355 node_paths=PackedStringArray("race_path")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0037078857, -0.03896761, 0.030659437)
+script = ExtResource("2_q3usi")
+skip_intro = true
+info = SubResource("Resource_bg0ai")
+race_path = NodePath("RacePath")
+
+[node name="CameraManager" type="Node" parent="Race" unique_id=483244805]
+script = ExtResource("4_8hwgy")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Race" unique_id=1688906858]
+environment = SubResource("Environment_7xiek")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Race" unique_id=1559505737]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Race" unique_id=551361707]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Race/StaticBody3D" unique_id=848686228]
+mesh = SubResource("PlaneMesh_gyya5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Race/StaticBody3D" unique_id=1778564295]
+shape = SubResource("WorldBoundaryShape3D_fpa16")
+
+[node name="RacePath" type="Path3D" parent="Race" unique_id=651593930]
+curve = SubResource("Curve3D_fpa16")
+debug_custom_color = Color(1, 0, 0, 1)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Race" unique_id=1873567682]
+replication_config = SubResource("SceneReplicationConfig_7xiek")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=672383144]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=410638175]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control" unique_id=740510194]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/PanelContainer" unique_id=98737367]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer" unique_id=1394235952]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer" unique_id=370147666]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=557455232]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 100
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="HorseLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1856254812]
+layout_mode = 2
+text = "Horse"
+
+[node name="WinsLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=667942503]
+layout_mode = 2
+text = "Wins"
+
+[node name="LossesLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1220904173]
+layout_mode = 2
+text = "Losses"
+
+[node name="WLRatioLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=502889256]
+layout_mode = 2
+text = "W/L Ratio"
+
+[node name="AvgActLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=658214403]
+layout_mode = 2
+text = "Avg. Skill Rate"
+
+[node name="SamePlaceLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1093499288]
+layout_mode = 2
+text = "% finished same place"
+
+[connection signal="started" from="Race" to="Race/CameraManager" method="_on_race_started"]

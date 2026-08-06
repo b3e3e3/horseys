@@ -4,7 +4,7 @@ class_name AnyCondition extends SkillCondition
 
 
 func can_activate(skill: Skill, info: RaceInfo, horsey: Horsey) -> bool:
-	# var result := super.can_activate(skill, info, horsey)
+	# var result := super.should_activate(skill, info, horsey)
 	# if result == false: return false
 	for c in conditions:
 		if c.can_activate(skill, info, horsey) == true:

@@ -22,7 +22,7 @@ func can_activate(info: RaceInfo, horsey: Horsey) -> bool:
 					return false
 		# "ANY":
 		# 	for c in conditions:
-		# 		if c.can_activate(info, horsey) == true:
+		# 		if c.should_activate(info, horsey) == true:
 		# 			return true
 		# 	result = false
 

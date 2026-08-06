@@ -9,13 +9,13 @@ signal finished
 @export var skip_intro: bool = false
 
 @export var info: RaceInfo
-@export var race_path: Path3D
-@export var ui_node: Control
-@export var cameras: Array[CameraController]
+@export var race_path: Node3D
+# @export var ui_node: Control
+# @export var cameras: Array[CameraController]
 
 @export var intro_camera: CameraController
 
-var loader: HorseyLoader
+var loader: HorseyLoader = HorseyLoader.new()
 
 
 var _delta_mult := 1.0
@@ -62,7 +62,7 @@ func get_horseys(ignore_camera: bool = true) -> Array[Horsey]:
 	return horseys
 
 func _enter_tree() -> void:
-	loader = HorseyLoader.new()
+	# loader = HorseyLoader.new()
 	var placeholder := find_child("PlaceholderHorsey")
 	if placeholder: placeholder.queue_free()
 
@@ -91,7 +91,7 @@ func _ready() -> void:
 
 		horsey.crossed_finish.connect(_on_horsey_crossed_finish.bind(horsey))
 
-		$RacePath.add_child(horsey)
+		race_path.add_child(horsey)
 
 		horsey.name = horsey.display_name
 
@@ -114,23 +114,23 @@ func _ready() -> void:
 
 func _on_horsey_crossed_finish(horsey: Horsey):
 	finished.emit() # TODO: laps?
-	print("%s finished first!" % [horsey.display_name])
+	# print("%s finished first!" % [horsey.display_name])
 
 func start_race():
 	started.emit()
 	state = &"running"
 
-	for c in cameras:
-		c.camera.clear_current(false)
+	# for c in cameras:
+	# 	c.camera.clear_current(false)
 
-func cycle_camera(repeat: bool = false):
-	var controller := cameras.pop_front() as CameraController
-	controller.camera.make_current()
-	cameras.push_back(controller)
+# func cycle_camera(repeat: bool = false):
+# 	var controller := cameras.pop_front() as CameraController
+# 	controller.camera.make_current()
+# 	cameras.push_back(controller)
 
-	if repeat:
-		await get_tree().create_timer(3).timeout
-		cycle_camera(repeat)
+# 	if repeat:
+# 		await get_tree().create_timer(3).timeout
+# 		cycle_camera(repeat)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -148,7 +148,7 @@ func _process(delta: float) -> void:
 	if state == &"running":
 		for h in horseys:
 			h.process_run(delta * _delta_mult)
-
+	
 
 func _on_intro_animation_finished(_anim_name: StringName = "") -> void:
 	# cycle_camera()
@@ -157,4 +157,8 @@ func _on_intro_animation_finished(_anim_name: StringName = "") -> void:
 		await get_tree().create_timer(3).timeout
 	
 	start_race()
-	cycle_camera(true)
+	# cycle_camera(true)
+
+func reset() -> void:
+	for h in horseys:
+		h.reset()

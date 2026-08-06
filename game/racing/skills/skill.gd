@@ -23,10 +23,25 @@ func activate(_info: RaceInfo, _horsey: Horsey) -> void:
 	last_activate_time = Time.get_ticks_msec()
 	current_status = Status.ACTIVE
 
-func can_activate(_info: RaceInfo, horsey: Horsey) -> bool:
-	if current_status == Status.ACTIVE: return false
+func is_active() -> bool:
+	return current_status == Status.ACTIVE
+
+func can_activate(info: RaceInfo, horsey: Horsey) -> bool:
+	# print("%s PAC? %s is active? %s" % [horsey.name, passes_activation_check(info, horsey), is_active()])
+	if is_active(): return false
+	return passes_activation_check(info, horsey)
+
+func passes_activation_check(_info: RaceInfo, horsey: Horsey) -> bool:
+	var s := hash(horsey.progress_ratio)
+	seed(s)
+	# print("ACTIVATION CHECKING AT ", s)
 	var random := randf()
-	return random < minf(bp_effectiveness * horsey.stats["brainpower"].get_value(), 1.0) and not current_status == Status.ACTIVE
+	var sample := minf(bp_effectiveness * horsey.stats["brainpower"].get_value(), horsey.stats["brainpower"].max_effectiveness)
+	var result := random < sample
+
+	print("%s PAC | %s < %s? %s | Is active? %s. Result: %s" % [horsey.name, random, sample, result, is_active(), result])
+	return result
 
 func reset() -> void:
+	last_activate_time = 0
 	current_status = Status.IDLE

@@ -32,6 +32,15 @@ var current_lap: int = -1
 
 var skill_act_counter: int = 0
 
+var _attempted_skill_activations := 0
+var _actual_skill_activations := 0
+
+
+func get_skill_activation_rate() -> float:
+	# print("%s tried to activate skills %s time(s) but only did it %s time(s)" % [name, _attempted_skill_activations, _actual_skill_activations])
+	
+	var result := float(_actual_skill_activations) / float(_attempted_skill_activations)
+	return 0.0 if is_nan(result) else result
 
 func _init(horsey_info: HorseyInfo = info, active_race: Race = race) -> void:
 	self.info = horsey_info
@@ -63,7 +72,7 @@ func advance_lap():
 
 # TODO: refactor to Stat while maintaining the timer
 func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.0):
-	print("Temporarily boosting stat %s by %f for duration %ds" % [stat_name, by, duration])
+	# print("Temporarily boosting stat %s by %f for duration %ds" % [stat_name, by, duration])
 
 	# stats[stat_name].target_value += by
 	# stats[stat_name].status = Stat.Status.BOOSTING
@@ -74,10 +83,10 @@ func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.
 	# stats[stat_name].target_value -= by
 	stats[stat_name].remove_target_boost(boost_id)
 
-	print("%ds %s boost finished" % [duration, stat_name])
+	# print("%ds %s boost finished" % [duration, stat_name])
 
 func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0):
-	print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
+	# print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
 
 	var old_value = stats[stat_name].get_driver_value()
 	stats[stat_name].set_driver_value(to)
@@ -85,7 +94,7 @@ func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0)
 		await get_tree().create_timer(duration).timeout
 		stats[stat_name].set_driver_value(old_value)
 
-		print("%s set finished" % stat_name)
+		# print("%s set finished" % stat_name)
 
 
 func process_stats(delta: float) -> void:
@@ -102,7 +111,7 @@ func process_stats(delta: float) -> void:
 	else:
 		stats["speed"].stat_travel_speed = stats["power"].get_value() * decel_modifier
 		# stats["speed"].stat_travel_speed = ((stats["power"].curve_scale) - (stats["power"].get_value()))
-	print("%s travel speed: %s. %s >= %s? %s" % [display_name, stats["speed"].stat_travel_speed, speed_target, stats["speed"].get_driver_value(), speed_target >= stats["speed"].get_driver_value()])
+	# print("%s travel speed: %s. %s >= %s? %s" % [display_name, stats["speed"].stat_travel_speed, speed_target, stats["speed"].get_driver_value(), speed_target >= stats["speed"].get_driver_value()])
 
 	stats["speed"].target_value = speed_target
 
@@ -133,7 +142,7 @@ func process_run(delta: float) -> void:
 	if floor(total_progress) > current_lap:
 		advance_lap()
 
-	activate_skills()
+	activate_skills(delta)
 
 	var posytarg = sin(anim_counter) * 0.015 * (1 + stats["speed"].get_value())
 	position.y = posytarg
@@ -147,13 +156,42 @@ func process_run(delta: float) -> void:
 	# var rotytarg = sin(anim_counter) * 0.1 * (1 + stats["speed"].get_value())
 	# rotation.y = lerp(rotation.y, rotytarg, delta * 50)
 
-func activate_skills() -> void:
-	skill_act_counter += 1
+func activate_skills(delta) -> void:
+	# skill_act_counter += 1
+	skill_act_counter = floor(skill_act_counter * delta)
+	# if skill_act_counter % 90 != 0:
 	if skill_act_counter % 90 != 0:
 		return
 	
 	for skill in skills:
-		if skill.can_activate(race.info, self ):
-			print(self.display_name, " activated skill ", skill.display_name, ". Phase? ", race.info.Phase.find_key(race.info.get_current_phase(self )))
+		# no use in trying to activate a skill if it's already active
+		# skill.should_activate already accounts for this, but
+		# _attempted_skill_activations will increment regardless
+		# so adding this check prevents that from happening
+		if skill.is_active():
+			continue
+		
+		var can_activate: bool = skill.can_activate(race.info, self)
+
+		if skill.passes_activation_check(race.info, self) == can_activate:
+			_attempted_skill_activations += 1
+
+		print("%s can activate? %s" % [name, can_activate])
+		if can_activate:
+			_actual_skill_activations += 1
+			print("%s Activated skill! %s" % [name, _actual_skill_activations])
+			# print(self.display_name, " activated skill ", skill.display_name, ". Phase? ", race.info.Phase.find_key(race.info.get_current_phase(self)))
 			skill.activate(race.info, self )
 			skill_activated.emit(skill)
+
+func reset():
+	total_progress = 0.0
+	progress = 0.0
+	anim_counter = 0.0
+	current_lap = -1
+	skill_act_counter = 0
+	# _attempted_skill_activations = 0
+	# _actual_skill_activations = 0
+	
+	initialize()
+	

@@ -4,5 +4,5 @@
 # @export var ignore_bp: bool = false
 
 
-# func can_activate(info: RaceInfo, horsey: Horsey) -> bool:
+# func should_activate(info: RaceInfo, horsey: Horsey) -> bool:
 # 	var brainpower := horsey.stats["brainpower"].get_effectiveness()

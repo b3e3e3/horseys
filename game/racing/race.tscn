@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c8vymhgejnv4s" path="res://racing/race/race.gd" id="1_7xiek"]
 [ext_resource type="Script" uid="uid://bo5jycqhseah4" path="res://racing/race/race_info.gd" id="2_enxwj"]
+[ext_resource type="Script" uid="uid://wdi1is5owu43" path="res://racing/race_camera_manager.gd" id="3_0kgim"]
 [ext_resource type="Script" uid="uid://b7muwcg8hcju" path="res://racing/horsey/camera_horsey.gd" id="4_gyya5"]
 [ext_resource type="Texture2D" uid="uid://bjgpdydgy3x1j" path="res://racing/race/ui/big_race.png" id="6_a482t"]
 [ext_resource type="AudioStream" uid="uid://qepvk34uq64j" path="res://racing/race/sound/321 go horsey.wav" id="7_w8etc"]
@@ -414,7 +415,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kdw63")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -479,13 +480,16 @@ _data = {
 &"results": SubResource("Animation_83ypj")
 }
 
-[node name="Race" type="Node3D" unique_id=301350355 node_paths=PackedStringArray("race_path", "cameras", "intro_camera")]
+[node name="Race" type="Node3D" unique_id=301350355 node_paths=PackedStringArray("race_path", "intro_camera")]
 script = ExtResource("1_7xiek")
 skip_intro = true
 info = SubResource("Resource_bg0ai")
 race_path = NodePath("RacePath")
-cameras = [NodePath("RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"), NodePath("ProgressOverviewCamera"), NodePath("RacePath/LapLeadCameraHorsey/HorseyLapLead"), NodePath("ComeupOverviewCamera")]
 intro_camera = NodePath("IntroCamera")
+
+[node name="CameraManager" type="Node" parent="." unique_id=483244805 node_paths=PackedStringArray("cameras")]
+script = ExtResource("3_0kgim")
+cameras = [NodePath("../RacePath/ProgressLeadCameraHorsey/HorseyProgressLead"), NodePath("../RacePath/LapLeadCameraHorsey/HorseyLapLead"), NodePath("../ProgressOverviewCamera"), NodePath("../ComeupOverviewCamera")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1688906858]
 environment = SubResource("Environment_7xiek")
@@ -768,5 +772,6 @@ libraries/ = SubResource("AnimationLibrary_4r5jw")
 
 [connection signal="countdown_started" from="." to="321GoScreen/AnimationPlayer" method="play" binds= ["321go"]]
 [connection signal="finished" from="." to="FinishScreen/AnimationPlayer" method="play" binds= ["finish"]]
+[connection signal="started" from="." to="CameraManager" method="_on_race_started"]
 [connection signal="animation_finished" from="IntroCamera/IntroAnimationPlayer" to="." method="_on_intro_animation_finished"]
 [connection signal="animation_finished" from="FinishScreen/AnimationPlayer" to="ResultsScreen/AnimationPlayer" method="play" unbinds=1 binds= ["results"]]

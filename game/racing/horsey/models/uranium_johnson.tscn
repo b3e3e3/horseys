@@ -65,10 +65,15 @@ mesh = SubResource("ArrayMesh_tc7g5")
 [node name="RiggedLores" parent="." unique_id=278737971 instance=ExtResource("1_2ng2l")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Body_Lores_GEO" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="0" unique_id=1222136666]
+[node name="Skeleton3D" parent="RiggedLores/metarig" parent_id_path=PackedInt32Array(278737971, 541767836) index="0" unique_id=1317921698]
+bones/9/position = Vector3(-1.659373e-08, 0.21538949, 0.013919473)
+bones/9/rotation = Quaternion(-0.050049454, -3.5717633e-07, -4.175598e-08, 0.99874675)
+bones/9/scale = Vector3(1, 0.99999976, 0.9999998)
+
+[node name="Body_Lores_GEO" parent="RiggedLores/metarig/Skeleton3D" index="0" unique_id=1222136666]
 surface_material_override/0 = SubResource("StandardMaterial3D_pfp5v")
 
-[node name="SpringBoneSimulator3D" parent="RiggedLores/metarig/Skeleton3D" parent_id_path=PackedInt32Array(278737971, 1317921698) index="1" unique_id=247172981 instance=ExtResource("2_pfp5v")]
+[node name="SpringBoneSimulator3D" parent="RiggedLores/metarig/Skeleton3D" index="1" unique_id=247172981 instance=ExtResource("2_pfp5v")]
 settings/0/joints/0/bone_name = "spine.010"
 settings/0/joints/0/bone = 9
 settings/0/joints/1/bone_name = "spine.011"
@@ -128,5 +133,10 @@ settings/6/joints/3/bone_name = "spine.007"
 settings/6/joints/3/bone = 6
 settings/6/joints/4/bone_name = "spine.008"
 settings/6/joints/4/bone = 7
+
+[node name="HeadAttachment" type="BoneAttachment3D" parent="RiggedLores/metarig/Skeleton3D" index="2" unique_id=2007013037]
+transform = Transform3D(1, 2.1667924e-07, -4.5189782e-07, -4.988257e-07, 0.51493776, -0.8572123, 4.6941864e-08, 0.85722476, 0.5149412, -4.0137788e-10, 1.5620248, 0.93501085)
+bone_name = "spine.011"
+bone_idx = 10
 
 [editable path="RiggedLores"]

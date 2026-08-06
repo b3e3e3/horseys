@@ -4,8 +4,8 @@
 
 [sub_resource type="Curve" id="Curve_05jci"]
 _limits = [0.0, 1.0, 0.0, 1200.0]
-_data = [Vector2(0, 0), 0.0, 0.0026666669, 0, 1, Vector2(75, 0.2), 0.0026666669, 0.0022266668, 1, 1, Vector2(150, 0.367), 0.0022266668, 0.001064, 1, 1, Vector2(400, 0.633), 0.001064, 0.0005, 1, 1, Vector2(800, 0.833), 0.0005, 0.00050000014, 1, 1, Vector2(1000, 0.933), 0.00050000014, 0.00033499987, 1, 1, Vector2(1200, 1), 0.00033499987, 0.0, 1, 0]
-point_count = 7
+_data = [Vector2(0, 0), 0.0, 0.0005208333, 0, 1, Vector2(480, 0.25), 0.0009449999, 0.0009449999, 0, 0, Vector2(900, 0.45000002), 0.0003375, 0.0003375, 0, 0, Vector2(1200, 1), 0.0018333332, 0.0, 1, 0]
+point_count = 4
 metadata/_snap_enabled = true
 metadata/_snap_count = 20
 
@@ -14,3 +14,5 @@ script = ExtResource("1_ai087")
 display_name = "Brainpower"
 curve = SubResource("Curve_05jci")
 curve_scale = 1.0
+max_effectiveness = 0.8
+target_value = null
