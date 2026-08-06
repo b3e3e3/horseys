@@ -79,9 +79,11 @@ func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.
 	var boost_id := stats[stat_name].add_target_boost(by)
 	# if duration > 0:
 	# stats[stat_name].status = Stat.Status.IDLE
-	await get_tree().create_timer(duration).timeout
+	# await get_tree().create_timer(duration).timeout
+	Global.ScheduledAction.new(duration, func():
+		stats[stat_name].remove_target_boost(boost_id)
+	)
 	# stats[stat_name].target_value -= by
-	stats[stat_name].remove_target_boost(boost_id)
 
 	# print("%ds %s boost finished" % [duration, stat_name])
 
@@ -92,8 +94,10 @@ func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0)
 	var diff = to - old_value
 	stats[stat_name].set_driver_value(to)
 	if duration > 0:
-		await get_tree().create_timer(duration).timeout
-		stats[stat_name].set_driver_value(old_value)
+		# await get_tree().create_timer(duration).timeout
+		Global.ScheduledAction.new(duration, func():
+			stats[stat_name].set_driver_value(old_value)
+		)
 
 		# print("%s set finished" % stat_name)
 
