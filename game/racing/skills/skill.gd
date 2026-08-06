@@ -39,7 +39,7 @@ func passes_activation_check(_info: RaceInfo, horsey: Horsey) -> bool:
 	var sample := minf(bp_effectiveness * horsey.stats["brainpower"].get_value(), horsey.stats["brainpower"].max_effectiveness)
 	var result := random < sample
 
-	print("%s PAC | %s < %s? %s | Is active? %s. Result: %s" % [horsey.name, random, sample, result, is_active(), result])
+	# print("%s PAC | %s < %s? %s | Is active? %s. Result: %s" % [horsey.name, random, sample, result, is_active(), result])
 	return result
 
 func reset() -> void:

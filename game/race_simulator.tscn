@@ -129,39 +129,61 @@ theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer" unique_id=370147666]
+[node name="ResultsContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer" unique_id=370147666]
+visible = false
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=557455232]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer" unique_id=557455232]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/h_separation = 100
+theme_override_constants/h_separation = 64
 theme_override_constants/v_separation = 4
 columns = 6
 
-[node name="HorseLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1856254812]
+[node name="HorseLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer/GridContainer" unique_id=1856254812]
 layout_mode = 2
 text = "Horse"
 
-[node name="WinsLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=667942503]
+[node name="WinsLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer/GridContainer" unique_id=667942503]
 layout_mode = 2
 text = "Wins"
 
-[node name="LossesLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1220904173]
+[node name="LossesLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer/GridContainer" unique_id=1220904173]
 layout_mode = 2
 text = "Losses"
 
-[node name="WLRatioLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=502889256]
+[node name="WLRatioLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer/GridContainer" unique_id=502889256]
 layout_mode = 2
 text = "W/L Ratio"
 
-[node name="AvgActLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=658214403]
+[node name="AvgActLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer/GridContainer" unique_id=658214403]
 layout_mode = 2
 text = "Avg. Skill Rate"
 
-[node name="SamePlaceLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/VBoxContainer/GridContainer" unique_id=1093499288]
+[node name="PlaceDistLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer/GridContainer" unique_id=1093499288]
 layout_mode = 2
-text = "% finished same place"
+text = "Place distribution"
 
+[node name="ProgressContainer" type="CenterContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer" unique_id=1804631469]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ProgressContainer" unique_id=665076856]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ProgressContainer/VBoxContainer" unique_id=790811236]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Simulating... (?/?)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ProgressContainer/VBoxContainer" unique_id=602036470]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="finished" from="RaceSimulator" to="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer" method="set_visible" binds= [true]]
+[connection signal="finished" from="RaceSimulator" to="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ProgressContainer" method="set_visible" binds= [false]]
+[connection signal="started" from="RaceSimulator" to="CanvasLayer/Control/PanelContainer/ScrollContainer/MarginContainer/ResultsContainer" method="set_visible" binds= [false]]
 [connection signal="started" from="Race" to="Race/CameraManager" method="_on_race_started"]
