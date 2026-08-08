@@ -42,7 +42,7 @@ Global="*res://global.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 
