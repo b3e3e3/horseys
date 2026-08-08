@@ -1,20 +1,21 @@
 {
   "$schema": "../skill.schema.json",
   "version": 1,
-  "name": "Horse Maneuver",
+  "name": "Sudden Lurch",
   "bp_effectiveness": 1.0,
   "conditions": [
     {
       "condition_type": "ANY_PHASE",
       "phases": [
         "EARLY",
+        "MID",
         "LATE",
         "FINAL"
       ]
     },
     {
       "condition_type": "COOLDOWN",
-      "time": 10000
+      "time": 5000
     }
   ],
   "effects": [
@@ -22,14 +23,22 @@
       "effect_type": "STAT_BOOST",
       "min": 25.0,
       "max": 100.0,
-      "stat": "stamina",
-      "duration": 3.0
+      "stat": "power",
+      "duration": 0.5
     },
     {
       "effect_type": "STAT_BOOST",
-      "min": 0.0,
+      "min": 25.0,
       "max": 100.0,
-      "stat": "speed"
+      "stat": "stamina",
+      "duration": 0.5
+    },
+    {
+      "effect_type": "STAT_BOOST",
+      "min": 25.0,
+      "max": 1200.0,
+      "stat": "speed",
+      "duration": 0.5
     }
   ]
 }

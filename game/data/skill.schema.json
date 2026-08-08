@@ -129,7 +129,6 @@
                         "type": "string",
                         "enum": [
                             "STAT_BOOST",
-                            "STAT_SET",
                             "STAT_DEBUFF_SELF",
                             "STAT_DEBUFF_OTHERS",
                             "PRINT"
@@ -144,7 +143,6 @@
                                 "type": "string",
                                 "enum": [
                                     "STAT_BOOST",
-                                    "STAT_SET",
                                     "STAT_DEBUFF_SELF",
                                     "STAT_DEBUFF_OTHERS"
                                 ]

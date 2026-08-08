@@ -13,9 +13,16 @@
         {
             "effect_type": "STAT_BOOST",
             "stat": "speed",
-            "min": 300.0,
+            "min": 1200.0,
             "max": 1200.0,
-            "duration": 10
+            "duration": 15
+        },
+        {
+            "effect_type": "STAT_BOOST",
+            "stat": "stamina",
+            "min": 1200.0,
+            "max": 1200.0,
+            "duration": 15
         }
     ]
 }
