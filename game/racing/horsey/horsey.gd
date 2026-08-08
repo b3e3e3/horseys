@@ -76,30 +76,31 @@ func temporarily_boost_stat(stat_name: String, by: Variant, duration: float = 3.
 
 	# stats[stat_name].target_value += by
 	# stats[stat_name].status = Stat.Status.BOOSTING
-	var boost_id := stats[stat_name].add_target_boost(by)
+	var boost_id := stats[stat_name].add_target_boost(by, duration)
 	# if duration > 0:
 	# stats[stat_name].status = Stat.Status.IDLE
 	# await get_tree().create_timer(duration).timeout
-	Global.ScheduledAction.new(duration, func():
-		stats[stat_name].remove_target_boost(boost_id)
-	)
+	# ScheduledAction.new(duration, func():
+	# 	stats[stat_name].remove_target_boost(boost_id)
+	# )
 	# stats[stat_name].target_value -= by
 
 	# print("%ds %s boost finished" % [duration, stat_name])
 
-func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0):
-	# print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
+# func temporarily_set_stat(stat_name: String, to: Variant, duration: float = 3.0):
+# 	# print("Temporarily setting stat %s to %f for %ds" % [stat_name, to, duration])
 
-	var old_value = stats[stat_name].get_driver_value()
-	var diff = to - old_value
-	stats[stat_name].set_driver_value(to)
-	if duration > 0:
-		# await get_tree().create_timer(duration).timeout
-		Global.ScheduledAction.new(duration, func():
-			stats[stat_name].set_driver_value(old_value)
-		)
+# 	var old_value = stats[stat_name].get_driver_value()
+# 	var diff = to - old_value
+# 	stats[stat_name].set_driver_value(to)
+# 	if duration > 0:
+# 		# await get_tree().create_timer(duration).timeout
+# 		# ScheduledAction.new(duration, func():
+# 		# 	stats[stat_name].set_driver_value(old_value)
+# 		# )
+# 		StatChangeInfo.new(self, duration, StatChangeInfo.Type.SET, stat_name, to)
 
-		# print("%s set finished" % stat_name)
+# 		# print("%s set finished" % stat_name)
 
 
 func process_stats(delta: float) -> void:
@@ -181,7 +182,6 @@ func activate_skills(delta) -> void:
 		if skill.passes_activation_check(race.info, self) == can_activate:
 			_attempted_skill_activations += 1
 
-		print("%s can activate? %s" % [name, can_activate])
 		if can_activate:
 			_actual_skill_activations += 1
 			print("%s Activated skill! %s" % [name, _actual_skill_activations])

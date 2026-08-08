@@ -121,17 +121,17 @@ func parse_skill_from_JSON_v1(data: Dictionary) -> Skill:
 
 				effect.stats[stat_name] = value
 				skill.effects.append(effect)
-			"STAT_SET":
-				var stat_name = e.get("stat", "unknown!")
-				print("Found stat set effect for stat %s" % [stat_name])
+			# "STAT_SET":
+			# 	var stat_name = e.get("stat", "unknown!")
+			# 	print("Found stat set effect for stat %s" % [stat_name])
 				
-				var effect := SetStatEffect.new()
-				var value := _parse_stat_value_v1(e)
+			# 	var effect := SetStatEffect.new()
+			# 	var value := _parse_stat_value_v1(e)
 
-				effect.duration = e.get("duration", -1)
+			# 	effect.duration = e.get("duration", -1)
 
-				effect.stats[stat_name] = value
-				skill.effects.append(effect)
+			# 	effect.stats[stat_name] = value
+			# 	skill.effects.append(effect)
 			"PRINT":
 				print("Print test: %s" % e.get("message", "unknown!"))
 			_:

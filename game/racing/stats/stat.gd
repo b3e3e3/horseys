@@ -1,5 +1,13 @@
 class_name Stat extends Resource
 
+class StatBoost:
+	var duration: float
+	var value: Variant
+
+	func _init(boost_duration: float, boost_value: Variant) -> void:
+		duration = boost_duration
+		value = boost_value
+
 @export var display_name: String
 
 @export var curve: Curve = preload("res://racing/stats/speed_curve.tres") # TODO! don't assume speed curve
@@ -16,7 +24,7 @@ var max_value: Variant = 1200.0
 
 var _driver_value: Variant
 
-var _target_boosts: Dictionary[StringName, Variant] = {}
+var _target_boosts: Dictionary[StringName, StatBoost] = {}
 
 
 func initialize_values(\
@@ -47,9 +55,9 @@ func _get_sampled_value_exceeding_domain(val: Variant) -> Variant:
 func get_target_boost(idx: int) -> Variant:
 	return _target_boosts.get(idx)
 
-func add_target_boost(value: Variant) -> StringName:
+func add_target_boost(value: Variant, duration: float) -> StringName:
 	var id := str(value) + str(Time.get_ticks_msec())
-	_target_boosts.set(id, value)
+	_target_boosts.set(id, StatBoost.new(duration, value))
 	return id
 
 func remove_target_boost(id: StringName) -> void: # TODO: don't do this by value maybe?
@@ -59,10 +67,13 @@ func get_target_value_with_boosts() -> Variant:
 	var sum := func(accum, boost):
 		return accum + boost
 
-	return _target_boosts.values().reduce(sum, target_value)
+	return _target_boosts.values()	\
+	.map((func(e: StatBoost):
+		return e.value))			\
+	.reduce(sum, target_value)
 
-func set_driver_value(new_val: Variant) -> void:
-	_driver_value = new_val
+# func set_driver_value(new_val: Variant) -> void:
+# 	_driver_value = new_val
 
 func get_driver_value() -> Variant:
 	# if _driver_value == null: _driver_value = base_value
@@ -75,6 +86,12 @@ func process_stat(delta: float) -> void:
 	# if target_value == null: target_value = get_driver_value()
 	_driver_value = move_toward(get_driver_value(), get_target_value_with_boosts(), stat_travel_speed * delta)
 	# _driver_value = lerpf(get_driver_value(), get_target_value_with_boosts(), travel_delta)
+
+	for id in _target_boosts:
+		var boost := _target_boosts[id]
+		boost.duration -= delta
+		if boost.duration <= 0:
+			remove_target_boost(id)
 
 # func get_effectiveness() -> float:
 # 	return min(_driver_value / max_value, max_effectiveness)

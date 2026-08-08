@@ -113,6 +113,7 @@ func _ready() -> void:
 	# await get_tree().create_timer(3).timeout
 
 func _on_horsey_crossed_finish(horsey: Horsey):
+	# state = &"finished"
 	finished.emit() # TODO: laps?
 	# print("%s finished first!" % [horsey.display_name])
 

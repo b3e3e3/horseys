@@ -13,6 +13,8 @@ var current_status: Status = Status.IDLE
 var last_activate_time: int = 0
 var _last_activate_phase: RaceInfo.Phase = RaceInfo.Phase.START
 
+var can_activate_multiple_times := true
+
 
 func has_activated_this_phase(info: RaceInfo, horsey: Horsey) -> bool:
 	return info.get_current_phase(horsey) == _last_activate_phase
@@ -28,7 +30,7 @@ func is_active() -> bool:
 
 func can_activate(info: RaceInfo, horsey: Horsey) -> bool:
 	# print("%s PAC? %s is active? %s" % [horsey.name, passes_activation_check(info, horsey), is_active()])
-	if is_active(): return false
+	if is_active() or not can_activate_multiple_times: return false
 	return passes_activation_check(info, horsey)
 
 func passes_activation_check(_info: RaceInfo, horsey: Horsey) -> bool:

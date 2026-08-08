@@ -1,23 +1,21 @@
 extends Node
 
-class ScheduledAction:
-	var duration: float
-	var callback: Callable
+# class ScheduledAction:
+# 	var duration: float
+# 	var callback: Callable
 
-	func _init(action_duration: float, action_callback: Callable):
-		duration = action_duration
-		callback = action_callback
-		Global.action_schedule.append(self)
+# 	func _init(action_duration: float, action_callback: Callable):
+# 		duration = action_duration
+# 		callback = action_callback
+# 		Global.action_schedule.append(self)
+# 		print("Scheduled action %s" % self)
 
-var action_schedule: Array[ScheduledAction] = []
+var action_schedule: Array[StatChangeInfo] = []
 
 
 func _process(delta: float) -> void:
 	for action in action_schedule:
-		action.duration -= delta
-		if action.duration <= 0.0:
-			action.callback.call()
-			action_schedule.erase(action)
+		action.process(delta)
 
 func load_json_file(path: String) -> Dictionary:
 	print("Loading horsey JSON file...")
